@@ -1,0 +1,14 @@
+{
+  "name": "ens-san-bernardo-web",
+  "compatibility_date": "2026-08-01",
+  "assets": {
+    "directory": "./public"
+  },
+  // Variables públicas (no secretas) para conectar el sitio a Supabase.
+  // La "anon key" de Supabase está diseñada para exponerse en el navegador:
+  // la seguridad real la da RLS (Row Level Security), ya configurado en las tablas.
+  "vars": {
+    "SUPABASE_URL": "https://wvckbobdqnmeazupbnmy.supabase.co",
+    "SUPABASE_ANON_KEY": "sb_publishable_4SJlfq5wUs6j8FNBb0Dxkg_tVPrTbHp"
+  }
+}
