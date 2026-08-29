@@ -67,14 +67,16 @@
     padding:14px 0;
     gap:20px;
   }
-  .brand{display:flex;align-items:center;gap:12px;}
-  .brand-name{line-height:1.15;}
-  .brand-name .kicker{
-    display:block;font-family:'JetBrains Mono',monospace;font-size:10.5px;
-    letter-spacing:.12em;text-transform:uppercase;color:var(--trigo);
-    margin-bottom:2px;
+  .brand{display:flex;align-items:center;gap:14px;}
+  .escudo-badge{
+    width:48px;height:48px;border-radius:12px;background:var(--papel);
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;
+    padding:4px;border:2px solid var(--trigo);
+    box-shadow:0 0 0 3px var(--verde-paramo-dark), 0 2px 8px rgba(0,0,0,.35);
   }
-  .brand-name .title{font-family:'Lora',serif;font-weight:600;font-size:17px;color:#fff;}
+  .escudo-badge img{width:100%;height:100%;object-fit:contain;border-radius:6px;}
+  .brand-name{line-height:1.2;}
+  .brand-name .title{font-family:'Lora',serif;font-weight:600;font-size:16.5px;color:#fff;display:block;}
   nav.primary{display:flex;gap:2px;align-items:center;}
   nav.primary a{
     font-size:14.5px;font-weight:500;padding:10px 14px;border-radius:var(--radius);
@@ -314,14 +316,11 @@
 <header class="site">
   <div class="container nav-row">
     <a href="#" class="brand">
-      <svg width="42" height="42" viewBox="0 0 42 42" fill="none">
-        <path d="M21 3 L37 11 V23 C37 31 30 37 21 39 C12 37 5 31 5 23 V11 Z" fill="#22412F" stroke="#C9A227" stroke-width="1.4"/>
-        <path d="M21 12 L28 22 L21 32 L14 22 Z" fill="#C9A227"/>
-        <path d="M21 16 L24.5 22 L21 28 L17.5 22 Z" fill="#1E3B2C"/>
-      </svg>
+      <span class="escudo-badge">
+        <img src="/img/escudo-ens.png" alt="Escudo de la Escuela Normal Superior de San Bernardo">
+      </span>
       <span class="brand-name">
-        <span class="kicker">I.E.D. Escuela Normal Superior</span>
-        <span class="title">San Bernardo · Cundinamarca</span>
+        <span class="title">Escuela Normal Superior<br>de San Bernardo</span>
       </span>
     </a>
     <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú" aria-expanded="false">☰</button>
@@ -588,11 +587,10 @@
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <svg width="38" height="38" viewBox="0 0 42 42" fill="none">
-          <path d="M21 3 L37 11 V23 C37 31 30 37 21 39 C12 37 5 31 5 23 V11 Z" fill="#22412F" stroke="#C9A227" stroke-width="1.4"/>
-          <path d="M21 12 L28 22 L21 32 L14 22 Z" fill="#C9A227"/>
-        </svg>
-        <p>Institución Educativa Departamental Escuela Normal Superior de San Bernardo, Cundinamarca. Formación de maestros con enfoque rural desde 1963.</p>
+        <span class="escudo-badge" style="width:44px;height:44px;">
+          <img src="/img/escudo-ens.png" alt="Escudo de la Escuela Normal Superior de San Bernardo">
+        </span>
+        <p>Escuela Normal Superior de San Bernardo, Cundinamarca. Formación de maestros con enfoque rural — 67 años de tradición pedagógica.</p>
         <div class="footer-social">
           <a href="#" aria-label="Facebook">f</a>
           <a href="#" aria-label="Instagram">ig</a>
@@ -678,6 +676,9 @@
   }
   startAuto();
 </script>
+
+</body>
+</html>
 
 </body>
 </html>
