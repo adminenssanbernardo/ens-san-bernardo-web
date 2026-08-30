@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Administración | Escuela Normal Superior de San Bernardo</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,600;0,700&family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --verde-paramo:#1E3B2C; --verde-paramo-dark:#152A20; --verde-frailejon:#4F7A5B;
+    --mora:#A8712A; --trigo:#C9A227; --niebla:#EDEDE3; --niebla-alt:#E4E4D6;
+    --papel:#FAF9F4; --tinta:#21261F; --tinta-suave:#4A5248; --linea:#D8D8C8;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:'Public Sans',sans-serif;background:var(--papel);color:var(--tinta);}
+  h1,h2,h3{font-family:'Lora',serif;}
+  .mono{font-family:'JetBrains Mono',monospace;}
+
+  /* ---------- LOGIN ---------- */
+  #loginScreen{
+    min-height:100vh;display:flex;align-items:center;justify-content:center;
+    background:var(--verde-paramo-dark);padding:20px;
+  }
+  .login-box{
+    background:#fff;border-radius:10px;padding:40px 36px;max-width:380px;width:100%;
+    box-shadow:0 20px 50px -20px rgba(0,0,0,.5);
+  }
+  .login-box h1{font-size:19px;margin:0 0 6px;}
+  .login-box .sub{font-size:13px;color:var(--tinta-suave);margin:0 0 26px;}
+  .campo{margin-bottom:16px;}
+  .campo label{display:block;font-size:12.5px;font-weight:600;margin-bottom:6px;}
+  .campo input, .campo select, .campo textarea{
+    width:100%;padding:10px 12px;border:1px solid var(--linea);border-radius:6px;
+    font-family:inherit;font-size:13.5px;background:var(--papel);
+  }
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:6px;
+    background:var(--mora);color:#fff;font-weight:700;font-size:13.5px;
+    padding:11px 18px;border:none;border-radius:6px;cursor:pointer;
+  }
+  .btn:hover{background:#875E1F;}
+  .btn.secundario{background:var(--niebla-alt);color:var(--tinta);}
+  .btn.peligro{background:#8B2E2E;}
+  .btn:disabled{background:var(--linea);color:var(--tinta-suave);cursor:not-allowed;}
+  .btn-full{width:100%;}
+  .error-msg{background:#F8DEDE;color:#8B2E2E;font-size:12.5px;padding:10px 12px;border-radius:6px;margin-top:12px;display:none;}
+  .ok-msg{background:#E3EFE5;color:#1E3B2C;font-size:12.5px;padding:10px 12px;border-radius:6px;margin-top:12px;display:none;}
+
+  /* ---------- APP ---------- */
+  #app{display:none;min-height:100vh;}
+  header.admin-header{
+    background:var(--verde-paramo-dark);color:#fff;padding:14px 24px;
+    display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;
+  }
+  header.admin-header h1{font-size:15.5px;margin:0;color:#fff;}
+  header.admin-header .quien{font-size:12px;color:#B9C7BB;}
+  .tabs{
+    display:flex;gap:2px;background:var(--verde-paramo);padding:0 16px;overflow-x:auto;
+  }
+  .tabs button{
+    background:none;border:none;color:#D8E2D9;font-size:13.5px;font-weight:600;
+    padding:13px 16px;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;
+  }
+  .tabs button.active{color:#fff;border-bottom-color:var(--trigo);}
+  main{max-width:1080px;margin:0 auto;padding:32px 24px 80px;}
+  .panel{display:none;}
+  .panel.active{display:block;}
+  .panel-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;flex-wrap:wrap;gap:10px;}
+  .panel-head h2{font-size:19px;margin:0;}
+
+  table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--linea);border-radius:8px;overflow:hidden;font-size:13px;}
+  table th{background:var(--niebla);text-align:left;padding:10px 12px;font-size:11.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--tinta-suave);}
+  table td{padding:10px 12px;border-top:1px solid var(--linea);vertical-align:top;}
+  table tr:hover td{background:var(--niebla);}
+  .acciones{display:flex;gap:6px;}
+  .acciones button{
+    font-size:11.5px;font-weight:600;padding:5px 10px;border-radius:4px;border:1px solid var(--linea);
+    background:#fff;cursor:pointer;
+  }
+  .acciones button.borrar{color:#8B2E2E;border-color:#e8c7c7;}
+  .badge{font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:10px;text-transform:uppercase;}
+  .badge.si{background:#E3EFE5;color:#1E3B2C;}
+  .badge.no{background:var(--niebla-alt);color:var(--tinta-suave);}
+
+  .form-nuevo{
+    background:#fff;border:1px solid var(--linea);border-radius:8px;padding:22px 24px;margin-bottom:24px;
+    display:none;
+  }
+  .form-nuevo.abierto{display:block;}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .form-nuevo h3{font-size:15px;margin:0 0 16px;}
+  .form-acciones{display:flex;gap:10px;margin-top:6px;}
+
+  @media (max-width:700px){.grid2{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<!-- ============ LOGIN ============ -->
+<div id="loginScreen">
+  <div class="login-box">
+    <h1>Administración del sitio</h1>
+    <p class="sub">Escuela Normal Superior de San Bernardo</p>
+    <form id="formLogin">
+      <div class="campo">
+        <label for="loginEmail">Correo</label>
+        <input type="email" id="loginEmail" required autocomplete="username">
+      </div>
+      <div class="campo">
+        <label for="loginPass">Contraseña</label>
+        <input type="password" id="loginPass" required autocomplete="current-password">
+      </div>
+      <button type="submit" class="btn btn-full" id="btnLogin">Ingresar</button>
+      <div class="error-msg" id="loginError"></div>
+    </form>
+  </div>
+</div>
+
+<!-- ============ APP ============ -->
+<div id="app">
+  <header class="admin-header">
+    <h1>Panel de administración — ENS San Bernardo</h1>
+    <div style="display:flex;align-items:center;gap:14px;">
+      <span class="quien" id="quienSoy"></span>
+      <button class="btn secundario" id="btnLogout" style="padding:7px 14px;font-size:12.5px;">Cerrar sesión</button>
+    </div>
+  </header>
+
+  <nav class="tabs">
+    <button data-panel="noticias" class="active">Noticias</button>
+    <button data-panel="calendario">Calendario</button>
+    <button data-panel="directorio">Directorio</button>
+    <button data-panel="documentos">Documentos</button>
+    <button data-panel="pqrsd">PQRSD</button>
+  </nav>
+
+  <main>
+
+    <!-- NOTICIAS -->
+    <section class="panel active" id="panel-noticias">
+      <div class="panel-head">
+        <h2>Noticias</h2>
+        <button class="btn" onclick="toggleForm('form-noticias')">+ Nueva noticia</button>
+      </div>
+      <form class="form-nuevo" id="form-noticias">
+        <h3>Nueva noticia</h3>
+        <div class="grid2">
+          <div class="campo"><label>Título</label><input type="text" id="n_titulo" required></div>
+          <div class="campo"><label>Etiqueta</label><input type="text" id="n_etiqueta" placeholder="Circular, Evento, Institucional" value="Institucional"></div>
+        </div>
+        <div class="campo"><label>Resumen (aparece en la tarjeta)</label><textarea id="n_resumen" rows="2" required></textarea></div>
+        <div class="campo"><label>Cuerpo completo (opcional)</label><textarea id="n_cuerpo" rows="4"></textarea></div>
+        <div class="campo"><label><input type="checkbox" id="n_publicado" checked style="width:auto;"> Publicar inmediatamente</label></div>
+        <div class="form-acciones">
+          <button type="submit" class="btn">Guardar noticia</button>
+          <button type="button" class="btn secundario" onclick="toggleForm('form-noticias')">Cancelar</button>
+        </div>
+      </form>
+      <div id="tabla-noticias">Cargando…</div>
+    </section>
+
+    <!-- CALENDARIO -->
+    <section class="panel" id="panel-calendario">
+      <div class="panel-head">
+        <h2>Calendario escolar</h2>
+        <button class="btn" onclick="toggleForm('form-calendario')">+ Nuevo evento</button>
+      </div>
+      <form class="form-nuevo" id="form-calendario">
+        <h3>Nuevo evento del calendario</h3>
+        <div class="grid2">
+          <div class="campo"><label>Título</label><input type="text" id="c_titulo" required></div>
+          <div class="campo">
+            <label>Tipo</label>
+            <select id="c_tipo">
+              <option value="evento">Evento</option>
+              <option value="receso">Receso</option>
+              <option value="entrega_boletines">Entrega de boletines</option>
+              <option value="clausura">Clausura</option>
+              <option value="examen">Examen</option>
+            </select>
+          </div>
+        </div>
+        <div class="grid2">
+          <div class="campo"><label>Fecha de inicio</label><input type="date" id="c_fecha_inicio" required></div>
+          <div class="campo"><label>Fecha de fin (opcional)</label><input type="date" id="c_fecha_fin"></div>
+        </div>
+        <div class="campo"><label>Descripción</label><textarea id="c_descripcion" rows="2"></textarea></div>
+        <div class="form-acciones">
+          <button type="submit" class="btn">Guardar evento</button>
+          <button type="button" class="btn secundario" onclick="toggleForm('form-calendario')">Cancelar</button>
+        </div>
+      </form>
+      <div id="tabla-calendario">Cargando…</div>
+    </section>
+
+    <!-- DIRECTORIO -->
+    <section class="panel" id="panel-directorio">
+      <div class="panel-head">
+        <h2>Directorio</h2>
+        <button class="btn" onclick="toggleForm('form-directorio')">+ Nueva persona</button>
+      </div>
+      <form class="form-nuevo" id="form-directorio">
+        <h3>Nueva persona del directorio</h3>
+        <div class="grid2">
+          <div class="campo"><label>Nombre</label><input type="text" id="d_nombre" required></div>
+          <div class="campo"><label>Cargo</label><input type="text" id="d_cargo" required></div>
+        </div>
+        <div class="grid2">
+          <div class="campo"><label>Dependencia</label><input type="text" id="d_dependencia" placeholder="Rectoría, Coordinación, Secretaría..." required></div>
+          <div class="campo"><label>Orden (menor = aparece primero)</label><input type="number" id="d_orden" value="0"></div>
+        </div>
+        <div class="grid2">
+          <div class="campo"><label>Correo (opcional)</label><input type="email" id="d_correo"></div>
+          <div class="campo"><label>Teléfono (opcional)</label><input type="text" id="d_telefono"></div>
+        </div>
+        <div class="campo"><label><input type="checkbox" id="d_visible" checked style="width:auto;"> Visible en el sitio</label></div>
+        <div class="form-acciones">
+          <button type="submit" class="btn">Guardar persona</button>
+          <button type="button" class="btn secundario" onclick="toggleForm('form-directorio')">Cancelar</button>
+        </div>
+      </form>
+      <div id="tabla-directorio">Cargando…</div>
+    </section>
+
+    <!-- DOCUMENTOS -->
+    <section class="panel" id="panel-documentos">
+      <div class="panel-head">
+        <h2>Documentos institucionales</h2>
+        <button class="btn" onclick="toggleForm('form-documentos')">+ Nuevo documento</button>
+      </div>
+      <form class="form-nuevo" id="form-documentos">
+        <h3>Nuevo documento</h3>
+        <div class="grid2">
+          <div class="campo"><label>Título</label><input type="text" id="doc_titulo" required></div>
+          <div class="campo">
+            <label>Categoría</label>
+            <select id="doc_categoria">
+              <option>PEI</option>
+              <option>Manual de Convivencia</option>
+              <option>SIEE</option>
+              <option>Circular</option>
+              <option>Otro</option>
+            </select>
+          </div>
+        </div>
+        <div class="campo"><label>Descripción (opcional)</label><input type="text" id="doc_descripcion"></div>
+        <div class="campo"><label>Archivo PDF</label><input type="file" id="doc_archivo" accept="application/pdf" required></div>
+        <div class="campo"><label><input type="checkbox" id="doc_publicado" checked style="width:auto;"> Publicar inmediatamente</label></div>
+        <div class="form-acciones">
+          <button type="submit" class="btn" id="btnSubirDoc">Subir documento</button>
+          <button type="button" class="btn secundario" onclick="toggleForm('form-documentos')">Cancelar</button>
+        </div>
+      </form>
+      <div id="tabla-documentos">Cargando…</div>
+    </section>
+
+    <!-- PQRSD -->
+    <section class="panel" id="panel-pqrsd">
+      <div class="panel-head"><h2>Solicitudes PQRSD</h2></div>
+      <div id="tabla-pqrsd">Cargando…</div>
+    </section>
+
+  </main>
+</div>
+
+<script type="module">
+  import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+
+  const SUPABASE_URL = 'https://wvckbobdqnmeazupbnmy.supabase.co';
+  const SUPABASE_ANON_KEY = 'sb_publishable_4SJlfq5wUs6j8FNBb0Dxkg_tVPrTbHp';
+  const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  window.toggleForm = (id) => {
+    document.getElementById(id).classList.toggle('abierto');
+  };
+
+  // ---------- LOGIN ----------
+  const loginScreen = document.getElementById('loginScreen');
+  const app = document.getElementById('app');
+  const formLogin = document.getElementById('formLogin');
+  const loginError = document.getElementById('loginError');
+  const btnLogin = document.getElementById('btnLogin');
+
+  async function checkSession() {
+    const { data: { session } } = await supabase.auth.getSession();
+    if (session) {
+      mostrarApp(session);
+    }
+  }
+
+  function mostrarApp(session) {
+    loginScreen.style.display = 'none';
+    app.style.display = 'block';
+    document.getElementById('quienSoy').textContent = session.user.email;
+    cargarTodo();
+  }
+
+  formLogin.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    btnLogin.disabled = true;
+    btnLogin.textContent = 'Ingresando...';
+    loginError.style.display = 'none';
+
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: document.getElementById('loginEmail').value,
+      password: document.getElementById('loginPass').value,
+    });
+
+    if (error) {
+      loginError.textContent = 'Correo o contraseña incorrectos.';
+      loginError.style.display = 'block';
+      btnLogin.disabled = false;
+      btnLogin.textContent = 'Ingresar';
+    } else {
+      mostrarApp(data.session);
+    }
+  });
+
+  document.getElementById('btnLogout').addEventListener('click', async () => {
+    await supabase.auth.signOut();
+    location.reload();
+  });
+
+  checkSession();
+
+  // ---------- TABS ----------
+  document.querySelectorAll('.tabs button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tabs button').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('panel-' + btn.dataset.panel).classList.add('active');
+    });
+  });
+
+  function cargarTodo() {
+    cargarNoticias();
+    cargarCalendario();
+    cargarDirectorio();
+    cargarDocumentos();
+    cargarPQRSD();
+  }
+
+  // ---------- NOTICIAS ----------
+  async function cargarNoticias() {
+    const { data, error } = await supabase.from('noticias').select('*').order('creado_en', { ascending: false });
+    const cont = document.getElementById('tabla-noticias');
+    if (error) { cont.textContent = 'Error al cargar noticias.'; return; }
+    if (!data.length) { cont.innerHTML = '<p style="color:var(--tinta-suave);font-size:13.5px;">Aún no hay noticias.</p>'; return; }
+    cont.innerHTML = `<table><thead><tr><th>Título</th><th>Etiqueta</th><th>Publicada</th><th>Acciones</th></tr></thead><tbody>
+      ${data.map(n => `
+        <tr>
+          <td><strong>${escapeHtml(n.titulo)}</strong><br><span style="color:var(--tinta-suave);font-size:12px;">${escapeHtml(n.resumen)}</span></td>
+          <td>${escapeHtml(n.etiqueta)}</td>
+          <td><span class="badge ${n.publicado ? 'si' : 'no'}">${n.publicado ? 'Sí' : 'No'}</span></td>
+          <td class="acciones">
+            <button onclick="togglePublicadoNoticia('${n.id}', ${!n.publicado})">${n.publicado ? 'Ocultar' : 'Publicar'}</button>
+            <button class="borrar" onclick="borrarNoticia('${n.id}')">Borrar</button>
+          </td>
+        </tr>`).join('')}
+    </tbody></table>`;
+  }
+
+  document.getElementById('form-noticias').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const { error } = await supabase.from('noticias').insert({
+      titulo: document.getElementById('n_titulo').value,
+      resumen: document.getElementById('n_resumen').value,
+      cuerpo: document.getElementById('n_cuerpo').value || null,
+      etiqueta: document.getElementById('n_etiqueta').value || 'Institucional',
+      publicado: document.getElementById('n_publicado').checked,
+    });
+    if (!error) {
+      e.target.reset();
+      toggleForm('form-noticias');
+      cargarNoticias();
+    } else { alert('Error al guardar: ' + error.message); }
+  });
+
+  window.togglePublicadoNoticia = async (id, valor) => {
+    await supabase.from('noticias').update({ publicado: valor }).eq('id', id);
+    cargarNoticias();
+  };
+  window.borrarNoticia = async (id) => {
+    if (!confirm('¿Borrar esta noticia?')) return;
+    await supabase.from('noticias').delete().eq('id', id);
+    cargarNoticias();
+  };
+
+  // ---------- CALENDARIO ----------
+  async function cargarCalendario() {
+    const { data, error } = await supabase.from('calendario_escolar').select('*').order('fecha_inicio', { ascending: true });
+    const cont = document.getElementById('tabla-calendario');
+    if (error) { cont.textContent = 'Error al cargar el calendario.'; return; }
+    if (!data.length) { cont.innerHTML = '<p style="color:var(--tinta-suave);font-size:13.5px;">Aún no hay eventos.</p>'; return; }
+    cont.innerHTML = `<table><thead><tr><th>Fecha</th><th>Título</th><th>Tipo</th><th>Acciones</th></tr></thead><tbody>
+      ${data.map(c => `
+        <tr>
+          <td class="mono">${c.fecha_inicio}${c.fecha_fin ? ' – ' + c.fecha_fin : ''}</td>
+          <td><strong>${escapeHtml(c.titulo)}</strong><br><span style="color:var(--tinta-suave);font-size:12px;">${escapeHtml(c.descripcion || '')}</span></td>
+          <td>${escapeHtml(c.tipo)}</td>
+          <td class="acciones"><button class="borrar" onclick="borrarCalendario('${c.id}')">Borrar</button></td>
+        </tr>`).join('')}
+    </tbody></table>`;
+  }
+
+  document.getElementById('form-calendario').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const { error } = await supabase.from('calendario_escolar').insert({
+      titulo: document.getElementById('c_titulo').value,
+      descripcion: document.getElementById('c_descripcion').value || null,
+      fecha_inicio: document.getElementById('c_fecha_inicio').value,
+      fecha_fin: document.getElementById('c_fecha_fin').value || null,
+      tipo: document.getElementById('c_tipo').value,
+    });
+    if (!error) {
+      e.target.reset();
+      toggleForm('form-calendario');
+      cargarCalendario();
+    } else { alert('Error al guardar: ' + error.message); }
+  });
+
+  window.borrarCalendario = async (id) => {
+    if (!confirm('¿Borrar este evento?')) return;
+    await supabase.from('calendario_escolar').delete().eq('id', id);
+    cargarCalendario();
+  };
+
+  // ---------- DIRECTORIO ----------
+  async function cargarDirectorio() {
+    const { data, error } = await supabase.from('directorio').select('*').order('orden', { ascending: true });
+    const cont = document.getElementById('tabla-directorio');
+    if (error) { cont.textContent = 'Error al cargar el directorio.'; return; }
+    if (!data.length) { cont.innerHTML = '<p style="color:var(--tinta-suave);font-size:13.5px;">Aún no hay personas registradas.</p>'; return; }
+    cont.innerHTML = `<table><thead><tr><th>Nombre</th><th>Cargo</th><th>Dependencia</th><th>Visible</th><th>Acciones</th></tr></thead><tbody>
+      ${data.map(d => `
+        <tr>
+          <td><strong>${escapeHtml(d.nombre)}</strong></td>
+          <td>${escapeHtml(d.cargo)}</td>
+          <td>${escapeHtml(d.dependencia)}</td>
+          <td><span class="badge ${d.visible ? 'si' : 'no'}">${d.visible ? 'Sí' : 'No'}</span></td>
+          <td class="acciones">
+            <button onclick="toggleVisibleDirectorio('${d.id}', ${!d.visible})">${d.visible ? 'Ocultar' : 'Mostrar'}</button>
+            <button class="borrar" onclick="borrarDirectorio('${d.id}')">Borrar</button>
+          </td>
+        </tr>`).join('')}
+    </tbody></table>`;
+  }
+
+  document.getElementById('form-directorio').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const { error } = await supabase.from('directorio').insert({
+      nombre: document.getElementById('d_nombre').value,
+      cargo: document.getElementById('d_cargo').value,
+      dependencia: document.getElementById('d_dependencia').value,
+      correo: document.getElementById('d_correo').value || null,
+      telefono: document.getElementById('d_telefono').value || null,
+      orden: parseInt(document.getElementById('d_orden').value || '0', 10),
+      visible: document.getElementById('d_visible').checked,
+    });
+    if (!error) {
+      e.target.reset();
+      toggleForm('form-directorio');
+      cargarDirectorio();
+    } else { alert('Error al guardar: ' + error.message); }
+  });
+
+  window.toggleVisibleDirectorio = async (id, valor) => {
+    await supabase.from('directorio').update({ visible: valor }).eq('id', id);
+    cargarDirectorio();
+  };
+  window.borrarDirectorio = async (id) => {
+    if (!confirm('¿Borrar esta persona del directorio?')) return;
+    await supabase.from('directorio').delete().eq('id', id);
+    cargarDirectorio();
+  };
+
+  // ---------- DOCUMENTOS ----------
+  async function cargarDocumentos() {
+    const { data, error } = await supabase.from('documentos_institucionales').select('*').order('actualizado_en', { ascending: false });
+    const cont = document.getElementById('tabla-documentos');
+    if (error) { cont.textContent = 'Error al cargar documentos.'; return; }
+    if (!data.length) { cont.innerHTML = '<p style="color:var(--tinta-suave);font-size:13.5px;">Aún no hay documentos.</p>'; return; }
+    cont.innerHTML = `<table><thead><tr><th>Título</th><th>Categoría</th><th>Publicado</th><th>Archivo</th><th>Acciones</th></tr></thead><tbody>
+      ${data.map(d => `
+        <tr>
+          <td><strong>${escapeHtml(d.titulo)}</strong></td>
+          <td>${escapeHtml(d.categoria)}</td>
+          <td><span class="badge ${d.publicado ? 'si' : 'no'}">${d.publicado ? 'Sí' : 'No'}</span></td>
+          <td><a href="${d.archivo_url}" target="_blank" rel="noopener">Ver PDF ↗</a></td>
+          <td class="acciones">
+            <button onclick="togglePublicadoDoc('${d.id}', ${!d.publicado})">${d.publicado ? 'Ocultar' : 'Publicar'}</button>
+            <button class="borrar" onclick="borrarDocumento('${d.id}')">Borrar</button>
+          </td>
+        </tr>`).join('')}
+    </tbody></table>`;
+  }
+
+  document.getElementById('form-documentos').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = document.getElementById('btnSubirDoc');
+    btn.disabled = true;
+    btn.textContent = 'Subiendo...';
+
+    const archivo = document.getElementById('doc_archivo').files[0];
+    if (!archivo) { alert('Selecciona un archivo PDF.'); btn.disabled = false; btn.textContent = 'Subir documento'; return; }
+
+    const rutaArchivo = `${Date.now()}-${archivo.name}`;
+    const { error: errorSubida } = await supabase.storage
+      .from('documentos-institucionales')
+      .upload(rutaArchivo, archivo, { contentType: 'application/pdf' });
+
+    if (errorSubida) {
+      alert('Error al subir el archivo: ' + errorSubida.message);
+      btn.disabled = false; btn.textContent = 'Subir documento';
+      return;
+    }
+
+    const { data: urlData } = supabase.storage.from('documentos-institucionales').getPublicUrl(rutaArchivo);
+
+    const { error } = await supabase.from('documentos_institucionales').insert({
+      titulo: document.getElementById('doc_titulo').value,
+      categoria: document.getElementById('doc_categoria').value,
+      descripcion: document.getElementById('doc_descripcion').value || null,
+      archivo_url: urlData.publicUrl,
+      publicado: document.getElementById('doc_publicado').checked,
+    });
+
+    btn.disabled = false;
+    btn.textContent = 'Subir documento';
+
+    if (!error) {
+      e.target.reset();
+      toggleForm('form-documentos');
+      cargarDocumentos();
+    } else { alert('Error al guardar: ' + error.message); }
+  });
+
+  window.togglePublicadoDoc = async (id, valor) => {
+    await supabase.from('documentos_institucionales').update({ publicado: valor }).eq('id', id);
+    cargarDocumentos();
+  };
+  window.borrarDocumento = async (id) => {
+    if (!confirm('¿Borrar este documento?')) return;
+    await supabase.from('documentos_institucionales').delete().eq('id', id);
+    cargarDocumentos();
+  };
+
+  // ---------- PQRSD ----------
+  async function cargarPQRSD() {
+    const { data, error } = await supabase.from('pqrsd_solicitudes').select('*').order('creado_en', { ascending: false });
+    const cont = document.getElementById('tabla-pqrsd');
+    if (error) { cont.textContent = 'Error al cargar las solicitudes.'; return; }
+    if (!data.length) { cont.innerHTML = '<p style="color:var(--tinta-suave);font-size:13.5px;">Aún no hay solicitudes.</p>'; return; }
+    cont.innerHTML = `<table><thead><tr><th>Radicado</th><th>Tipo</th><th>De</th><th>Asunto</th><th>Estado</th></tr></thead><tbody>
+      ${data.map(p => `
+        <tr>
+          <td class="mono">${escapeHtml(p.radicado)}</td>
+          <td>${escapeHtml(p.tipo)}</td>
+          <td>${escapeHtml(p.nombre_solicitante)}<br><span style="color:var(--tinta-suave);font-size:12px;">${escapeHtml(p.correo)}</span></td>
+          <td>${escapeHtml(p.asunto)}<br><span style="color:var(--tinta-suave);font-size:12px;">${escapeHtml(p.mensaje)}</span></td>
+          <td>
+            <select onchange="cambiarEstadoPQRSD('${p.id}', this.value)">
+              <option value="recibido" ${p.estado === 'recibido' ? 'selected' : ''}>Recibido</option>
+              <option value="en_proceso" ${p.estado === 'en_proceso' ? 'selected' : ''}>En proceso</option>
+              <option value="resuelto" ${p.estado === 'resuelto' ? 'selected' : ''}>Resuelto</option>
+            </select>
+          </td>
+        </tr>`).join('')}
+    </tbody></table>`;
+  }
+
+  window.cambiarEstadoPQRSD = async (id, estado) => {
+    await supabase.from('pqrsd_solicitudes').update({ estado }).eq('id', id);
+  };
+
+  function escapeHtml(str) {
+    if (str === null || str === undefined) return '';
+    return String(str).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+  }
+</script>
+
+</body>
+</html>
