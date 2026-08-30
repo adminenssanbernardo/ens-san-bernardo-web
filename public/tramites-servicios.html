@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trámites y Servicios | Escuela Normal Superior de San Bernardo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,500&family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --verde-paramo:#1E3B2C;
+    --verde-paramo-dark:#152A20;
+    --verde-frailejon:#4F7A5B;
+    --mora:#A8712A;
+    --mora-dark:#5C3D1260;
+    --trigo:#C9A227;
+    --niebla:#EDEDE3;
+    --niebla-alt:#E4E4D6;
+    --papel:#FAF9F4;
+    --tinta:#21261F;
+    --tinta-suave:#4A5248;
+    --linea:#D8D8C8;
+    --radius:6px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:'Public Sans', sans-serif;
+    color:var(--tinta);
+    background:var(--papel);
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.display{font-family:'Lora', serif;}
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;display:block;}
+  .mono{font-family:'JetBrains Mono', monospace;}
+  .container{max-width:1180px;margin:0 auto;padding:0 28px;}
+  .visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);}
+  a:focus-visible, button:focus-visible{outline:3px solid var(--trigo);outline-offset:2px;}
+
+  /* ---------- TOPBAR ---------- */
+  .topbar{
+    background:var(--verde-paramo-dark);
+    color:#DCE6DD;
+    font-size:12.5px;
+    font-family:'JetBrains Mono', monospace;
+  }
+  .topbar .container{
+    display:flex;justify-content:space-between;align-items:center;
+    padding-top:6px;padding-bottom:6px;
+    flex-wrap:wrap;gap:6px;
+  }
+  .topbar-links{display:flex;gap:18px;flex-wrap:wrap;}
+  .topbar-links a{opacity:.85;transition:opacity .15s;}
+  .topbar-links a:hover{opacity:1;text-decoration:underline;}
+
+  /* ---------- HEADER / NAV ---------- */
+  header.site{
+    background:var(--verde-paramo);
+    color:#F3F1E7;
+    position:sticky;top:0;z-index:50;
+    box-shadow:0 1px 0 rgba(0,0,0,.08);
+  }
+  .nav-row{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:16px 0;
+    gap:20px;
+  }
+  .brand{display:flex;align-items:center;gap:14px;}
+  .escudo-badge{
+    width:78px;height:78px;flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .escudo-badge img{
+    width:100%;height:100%;object-fit:contain;
+    filter:
+      drop-shadow(0 0 1px var(--trigo))
+      drop-shadow(0 0 2px var(--trigo))
+      drop-shadow(0 1px 3px rgba(0,0,0,.5));
+  }
+  .brand-name{line-height:1.28;white-space:nowrap;}
+  .brand-name .title{
+    font-family:'Lora',serif;font-weight:700;font-size:23px;color:#fff;
+    display:block;
+  }
+  .brand-name .subtitle{
+    display:block;font-size:14px;color:#CBD6CB;font-weight:500;
+    letter-spacing:.01em;margin-top:2px;
+  }
+  @media (max-width:520px){
+    .escudo-badge{width:52px;height:52px;}
+    .brand-name .title{font-size:16px;}
+    .brand-name .subtitle{font-size:11.5px;}
+  }
+  nav.primary{display:flex;gap:2px;align-items:center;}
+  nav.primary a{
+    font-size:14.5px;font-weight:500;padding:10px 14px;border-radius:var(--radius);
+    transition:background .15s;white-space:nowrap;
+  }
+  nav.primary a:hover{background:rgba(255,255,255,.08);}
+  .nav-cta{
+    background:var(--mora);color:#fff !important;font-weight:600;
+    padding:9px 16px !important;
+  }
+  .nav-cta:hover{background:#875E1F;}
+  .menu-toggle{display:none;background:none;border:none;color:#fff;font-size:26px;cursor:pointer;}
+
+  @media (max-width:900px){
+    nav.primary{
+      display:none;position:absolute;top:100%;left:0;right:0;
+      background:var(--verde-paramo);flex-direction:column;align-items:stretch;
+      padding:8px 20px 18px;gap:2px;box-shadow:0 8px 16px rgba(0,0,0,.18);
+    }
+    nav.primary.open{display:flex;}
+    nav.primary a{padding:12px 10px;}
+    .menu-toggle{display:block;}
+  }
+
+  /* ---------- RIDGE DIVIDER (signature motif) ---------- */
+  .ridge{width:100%;line-height:0;position:relative;}
+  .ridge svg{width:100%;height:auto;display:block;}
+
+  /* ---------- HERO ---------- */
+  .hero{position:relative;background:var(--verde-paramo-dark);overflow:hidden;}
+  .hero-slides{position:relative;height:560px;}
+  .slide{
+    position:absolute;inset:0;opacity:0;transition:opacity 1.1s ease;
+  }
+  .slide.active{opacity:1;}
+  .slide svg{width:100%;height:100%;object-fit:cover;}
+  .hero-overlay{
+    position:absolute;inset:0;
+    background:linear-gradient(180deg, rgba(21,42,32,.15) 0%, rgba(21,42,32,.55) 62%, rgba(21,42,32,.92) 100%);
+  }
+  .hero-content{
+    position:absolute;left:0;right:0;bottom:56px;color:#fff;
+  }
+  .hero-eyebrow{
+    font-family:'JetBrains Mono',monospace;font-size:12.5px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--trigo);margin-bottom:14px;display:flex;align-items:center;gap:10px;
+  }
+  .hero-eyebrow::before{content:"";width:26px;height:1px;background:var(--trigo);display:inline-block;}
+  .hero h1{
+    font-size:clamp(30px,5vw,52px);line-height:1.06;margin:0 0 18px;max-width:760px;font-weight:600;
+    text-wrap:balance;
+  }
+  .hero p.lead{font-size:17px;max-width:520px;color:#EDE9DC;margin:0 0 30px;line-height:1.55;}
+  .hero-ctas{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:34px;}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:13px 22px;border-radius:var(--radius);font-weight:600;font-size:14.5px;
+    border:1px solid transparent;cursor:pointer;transition:transform .15s, background .15s, border-color .15s;
+  }
+  .btn:hover{transform:translateY(-1px);}
+  .btn-primary{background:var(--mora);color:#fff;}
+  .btn-primary:hover{background:#875E1F;}
+  .btn-outline{background:transparent;color:#fff;border-color:rgba(255,255,255,.55);}
+  .btn-outline:hover{border-color:#fff;background:rgba(255,255,255,.08);}
+
+  .hero-dots{display:flex;gap:8px;}
+  .hero-dots button{
+    width:26px;height:3px;border-radius:2px;background:rgba(255,255,255,.35);
+    border:none;cursor:pointer;padding:0;transition:background .2s;
+  }
+  .hero-dots button.active{background:var(--trigo);}
+
+  /* ---------- ACCESOS RAPIDOS ---------- */
+  section.accesos{background:var(--verde-paramo);padding:0 0 64px;margin-top:-2px;}
+  .accesos-grid{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:16px;
+    margin-top:-72px;position:relative;z-index:2;
+  }
+  .acceso-card{
+    background:var(--papel);border-radius:8px;padding:24px 20px;
+    box-shadow:0 14px 30px -14px rgba(0,0,0,.35);
+    transition:transform .18s, box-shadow .18s;
+    display:flex;flex-direction:column;gap:14px;
+  }
+  .acceso-card:hover{transform:translateY(-4px);box-shadow:0 18px 34px -12px rgba(0,0,0,.4);}
+  .acceso-icon{
+    width:42px;height:42px;border-radius:8px;background:var(--niebla-alt);
+    display:flex;align-items:center;justify-content:center;color:var(--verde-paramo);
+  }
+  .acceso-card h3{font-size:16px;margin:0;font-weight:600;}
+  .acceso-card p{margin:0;font-size:13.5px;color:var(--tinta-suave);line-height:1.5;flex:1;}
+  .acceso-link{font-size:13px;font-weight:600;color:var(--mora);display:flex;align-items:center;gap:6px;}
+  .acceso-card.destaca{background:var(--mora);color:#fff;}
+  .acceso-card.destaca .acceso-icon{background:rgba(255,255,255,.18);color:#fff;}
+  .acceso-card.destaca p{color:#FBF1DC;}
+  .acceso-card.destaca .acceso-link{color:var(--trigo);}
+
+  @media (max-width:900px){
+    .accesos-grid{grid-template-columns:repeat(2,1fr);margin-top:-40px;}
+    .hero-slides{height:620px;}
+  }
+  @media (max-width:560px){
+    .accesos-grid{grid-template-columns:1fr;}
+  }
+
+  /* ---------- SECTION HEADERS ---------- */
+  .section{padding:84px 0;}
+  .section.alt{background:var(--niebla);}
+  .section-head{
+    display:flex;justify-content:space-between;align-items:flex-end;gap:24px;
+    margin-bottom:42px;flex-wrap:wrap;
+  }
+  .section-eyebrow{
+    font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--mora);margin-bottom:10px;
+  }
+  .section-head h2{font-size:clamp(24px,3vw,34px);margin:0;font-weight:600;max-width:560px;}
+  .section-head .ver-todo{font-size:14px;font-weight:600;color:var(--mora);white-space:nowrap;padding-bottom:4px;border-bottom:1.5px solid var(--mora);}
+
+  /* ---------- NOTICIAS ---------- */
+  .noticias-layout{display:grid;grid-template-columns:1.6fr 1fr;gap:36px;}
+  .noticias-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+  .noticia-card{
+    background:#fff;border:1px solid var(--linea);border-radius:8px;overflow:hidden;
+    display:flex;flex-direction:column;transition:box-shadow .18s,transform .18s;
+  }
+  .noticia-card:hover{box-shadow:0 16px 28px -18px rgba(30,59,44,.35);transform:translateY(-3px);}
+  .noticia-thumb{height:130px;}
+  .noticia-thumb svg{width:100%;height:100%;}
+  .noticia-body{padding:18px 20px 20px;display:flex;flex-direction:column;gap:10px;flex:1;}
+  .noticia-tag{
+    font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--verde-frailejon);
+  }
+  .noticia-body h3{font-size:16px;margin:0;line-height:1.35;font-weight:600;}
+  .noticia-body p{font-size:13.5px;color:var(--tinta-suave);margin:0;line-height:1.5;flex:1;}
+  .noticia-fecha{font-size:12px;color:var(--tinta-suave);font-family:'JetBrains Mono',monospace;}
+
+  .calendario{
+    background:var(--verde-paramo);color:#fff;border-radius:8px;padding:26px 24px;
+    display:flex;flex-direction:column;gap:4px;
+  }
+  .calendario h3{font-family:'Lora',serif;font-size:18px;margin:0 0 6px;font-weight:600;}
+  .calendario .sub{font-size:12.5px;color:#B9C7BB;margin-bottom:16px;}
+  .cal-item{
+    display:flex;gap:14px;align-items:flex-start;padding:14px 0;
+    border-top:1px solid rgba(255,255,255,.12);
+  }
+  .cal-fecha{
+    font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--trigo);
+    min-width:56px;line-height:1.3;
+  }
+  .cal-item h4{margin:0 0 4px;font-size:14px;font-weight:600;}
+  .cal-item p{margin:0;font-size:12.5px;color:#CBD6CB;}
+  .cal-link{
+    margin-top:16px;text-align:center;font-size:13px;font-weight:600;
+    padding:11px;border:1px solid rgba(255,255,255,.28);border-radius:6px;
+  }
+
+  /* ---------- DESTACADO / ACREDITACION ---------- */
+  .destacado{
+    background:var(--verde-paramo-dark);color:#fff;padding:0;position:relative;overflow:hidden;
+  }
+  .destacado-inner{
+    display:grid;grid-template-columns:1fr 1fr;gap:0;align-items:stretch;
+  }
+  .destacado-col{padding:64px 48px;position:relative;}
+  .destacado-col.mora{background:var(--mora);}
+  .medallion{
+    width:64px;height:64px;margin-bottom:22px;
+  }
+  .destacado-col .eyebrow{
+    font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--trigo);margin-bottom:14px;
+  }
+  .destacado-col.mora .eyebrow{color:#FBF1DC;}
+  .destacado-col h3{font-size:24px;margin:0 0 14px;font-weight:600;max-width:380px;}
+  .destacado-col p{font-size:14.5px;color:#D8E2D9;max-width:380px;line-height:1.6;margin:0 0 20px;}
+  .destacado-col.mora p{color:#FBF1DC;}
+  .destacado-col a.enlace{
+    font-size:13.5px;font-weight:600;color:var(--trigo);display:inline-flex;align-items:center;gap:6px;
+  }
+  .destacado-col.mora a.enlace{color:#fff;}
+
+  @media (max-width:860px){
+    .destacado-inner{grid-template-columns:1fr;}
+    .noticias-layout{grid-template-columns:1fr;}
+    .noticias-grid{grid-template-columns:1fr;}
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer.site{background:var(--verde-paramo-dark);color:#CBD6CB;padding:64px 0 0;}
+  .footer-grid{
+    display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:36px;padding-bottom:48px;
+    border-bottom:1px solid rgba(255,255,255,.1);
+  }
+  .footer-grid h4{
+    color:#fff;font-size:13px;letter-spacing:.06em;text-transform:uppercase;
+    font-family:'JetBrains Mono',monospace;margin:0 0 18px;
+  }
+  .footer-grid ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:11px;}
+  .footer-grid a{font-size:14px;transition:color .15s;}
+  .footer-grid a:hover{color:#fff;}
+  .footer-brand p{font-size:13.5px;line-height:1.6;color:#AFC0B1;max-width:280px;margin:14px 0 20px;}
+  .footer-social{display:flex;gap:10px;}
+  .footer-social a{
+    width:34px;height:34px;border-radius:50%;border:1px solid rgba(255,255,255,.2);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .footer-bottom{
+    display:flex;justify-content:space-between;align-items:center;padding:20px 0;
+    font-size:12.5px;color:#8AA08D;flex-wrap:wrap;gap:10px;
+  }
+  @media (max-width:900px){
+    .footer-grid{grid-template-columns:1fr 1fr;}
+  }
+  @media (max-width:560px){
+    .footer-grid{grid-template-columns:1fr;}
+  }
+
+  /* ============ PÁGINA: TRÁMITES Y SERVICIOS ============ */
+  .page-banner{background:var(--verde-paramo-dark);color:#fff;padding:56px 0 40px;position:relative;overflow:hidden;}
+  .breadcrumb{font-size:13px;color:#B9C7BB;margin-bottom:16px;font-family:'JetBrains Mono',monospace;}
+  .breadcrumb a{color:#B9C7BB;}
+  .breadcrumb a:hover{color:#fff;}
+  .page-banner h1{font-size:clamp(26px,4vw,40px);margin:0 0 12px;font-weight:600;}
+  .page-banner p{font-size:15.5px;color:#D8E2D9;max-width:640px;margin:0;line-height:1.6;}
+
+  .subnav{position:sticky;top:98px;z-index:40;background:var(--papel);border-bottom:1px solid var(--linea);}
+  .subnav .container{display:flex;gap:4px;overflow-x:auto;padding-top:4px;padding-bottom:4px;}
+  .subnav a{font-size:13.5px;font-weight:600;padding:12px 16px;white-space:nowrap;color:var(--tinta-suave);border-bottom:2px solid transparent;}
+  .subnav a:hover{color:var(--mora);}
+  .subnav a.active{color:var(--mora);border-bottom-color:var(--mora);}
+
+  .content-section{padding:64px 0;}
+  .content-section.alt{background:var(--niebla);}
+  .content-section h2{font-size:clamp(22px,3vw,28px);font-weight:600;margin:0 0 8px;}
+  .content-section .section-tag{
+    font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--mora);margin-bottom:10px;display:block;
+  }
+  .lead-text{font-size:15px;color:var(--tinta-suave);max-width:720px;margin:0 0 36px;line-height:1.65;}
+
+  /* Admisiones: pasos + requisitos */
+  .admisiones-layout{display:grid;grid-template-columns:1.3fr 1fr;gap:40px;align-items:start;}
+  .pasos-list{display:flex;flex-direction:column;gap:0;}
+  .paso-item{display:flex;gap:18px;padding:20px 0;border-top:1px solid var(--linea);}
+  .paso-item:first-child{border-top:none;}
+  .paso-num{
+    font-family:'Lora',serif;font-size:20px;font-weight:700;color:var(--mora);
+    width:36px;height:36px;border-radius:50%;border:2px solid var(--mora);
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  }
+  .paso-item h4{font-size:15px;margin:0 0 6px;font-weight:600;}
+  .paso-item p{font-size:13.5px;color:var(--tinta-suave);line-height:1.6;margin:0;}
+
+  .requisitos-box{background:#fff;border:1px solid var(--linea);border-radius:8px;padding:26px 24px;}
+  .requisitos-box h3{font-family:'Lora',serif;font-size:16px;margin:0 0 14px;font-weight:600;}
+  .requisitos-box ul{margin:0;padding-left:20px;}
+  .requisitos-box li{font-size:13.5px;line-height:1.8;color:var(--tinta-suave);}
+  .nota-gratuidad{
+    margin-top:18px;padding:14px 16px;background:var(--niebla-alt);border-radius:6px;
+    font-size:12.5px;color:var(--tinta-suave);line-height:1.6;
+  }
+
+  /* Certificados */
+  .certificados-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  .cert-card{background:#fff;border:1px solid var(--linea);border-radius:8px;padding:24px 22px;}
+  .cert-card .icono{
+    width:36px;height:36px;border-radius:8px;background:var(--niebla-alt);
+    display:flex;align-items:center;justify-content:center;color:var(--verde-paramo);margin-bottom:12px;
+  }
+  .cert-card h3{font-size:14.5px;margin:0 0 8px;font-weight:600;}
+  .cert-card p{font-size:13px;color:var(--tinta-suave);line-height:1.6;margin:0;}
+
+  .como-solicitar{
+    background:var(--verde-paramo);color:#fff;border-radius:8px;padding:30px 28px;margin-top:28px;
+  }
+  .como-solicitar h3{font-family:'Lora',serif;font-size:16px;margin:0 0 14px;font-weight:600;color:var(--trigo);}
+  .como-solicitar ol{margin:0;padding-left:20px;}
+  .como-solicitar li{font-size:13.5px;line-height:1.9;color:#D8E2D9;}
+
+  /* Bienestar */
+  .bienestar-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+  .bienestar-card{
+    background:#fff;border:1px solid var(--linea);border-radius:8px;padding:22px 20px;
+    display:flex;flex-direction:column;gap:10px;
+  }
+  .bienestar-card .icono{
+    width:38px;height:38px;border-radius:8px;background:var(--mora);color:#fff;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .bienestar-card h4{font-size:14.5px;margin:0;font-weight:600;font-family:'Lora',serif;}
+  .bienestar-card p{font-size:12.5px;color:var(--tinta-suave);line-height:1.6;margin:0;}
+  .bienestar-card .detalle{
+    font-size:11.5px;color:var(--verde-frailejon);font-weight:600;
+    font-family:'JetBrains Mono',monospace;
+  }
+
+  @media (max-width:900px){
+    .admisiones-layout{grid-template-columns:1fr;}
+    .certificados-grid{grid-template-columns:1fr 1fr;}
+    .bienestar-grid{grid-template-columns:1fr 1fr;}
+  }
+  @media (max-width:560px){
+    .certificados-grid{grid-template-columns:1fr;}
+    .bienestar-grid{grid-template-columns:1fr;}
+  }
+</style>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header class="site">
+  <div class="container nav-row">
+    <a href="#" class="brand">
+      <span class="escudo-badge">
+        <img src="/img/escudo-ens.png" alt="Escudo de la Escuela Normal Superior de San Bernardo">
+      </span>
+      <span class="brand-name">
+        <span class="title">Escuela Normal Superior</span>
+        <span class="subtitle">de San Bernardo, Cundinamarca</span>
+      </span>
+    </a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú" aria-expanded="false">☰</button>
+    <nav class="primary" id="primaryNav">
+      <a href="/">Inicio</a>
+      <a href="/nuestro-colegio.html">Nuestro Colegio</a>
+      <a href="/oferta-educativa.html">Oferta Educativa</a>
+      <a href="/proyectos-investigacion.html">Proyectos e Investigación</a>
+      <a href="/tramites-servicios.html" style="background:rgba(255,255,255,.1);">Trámites y Servicios</a>
+      <a href="/contacto.html">Contacto</a>
+      <a href="https://www.gssoftwareysoluciones.com/2024/?view=index" class="nav-cta" target="_blank" rel="noopener">Plataforma Académica</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ============ BANNER DE PÁGINA ============ -->
+<section class="page-banner">
+  <div class="container">
+    <div class="breadcrumb"><a href="/">Inicio</a> / Trámites y Servicios</div>
+    <h1>Trámites y Servicios</h1>
+    <p>Todo lo que familias, estudiantes y egresados necesitan para gestionar matrículas, certificados y bienestar escolar — sin tener que pasar por la secretaría en persona.</p>
+  </div>
+</section>
+
+<!-- ============ SUBNAV ============ -->
+<nav class="subnav">
+  <div class="container">
+    <a href="#admisiones" class="active">Admisiones y Matrículas</a>
+    <a href="#certificados">Certificados y Constancias</a>
+    <a href="#bienestar">Bienestar Estudiantil</a>
+  </div>
+</nav>
+
+<!-- ============ ADMISIONES Y MATRÍCULAS ============ -->
+<section class="content-section" id="admisiones">
+  <div class="container">
+    <span class="section-tag">Estudiantes nuevos y antiguos</span>
+    <h2>Admisiones y Matrículas</h2>
+    <p class="lead-text">Para la ENS, la matrícula es un contrato solemne entre la familia y la institución — un proceso que debe ser claro, completo y estar dentro del marco legal.</p>
+
+    <div class="admisiones-layout">
+      <div class="pasos-list">
+        <div class="paso-item">
+          <span class="paso-num">1</span>
+          <div>
+            <h4>Matrícula (estudiantes nuevos)</h4>
+            <p>Se realiza una única vez, al vincular al estudiante por primera vez a la ENS, en cualquiera de sus 8 sedes o la sede principal.</p>
+          </div>
+        </div>
+        <div class="paso-item">
+          <span class="paso-num">2</span>
+          <div>
+            <h4>Renovación (estudiantes antiguos)</h4>
+            <p>Proceso anual donde el acudiente ratifica el contrato de matrícula. Pueden incluir acuerdos académicos o de convivencia que deben cumplirse.</p>
+          </div>
+        </div>
+        <div class="paso-item">
+          <span class="paso-num">3</span>
+          <div>
+            <h4>Registro en plataformas oficiales</h4>
+            <p>La secretaría académica gestiona el proceso en las plataformas nacionales SIMAT y SIGES.</p>
+          </div>
+        </div>
+        <div class="paso-item">
+          <span class="paso-num">4</span>
+          <div>
+            <h4>Archivo del estudiante</h4>
+            <p>Se organiza una carpeta por sede y grado con el contrato de matrícula, certificado de afiliación a EPS y diagnóstico de discapacidad (si aplica), conforme a la Ley 594 de 2000.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="requisitos-box">
+        <h3>Documentos habituales</h3>
+        <ul>
+          <li>Registro civil o tarjeta de identidad</li>
+          <li>Certificado de afiliación a EPS</li>
+          <li>Boletín o certificado del año anterior (estudiantes nuevos)</li>
+          <li>Diagnóstico de discapacidad, si aplica</li>
+          <li>Documento de identidad del acudiente</li>
+        </ul>
+        <div class="nota-gratuidad">
+          <strong>Gratuidad:</strong> preescolar, básica y media están cubiertos por la política pública de gratuidad (Decreto 4807 de 2011). Los costos del Programa de Formación Complementaria (PFC) los fija el Consejo Directivo, sin superar un salario mínimo legal vigente.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CERTIFICADOS Y CONSTANCIAS ============ -->
+<section class="content-section alt" id="certificados">
+  <div class="container">
+    <span class="section-tag">Alumnos activos y egresados</span>
+    <h2>Certificados y Constancias</h2>
+    <p class="lead-text">Gestionados por la secretaría académica, con base en los archivos oficiales de calificaciones y matrícula de cada estudiante.</p>
+
+    <div class="certificados-grid">
+      <div class="cert-card">
+        <div class="icono">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/></svg>
+        </div>
+        <h3>Certificado de estudio</h3>
+        <p>Constancia de los grados cursados, para alumnos activos y egresados, desde preescolar hasta el PFC.</p>
+      </div>
+      <div class="cert-card">
+        <div class="icono">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        </div>
+        <h3>Boletines y notas</h3>
+        <p>Copia de boletines por periodo, con base en los libros de calificaciones firmados anualmente.</p>
+      </div>
+      <div class="cert-card">
+        <div class="icono">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+        </div>
+        <h3>Actas y constancias</h3>
+        <p>Actas de grado y constancias varias, expedidas desde la secretaría académica de la institución.</p>
+      </div>
+    </div>
+
+    <div class="como-solicitar">
+      <h3>Cómo solicitarlo</h3>
+      <ol>
+        <li>Acércate o escribe a la secretaría académica de la sede principal (Km 1, vía La Unchía).</li>
+        <li>Indica el nombre completo, documento de identidad, grado(s) y periodo que necesitas certificar.</li>
+        <li>Los tiempos de entrega dependen de la disponibilidad del archivo físico de la institución.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BIENESTAR ESTUDIANTIL ============ -->
+<section class="content-section" id="bienestar">
+  <div class="container">
+    <span class="section-tag">Acompañamiento integral</span>
+    <h2>Bienestar Estudiantil</h2>
+    <p class="lead-text">Servicios de apoyo que acompañan a la comunidad educativa más allá del aula.</p>
+
+    <div class="bienestar-grid">
+      <div class="bienestar-card">
+        <div class="icono">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2a5 5 0 0 1 5 5v2a5 5 0 0 1-10 0V7a5 5 0 0 1 5-5Z"/><path d="M8 21h8M12 17v4"/></svg>
+        </div>
+        <h4>Orientación Escolar</h4>
+        <p>Acompañamiento a estudiantes y familias, escuelas de padres y talleres sobre educación, crianza y desarrollo.</p>
+        <span class="detalle">1 orientadora</span>
+      </div>
+      <div class="bienestar-card">
+        <div class="icono">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 11l18-5v12L3 14v-3Z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg>
+        </div>
+        <h4>Restaurante Escolar (PAE)</h4>
+        <p>Programa de Alimentación Escolar en todas las sedes, con Comité de Alimentación Escolar (CAE) y menú según lineamientos del MEN.</p>
+      </div>
+      <div class="bienestar-card">
+        <div class="icono">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="1" y="6" width="15" height="12" rx="2"/><path d="M16 10h4l3 4v4h-7"/><circle cx="5.5" cy="18.5" r="1.5"/><circle cx="18.5" cy="18.5" r="1.5"/></svg>
+        </div>
+        <h4>Transporte Escolar</h4>
+        <p>Rutas focalizadas para preescolar, básica primaria y media en las sedes Santa Rita, Pirineos Bajo, La Anexa y la sede principal.</p>
+      </div>
+      <div class="bienestar-card">
+        <div class="icono">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2h12v20l-6-4-6 4V2Z"/></svg>
+        </div>
+        <h4>Tienda Escolar</h4>
+        <p>Contratista seleccionado por licitación pública, con oferta de alimentos saludables y precios accesibles para los estudiantes.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<footer class="site">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <span class="escudo-badge" style="width:44px;height:44px;">
+          <img src="/img/escudo-ens.png" alt="Escudo de la Escuela Normal Superior de San Bernardo">
+        </span>
+        <p>Escuela Normal Superior de San Bernardo, Cundinamarca. Formación de maestros con enfoque rural — 67 años de tradición pedagógica.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Facebook">f</a>
+          <a href="#" aria-label="Instagram">ig</a>
+          <a href="#" aria-label="YouTube">yt</a>
+        </div>
+      </div>
+
+      <div>
+        <h4>Institucional</h4>
+        <ul>
+          <li><a href="/nuestro-colegio.html#horizonte">Horizonte institucional</a></li>
+          <li><a href="/nuestro-colegio.html#historia">Historia y símbolos</a></li>
+          <li><a href="/nuestro-colegio.html#documentos">PEI y documentos rectores</a></li>
+          <li><a href="/nuestro-colegio.html#gobierno">Gobierno escolar</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Oferta educativa</h4>
+        <ul>
+          <li><a href="/oferta-educativa.html#niveles">Niveles básicos</a></li>
+          <li><a href="/oferta-educativa.html#pfc">Programa de Formación Complementaria</a></li>
+          <li><a href="/oferta-educativa.html#practicas">Prácticas pedagógicas</a></li>
+          <li><a href="/oferta-educativa.html#proyeccion">Convenios y proyección</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Contacto</h4>
+        <ul>
+          <li><a href="#">Carretera vía La Unchía, San Bernardo, Cundinamarca</a></li>
+          <li><a href="#">norsanber@enssanbernardo.edu.co</a></li>
+          <li><a href="#">Secretaría académica</a></li>
+          <li><a href="/contacto.html">PQRSD</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 I.E.D. Escuela Normal Superior de San Bernardo</span>
+      <span>enssanbernardo.edu.co</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ FRANJA INFERIOR ============ -->
+<div class="topbar">
+  <div class="container">
+    <span>Carretera vía La Unchía, San Bernardo · Cundinamarca</span>
+    <div class="topbar-links">
+      <a href="#">norsanber@enssanbernardo.edu.co</a>
+      <a href="/contacto.html">PQRSD</a>
+      <a href="#">Trabaja con nosotros</a>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  // Menú móvil
+  const toggle = document.getElementById('menuToggle');
+  const nav = document.getElementById('primaryNav');
+  toggle.addEventListener('click', () => {
+    const isOpen = nav.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', isOpen);
+  });
+
+  // Esta página no tiene carrusel de hero — nada más que hacer aquí.
+</script>
+
+</body>
+</html>
