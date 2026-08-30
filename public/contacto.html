@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Escuela Normal Superior de San Bernardo</title>
+<title>Contacto | Escuela Normal Superior de San Bernardo</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,500&family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -188,7 +188,7 @@
   .acceso-card.destaca{background:var(--mora);color:#fff;}
   .acceso-card.destaca .acceso-icon{background:rgba(255,255,255,.18);color:#fff;}
   .acceso-card.destaca p{color:#FBF1DC;}
-  .acceso-card.destaca .acceso-link{color:#FBF1DC;}
+  .acceso-card.destaca .acceso-link{color:var(--trigo);}
 
   @media (max-width:900px){
     .accesos-grid{grid-template-columns:repeat(2,1fr);margin-top:-40px;}
@@ -312,8 +312,89 @@
   @media (max-width:560px){
     .footer-grid{grid-template-columns:1fr;}
   }
+
+  /* ============ PÁGINA: CONTACTO Y COMUNIDAD ============ */
+  .page-banner{background:var(--verde-paramo-dark);color:#fff;padding:56px 0 40px;position:relative;overflow:hidden;}
+  .breadcrumb{font-size:13px;color:#B9C7BB;margin-bottom:16px;font-family:'JetBrains Mono',monospace;}
+  .breadcrumb a{color:#B9C7BB;}
+  .breadcrumb a:hover{color:#fff;}
+  .page-banner h1{font-size:clamp(26px,4vw,40px);margin:0 0 12px;font-weight:600;}
+  .page-banner p{font-size:15.5px;color:#D8E2D9;max-width:640px;margin:0;line-height:1.6;}
+
+  .content-section{padding:64px 0;}
+  .content-section.alt{background:var(--niebla);}
+  .content-section h2{font-size:clamp(22px,3vw,28px);font-weight:600;margin:0 0 8px;}
+  .content-section .section-tag{
+    font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--mora);margin-bottom:10px;display:block;
+  }
+  .lead-text{font-size:15px;color:var(--tinta-suave);max-width:720px;margin:0 0 36px;line-height:1.65;}
+
+  /* Directorio de dependencias */
+  .dependencias-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  .dependencia-card{background:#fff;border:1px solid var(--linea);border-radius:8px;padding:26px 24px;}
+  .dependencia-card .icono{
+    width:38px;height:38px;border-radius:8px;background:var(--niebla-alt);
+    display:flex;align-items:center;justify-content:center;color:var(--verde-paramo);margin-bottom:14px;
+  }
+  .dependencia-card h3{font-size:15.5px;margin:0 0 6px;font-weight:600;}
+  .dependencia-card p{font-size:13px;color:var(--tinta-suave);line-height:1.6;margin:0 0 12px;}
+  .dependencia-card a{font-size:13px;font-weight:600;color:var(--mora);}
+
+  /* Mapa + formulario */
+  .contacto-layout{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;}
+  .mapa-wrap{border-radius:8px;overflow:hidden;border:1px solid var(--linea);}
+  .mapa-wrap iframe{width:100%;height:340px;border:0;display:block;}
+  .direccion-box{
+    background:#fff;border:1px solid var(--linea);border-top:none;border-radius:0 0 8px 8px;
+    padding:18px 20px;font-size:13.5px;color:var(--tinta-suave);line-height:1.6;
+  }
+  .direccion-box strong{color:var(--tinta);}
+
+  .form-box{background:#fff;border:1px solid var(--linea);border-radius:8px;padding:28px 26px;}
+  .form-box h3{font-family:'Lora',serif;font-size:17px;margin:0 0 6px;font-weight:600;}
+  .form-box .sub{font-size:13px;color:var(--tinta-suave);margin:0 0 20px;}
+  .form-row{margin-bottom:16px;}
+  .form-row label{display:block;font-size:12.5px;font-weight:600;color:var(--tinta);margin-bottom:6px;}
+  .form-row input, .form-row select, .form-row textarea{
+    width:100%;padding:11px 12px;border:1px solid var(--linea);border-radius:6px;
+    font-family:'Public Sans',sans-serif;font-size:13.5px;color:var(--tinta);background:var(--papel);
+  }
+  .form-row textarea{resize:vertical;min-height:90px;}
+  .form-row input:focus, .form-row select:focus, .form-row textarea:focus{outline:2px solid var(--mora);outline-offset:1px;}
+  .form-cols2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .btn-enviar{
+    width:100%;background:var(--mora);color:#fff;font-weight:700;font-size:14px;
+    padding:13px;border:none;border-radius:6px;cursor:pointer;transition:background .15s;
+  }
+  .btn-enviar:hover{background:#875E1F;}
+  .btn-enviar:disabled{background:var(--linea);cursor:not-allowed;}
+  .form-msg{font-size:13px;margin-top:12px;padding:10px 12px;border-radius:6px;display:none;}
+  .form-msg.ok{display:block;background:#E3EFE5;color:#1E3B2C;}
+  .form-msg.error{display:block;background:#F8DEDE;color:#8B2E2E;}
+
+  /* Redes sociales */
+  .redes-row{display:flex;gap:14px;flex-wrap:wrap;}
+  .red-card{
+    display:flex;align-items:center;gap:14px;background:#fff;border:1px solid var(--linea);
+    border-radius:8px;padding:18px 22px;flex:1;min-width:220px;
+  }
+  .red-card .icono{
+    width:40px;height:40px;border-radius:50%;background:var(--verde-paramo);color:#fff;
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  }
+  .red-card h4{font-size:14px;margin:0;font-weight:600;}
+  .red-card p{font-size:12px;color:var(--tinta-suave);margin:0;}
+
+  @media (max-width:900px){
+    .dependencias-grid{grid-template-columns:1fr 1fr;}
+    .contacto-layout{grid-template-columns:1fr;}
+  }
+  @media (max-width:560px){
+    .dependencias-grid{grid-template-columns:1fr;}
+    .form-cols2{grid-template-columns:1fr;}
+  }
 </style>
-</head>
 <body>
 
 <!-- ============ TOPBAR ============ -->
@@ -342,264 +423,170 @@
     </a>
     <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú" aria-expanded="false">☰</button>
     <nav class="primary" id="primaryNav">
-      <a href="#inicio">Inicio</a>
+      <a href="/">Inicio</a>
       <a href="/nuestro-colegio.html">Nuestro Colegio</a>
       <a href="/oferta-educativa.html">Oferta Educativa</a>
       <a href="/proyectos-investigacion.html">Proyectos e Investigación</a>
       <a href="/tramites-servicios.html">Trámites y Servicios</a>
-      <a href="/contacto.html">Contacto</a>
+      <a href="/contacto.html" style="background:rgba(255,255,255,.1);">Contacto</a>
       <a href="#" class="nav-cta">Plataforma Académica</a>
     </nav>
   </div>
 </header>
 
-<!-- ============ HERO ============ -->
-<section class="hero" id="inicio">
-  <div class="hero-slides" id="heroSlides">
-
-    <div class="slide active">
-      <svg viewBox="0 0 1200 560" preserveAspectRatio="xMidYMid slice">
-        <defs>
-          <linearGradient id="sky1" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#7FA985"/>
-            <stop offset="1" stop-color="#3A5F45"/>
-          </linearGradient>
-        </defs>
-        <rect width="1200" height="560" fill="url(#sky1)"/>
-        <path d="M0 340 L120 260 L260 330 L420 220 L600 320 L780 240 L960 330 L1120 260 L1200 320 L1200 560 L0 560 Z" fill="#2C4E38"/>
-        <path d="M0 400 L180 330 L340 390 L520 300 L700 380 L880 320 L1060 390 L1200 350 L1200 560 L0 560 Z" fill="#1E3B2C"/>
-        <circle cx="220" cy="410" r="46" fill="#A8712A" opacity=".55"/>
-        <circle cx="960" cy="430" r="60" fill="#A8712A" opacity=".4"/>
-        <rect x="520" y="420" width="160" height="90" rx="4" fill="#EDEDE3"/>
-        <rect x="520" y="420" width="160" height="16" fill="#C9A227"/>
-        <rect x="555" y="450" width="24" height="60" fill="#1E3B2C"/>
-        <rect x="620" y="450" width="24" height="30" fill="#1E3B2C"/>
-      </svg>
-    </div>
-
-    <div class="slide">
-      <svg viewBox="0 0 1200 560" preserveAspectRatio="xMidYMid slice">
-        <defs>
-          <linearGradient id="sky2" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#9AB79F"/>
-            <stop offset="1" stop-color="#2C4E38"/>
-          </linearGradient>
-        </defs>
-        <rect width="1200" height="560" fill="url(#sky2)"/>
-        <path d="M0 300 L200 240 L380 300 L600 210 L820 300 L1000 240 L1200 300 L1200 560 L0 560 Z" fill="#1E3B2C"/>
-        <rect x="380" y="330" width="440" height="150" rx="6" fill="#FAF9F4"/>
-        <rect x="380" y="330" width="440" height="22" fill="#A8712A"/>
-        <rect x="420" y="380" width="60" height="70" fill="#C9A227" opacity=".85"/>
-        <rect x="510" y="380" width="60" height="70" fill="#C9A227" opacity=".85"/>
-        <rect x="600" y="380" width="60" height="70" fill="#C9A227" opacity=".85"/>
-        <rect x="690" y="380" width="60" height="70" fill="#C9A227" opacity=".85"/>
-        <rect x="560" y="0" width="80" height="560" fill="#0000" />
-      </svg>
-    </div>
-
-    <div class="slide">
-      <svg viewBox="0 0 1200 560" preserveAspectRatio="xMidYMid slice">
-        <defs>
-          <linearGradient id="sky3" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#B7C9A0"/>
-            <stop offset="1" stop-color="#4F7A5B"/>
-          </linearGradient>
-        </defs>
-        <rect width="1200" height="560" fill="url(#sky3)"/>
-        <path d="M0 360 L150 300 L320 350 L500 280 L680 350 L860 300 L1040 350 L1200 310 L1200 560 L0 560 Z" fill="#1E3B2C"/>
-        <path d="M50 560 C 250 480, 400 480, 550 420 C 700 480, 900 480, 1150 500" stroke="#C9A227" stroke-width="5" fill="none" stroke-dasharray="2 14" stroke-linecap="round"/>
-        <circle cx="300" cy="470" r="8" fill="#A8712A"/>
-        <circle cx="330" cy="480" r="8" fill="#A8712A"/>
-        <circle cx="360" cy="465" r="8" fill="#A8712A"/>
-      </svg>
-    </div>
-
-  </div>
-
-  <div class="hero-overlay"></div>
-
-  <div class="container hero-content">
-    <div class="hero-eyebrow">Institución Educativa Departamental · Carácter Oficial</div>
-    <h1>Formamos maestras y maestros para la Colombia rural.</h1>
-    <p class="lead">Desde el páramo de Sumapaz, educamos con pedagogía, inclusión y compromiso con el territorio — de preescolar al Programa de Formación Complementaria.</p>
-    <div class="hero-ctas">
-      <a href="/tramites-servicios.html#admisiones" class="btn btn-primary">Ver proceso de Admisiones</a>
-      <a href="/tramites-servicios.html" class="btn btn-outline">Radicar PQRSD</a>
-    </div>
-    <div class="hero-dots" id="heroDots"></div>
+<!-- ============ BANNER DE PÁGINA ============ -->
+<section class="page-banner">
+  <div class="container">
+    <div class="breadcrumb"><a href="/">Inicio</a> / Contacto</div>
+    <h1>Contacto y Comunidad</h1>
+    <p>Escríbenos, ubícanos o síguenos — la Escuela Normal Superior de San Bernardo, siempre cerca de su comunidad.</p>
   </div>
 </section>
 
-<!-- ============ ACCESOS RAPIDOS ============ -->
-<section class="accesos">
+<!-- ============ DIRECTORIO DE DEPENDENCIAS ============ -->
+<section class="content-section">
   <div class="container">
-    <div class="accesos-grid">
+    <span class="section-tag">Directorio central</span>
+    <h2>Dependencias</h2>
+    <p class="lead-text">Para trámites específicos, dirígete directamente a la dependencia correspondiente.</p>
 
-      <div class="acceso-card">
-        <div class="acceso-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h16M4 12h10M4 18h7"/></svg>
+    <div class="dependencias-grid">
+      <div class="dependencia-card">
+        <div class="icono">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/></svg>
         </div>
-        <h3>Plataforma Académica</h3>
-        <p>Consulta notas, boletines e inasistencias. Ingreso para estudiantes, acudientes y docentes.</p>
-        <span class="acceso-link">Ingresar →</span>
+        <h3>Secretaría Académica</h3>
+        <p>Matrículas, renovaciones, certificados de estudio, boletines y actas — SIMAT y SIGES.</p>
+        <a href="mailto:iednormalsuperior_sanbernardo@secundinamarca.edu.co">Escribir →</a>
       </div>
-
-      <div class="acceso-card">
-        <div class="acceso-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20V10l8-6 8 6v10"/><path d="M9 20v-6h6v6"/></svg>
+      <div class="dependencia-card">
+        <div class="icono">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
         </div>
-        <h3>Admisiones y Matrículas</h3>
-        <p>Requisitos, fechas clave y formularios para estudiantes nuevos y antiguos.</p>
-        <a href="/tramites-servicios.html#admisiones" class="acceso-link">Ver requisitos →</a>
+        <h3>Tesorería / Pagaduría</h3>
+        <p>Contabilidad institucional y rendición de cuentas de la ENS.</p>
+        <a href="mailto:iednormalsuperior_sanbernardo@secundinamarca.edu.co">Escribir →</a>
       </div>
-
-      <div class="acceso-card destaca">
-        <div class="acceso-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+      <div class="dependencia-card">
+        <div class="icono">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a8 8 0 0 1 16 0v1"/></svg>
         </div>
-        <h3>PQRSD</h3>
-        <p>Peticiones, quejas, reclamos, sugerencias y denuncias. Radica tu solicitud en línea.</p>
-        <a href="/tramites-servicios.html" class="acceso-link">Radicar solicitud →</a>
+        <h3>Coordinación</h3>
+        <p>Convivencia escolar y gestión académica en la sede principal y sedes anexas.</p>
+        <a href="mailto:iednormalsuperior_sanbernardo@secundinamarca.edu.co">Escribir →</a>
       </div>
-
-      <div class="acceso-card">
-        <div class="acceso-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
-        </div>
-        <h3>Correo Institucional</h3>
-        <p>Acceso al correo oficial @enssanbernardo.edu.co para la comunidad educativa.</p>
-        <span class="acceso-link">Abrir correo →</span>
-      </div>
-
     </div>
   </div>
 </section>
 
-<!-- ============ NOTICIAS Y EVENTOS ============ -->
-<section class="section">
+<!-- ============ MAPA + FORMULARIO ============ -->
+<section class="content-section alt">
   <div class="container">
-    <div class="section-head">
+    <span class="section-tag">Ubicación y mensaje directo</span>
+    <h2>Escríbenos o visítanos</h2>
+
+    <div class="contacto-layout">
       <div>
-        <div class="section-eyebrow">Sala de prensa</div>
-        <h2>Noticias, circulares y calendario escolar</h2>
-      </div>
-      <a href="#" class="ver-todo">Ver todas las noticias →</a>
-    </div>
+        <div class="mapa-wrap">
+          <iframe src="https://maps.google.com/maps?q=Escuela%20Normal%20Superior%20de%20San%20Bernardo%20Cundinamarca&t=&z=14&ie=UTF8&iwloc=&output=embed" loading="lazy" allowfullscreen title="Ubicación de la Escuela Normal Superior de San Bernardo"></iframe>
+        </div>
+        <div class="direccion-box">
+          <strong>Sede Principal:</strong> Km 1, vía La Unchía, vereda San Miguel, San Bernardo, Cundinamarca<br>
+          <strong>Teléfono:</strong> 321 360 9037
+        </div>
 
-    <div class="noticias-layout">
-      <div class="noticias-grid">
-
-        <article class="noticia-card">
-          <div class="noticia-thumb">
-            <svg viewBox="0 0 300 130" preserveAspectRatio="xMidYMid slice" width="100%" height="100%">
-              <rect width="300" height="130" fill="#4F7A5B"/>
-              <path d="M0 90 L60 60 L120 85 L180 55 L240 85 L300 65 L300 130 L0 130 Z" fill="#1E3B2C"/>
-            </svg>
-          </div>
-          <div class="noticia-body">
-            <span class="noticia-tag">Circular 014</span>
-            <h3>Cronograma de prácticas pedagógicas — segundo semestre</h3>
-            <p>El PFC publica los bloques de práctica y los centros de práctica asignados para los maestros en formación.</p>
-            <span class="noticia-fecha">26 ago 2026</span>
-          </div>
-        </article>
-
-        <article class="noticia-card">
-          <div class="noticia-thumb">
-            <svg viewBox="0 0 300 130" preserveAspectRatio="xMidYMid slice" width="100%" height="100%">
-              <rect width="300" height="130" fill="#A8712A"/>
-              <circle cx="60" cy="70" r="26" fill="#EDEDE3" opacity=".25"/>
-              <circle cx="230" cy="40" r="34" fill="#EDEDE3" opacity=".2"/>
-            </svg>
-          </div>
-          <div class="noticia-body">
-            <span class="noticia-tag">Evento</span>
-            <h3>VIII Seminario Pedagógico Normalista</h3>
-            <p>Ponencias sobre educación rural, aulas multigrado y experiencias de Escuela Nueva en el territorio.</p>
-            <span class="noticia-fecha">12 sep 2026</span>
-          </div>
-        </article>
-
-        <article class="noticia-card">
-          <div class="noticia-thumb">
-            <svg viewBox="0 0 300 130" preserveAspectRatio="xMidYMid slice" width="100%" height="100%">
-              <rect width="300" height="130" fill="#C9A227"/>
-              <path d="M0 40 L300 70 L300 130 L0 130 Z" fill="#1E3B2C" opacity=".85"/>
-            </svg>
-          </div>
-          <div class="noticia-body">
-            <span class="noticia-tag">Institucional</span>
-            <h3>Feria PRAE: proyectos ambientales y agropecuarios</h3>
-            <p>Estudiantes de básica y media presentan sus proyectos de huerta escolar y manejo de residuos.</p>
-            <span class="noticia-fecha">18 sep 2026</span>
-          </div>
-        </article>
-
+        <div class="redes-row" style="margin-top:20px;">
+          <a href="https://www.facebook.com/EscuelaNormalDeSanBernardoCundinamarca/" target="_blank" rel="noopener" class="red-card">
+            <span class="icono">f</span>
+            <div><h4>Facebook</h4><p>Ens De San Bernardo</p></div>
+          </a>
+          <a href="#" class="red-card">
+            <span class="icono">ig</span>
+            <div><h4>Instagram</h4><p>Próximamente</p></div>
+          </a>
+        </div>
       </div>
 
-      <aside class="calendario">
-        <h3>Calendario escolar</h3>
-        <div class="sub">Próximas fechas — Calendario A</div>
+      <div class="form-box">
+        <h3>Formulario de contacto y PQRSD</h3>
+        <p class="sub">Petición, queja, reclamo, sugerencia, denuncia o una consulta general — todo llega directo a la institución.</p>
 
-        <div class="cal-item">
-          <div class="cal-fecha">02–06<br>OCT</div>
-          <div>
-            <h4>Semana de receso estudiantil</h4>
-            <p>No hay actividad académica presencial.</p>
+        <form id="formContacto">
+          <div class="form-row">
+            <label for="tipo">Tipo de mensaje</label>
+            <select id="tipo" required>
+              <option value="consulta">Consulta general</option>
+              <option value="peticion">Petición</option>
+              <option value="queja">Queja</option>
+              <option value="reclamo">Reclamo</option>
+              <option value="sugerencia">Sugerencia</option>
+              <option value="denuncia">Denuncia</option>
+            </select>
           </div>
-        </div>
-        <div class="cal-item">
-          <div class="cal-fecha">20<br>OCT</div>
-          <div>
-            <h4>Entrega de boletines — tercer periodo</h4>
-            <p>Encuentro con acudientes en jornada única.</p>
+          <div class="form-cols2">
+            <div class="form-row">
+              <label for="nombre">Nombre completo</label>
+              <input type="text" id="nombre" required>
+            </div>
+            <div class="form-row">
+              <label for="correo">Correo electrónico</label>
+              <input type="email" id="correo" required>
+            </div>
           </div>
-        </div>
-        <div class="cal-item">
-          <div class="cal-fecha">27<br>NOV</div>
-          <div>
-            <h4>Clausura Programa de Formación Complementaria</h4>
-            <p>Grado de maestros normalistas — Auditorio institucional.</p>
+          <div class="form-row">
+            <label for="telefono">Teléfono (opcional)</label>
+            <input type="tel" id="telefono">
           </div>
-        </div>
-
-        <a href="#" class="cal-link">Ver calendario completo</a>
-      </aside>
+          <div class="form-row">
+            <label for="asunto">Asunto</label>
+            <input type="text" id="asunto" required>
+          </div>
+          <div class="form-row">
+            <label for="mensaje">Mensaje</label>
+            <textarea id="mensaje" required></textarea>
+          </div>
+          <button type="submit" class="btn-enviar" id="btnEnviar">Enviar mensaje</button>
+          <div class="form-msg" id="formMsg"></div>
+        </form>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ============ DESTACADO: ACREDITACION + RURALIDAD ============ -->
-<section class="destacado">
-  <div class="destacado-inner">
+<script type="module">
+  import { radicarPQRSD } from '/js/supabase-client.js';
 
-    <div class="destacado-col">
-      <svg class="medallion" viewBox="0 0 64 64" fill="none">
-        <circle cx="32" cy="26" r="20" fill="#C9A227"/>
-        <path d="M20 40 L14 60 L32 50 L50 60 L44 40" fill="#C9A227"/>
-        <path d="M24 26 L30 32 L42 18" stroke="#1E3B2C" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-      </svg>
-      <div class="eyebrow">Calidad institucional</div>
-      <h3>Acreditación de Calidad de la Formación Complementaria</h3>
-      <p>El programa que forma a nuestros maestros normalistas cuenta con acreditación de calidad, resultado de un proceso continuo de autoevaluación institucional.</p>
-      <a href="#" class="enlace">Conocer el proceso de acreditación →</a>
-    </div>
+  const form = document.getElementById('formContacto');
+  const btn = document.getElementById('btnEnviar');
+  const msg = document.getElementById('formMsg');
 
-    <div class="destacado-col mora">
-      <svg class="medallion" viewBox="0 0 64 64" fill="none">
-        <path d="M32 6 L54 18 V38 C54 50 44 58 32 60 C20 58 10 50 10 38 V18 Z" fill="#FBF1DC"/>
-        <path d="M32 20 L38 32 L32 44 L26 32 Z" fill="#A8712A"/>
-      </svg>
-      <div class="eyebrow">Educación rural</div>
-      <h3>Un modelo pensado para el aula multigrado</h3>
-      <p>Trabajamos con Escuela Nueva y modelos flexibles, adaptando el currículo a la realidad de las veredas y a las familias del campo sanbernardino.</p>
-      <a href="#" class="enlace">Ver modelo de ruralidad →</a>
-    </div>
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    btn.disabled = true;
+    btn.textContent = 'Enviando...';
+    msg.className = 'form-msg';
 
-  </div>
-</section>
-
-<!-- ============ FOOTER ============ -->
+    try {
+      const registro = await radicarPQRSD({
+        tipo: document.getElementById('tipo').value,
+        nombre_solicitante: document.getElementById('nombre').value,
+        correo: document.getElementById('correo').value,
+        telefono: document.getElementById('telefono').value,
+        asunto: document.getElementById('asunto').value,
+        mensaje: document.getElementById('mensaje').value,
+      });
+      msg.textContent = `¡Mensaje enviado! Tu número de radicado es ${registro.radicado}. Guárdalo para hacer seguimiento.`;
+      msg.className = 'form-msg ok';
+      form.reset();
+    } catch (err) {
+      msg.textContent = 'No se pudo enviar el mensaje. Intenta de nuevo en unos minutos.';
+      msg.className = 'form-msg error';
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Enviar mensaje';
+    }
+  });
+</script>
 <footer class="site">
   <div class="container">
     <div class="footer-grid">
@@ -662,36 +649,7 @@
     toggle.setAttribute('aria-expanded', isOpen);
   });
 
-  // Carrusel del hero
-  const slides = document.querySelectorAll('#heroSlides .slide');
-  const dotsWrap = document.getElementById('heroDots');
-  let current = 0;
-  let timer;
-
-  slides.forEach((_, i) => {
-    const dot = document.createElement('button');
-    if (i === 0) dot.classList.add('active');
-    dot.setAttribute('aria-label', 'Ir a la diapositiva ' + (i + 1));
-    dot.addEventListener('click', () => goTo(i));
-    dotsWrap.appendChild(dot);
-  });
-  const dots = dotsWrap.querySelectorAll('button');
-
-  function goTo(index) {
-    slides[current].classList.remove('active');
-    dots[current].classList.remove('active');
-    current = index;
-    slides[current].classList.add('active');
-    dots[current].classList.add('active');
-  }
-
-  function next() { goTo((current + 1) % slides.length); }
-
-  function startAuto() {
-    clearInterval(timer);
-    timer = setInterval(next, 6000);
-  }
-  startAuto();
+  // Esta página no tiene carrusel de hero — nada más que hacer aquí.
 </script>
 
 </body>

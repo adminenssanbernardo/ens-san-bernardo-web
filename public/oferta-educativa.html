@@ -11,8 +11,8 @@
     --verde-paramo:#1E3B2C;
     --verde-paramo-dark:#152A20;
     --verde-frailejon:#4F7A5B;
-    --mora:#6B2545;
-    --mora-dark:#54193660;
+    --mora:#A8712A;
+    --mora-dark:#5C3D1260;
     --trigo:#C9A227;
     --niebla:#EDEDE3;
     --niebla-alt:#E4E4D6;
@@ -103,7 +103,7 @@
     background:var(--mora);color:#fff !important;font-weight:600;
     padding:9px 16px !important;
   }
-  .nav-cta:hover{background:#7d2c53;}
+  .nav-cta:hover{background:#875E1F;}
   .menu-toggle{display:none;background:none;border:none;color:#fff;font-size:26px;cursor:pointer;}
 
   @media (max-width:900px){
@@ -154,7 +154,7 @@
   }
   .btn:hover{transform:translateY(-1px);}
   .btn-primary{background:var(--mora);color:#fff;}
-  .btn-primary:hover{background:#7d2c53;}
+  .btn-primary:hover{background:#875E1F;}
   .btn-outline{background:transparent;color:#fff;border-color:rgba(255,255,255,.55);}
   .btn-outline:hover{border-color:#fff;background:rgba(255,255,255,.08);}
 
@@ -187,7 +187,7 @@
   .acceso-link{font-size:13px;font-weight:600;color:var(--mora);display:flex;align-items:center;gap:6px;}
   .acceso-card.destaca{background:var(--mora);color:#fff;}
   .acceso-card.destaca .acceso-icon{background:rgba(255,255,255,.18);color:#fff;}
-  .acceso-card.destaca p{color:#F3DCE6;}
+  .acceso-card.destaca p{color:#FBF1DC;}
   .acceso-card.destaca .acceso-link{color:var(--trigo);}
 
   @media (max-width:900px){
@@ -268,10 +268,10 @@
     font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;
     color:var(--trigo);margin-bottom:14px;
   }
-  .destacado-col.mora .eyebrow{color:#F3D9A0;}
+  .destacado-col.mora .eyebrow{color:#FBF1DC;}
   .destacado-col h3{font-size:24px;margin:0 0 14px;font-weight:600;max-width:380px;}
   .destacado-col p{font-size:14.5px;color:#D8E2D9;max-width:380px;line-height:1.6;margin:0 0 20px;}
-  .destacado-col.mora p{color:#F3DCE6;}
+  .destacado-col.mora p{color:#FBF1DC;}
   .destacado-col a.enlace{
     font-size:13.5px;font-weight:600;color:var(--trigo);display:inline-flex;align-items:center;gap:6px;
   }
@@ -394,7 +394,7 @@
   }
   .practicas-card .txt{flex:1;min-width:260px;}
   .practicas-card h3{font-family:'Lora',serif;font-size:20px;margin:0 0 10px;font-weight:600;}
-  .practicas-card p{font-size:14px;line-height:1.65;color:#F3DCE6;margin:0;max-width:520px;}
+  .practicas-card p{font-size:14px;line-height:1.65;color:#FBF1DC;margin:0;max-width:520px;}
   .practicas-card .btn-portafolios{
     background:#fff;color:var(--mora);font-weight:700;font-size:14px;
     padding:13px 24px;border-radius:6px;white-space:nowrap;flex-shrink:0;
@@ -426,7 +426,7 @@
     <span>Carretera vía La Unchía, San Bernardo · Cundinamarca</span>
     <div class="topbar-links">
       <a href="#">norsanber@enssanbernardo.edu.co</a>
-      <a href="#">PQRSD</a>
+      <a href="/contacto.html">PQRSD</a>
       <a href="#">Trabaja con nosotros</a>
     </div>
   </div>
@@ -450,8 +450,8 @@
       <a href="/nuestro-colegio.html">Nuestro Colegio</a>
       <a href="/oferta-educativa.html" style="background:rgba(255,255,255,.1);">Oferta Educativa</a>
       <a href="/proyectos-investigacion.html">Proyectos e Investigación</a>
-      <a href="#">Trámites y Servicios</a>
-      <a href="#">Contacto</a>
+      <a href="/tramites-servicios.html">Trámites y Servicios</a>
+      <a href="/contacto.html">Contacto</a>
       <a href="#" class="nav-cta">Plataforma Académica</a>
     </nav>
   </div>
@@ -639,7 +639,7 @@
           <li><a href="#">Carretera vía La Unchía, San Bernardo, Cundinamarca</a></li>
           <li><a href="#">norsanber@enssanbernardo.edu.co</a></li>
           <li><a href="#">Secretaría académica</a></li>
-          <li><a href="#">PQRSD</a></li>
+          <li><a href="/contacto.html">PQRSD</a></li>
         </ul>
       </div>
     </div>
@@ -660,36 +660,7 @@
     toggle.setAttribute('aria-expanded', isOpen);
   });
 
-  // Carrusel del hero
-  const slides = document.querySelectorAll('#heroSlides .slide');
-  const dotsWrap = document.getElementById('heroDots');
-  let current = 0;
-  let timer;
-
-  slides.forEach((_, i) => {
-    const dot = document.createElement('button');
-    if (i === 0) dot.classList.add('active');
-    dot.setAttribute('aria-label', 'Ir a la diapositiva ' + (i + 1));
-    dot.addEventListener('click', () => goTo(i));
-    dotsWrap.appendChild(dot);
-  });
-  const dots = dotsWrap.querySelectorAll('button');
-
-  function goTo(index) {
-    slides[current].classList.remove('active');
-    dots[current].classList.remove('active');
-    current = index;
-    slides[current].classList.add('active');
-    dots[current].classList.add('active');
-  }
-
-  function next() { goTo((current + 1) % slides.length); }
-
-  function startAuto() {
-    clearInterval(timer);
-    timer = setInterval(next, 6000);
-  }
-  startAuto();
+  // Esta página no tiene carrusel de hero — nada más que hacer aquí.
 </script>
 
 </body>
