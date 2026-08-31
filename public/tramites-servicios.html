@@ -407,6 +407,7 @@
     .bienestar-grid{grid-template-columns:1fr;}
   }
 </style>
+</head>
 <body>
 
 <!-- ============ HEADER ============ -->
@@ -629,8 +630,8 @@
       <div>
         <h4>Contacto</h4>
         <ul>
-          <li><a href="#">Carretera vía La Unchía, San Bernardo, Cundinamarca</a></li>
-          <li><a href="#">norsanber@enssanbernardo.edu.co</a></li>
+          <li><a href="#" data-cms="contacto_direccion">Carretera vía La Unchía, San Bernardo, Cundinamarca</a></li>
+          <li><a href="mailto:norsanber@enssanbernardo.edu.co" data-cms="contacto_correo">norsanber@enssanbernardo.edu.co</a></li>
           <li><a href="#">Secretaría académica</a></li>
           <li><a href="/contacto.html">PQRSD</a></li>
         </ul>
@@ -647,9 +648,9 @@
 <!-- ============ FRANJA INFERIOR ============ -->
 <div class="topbar">
   <div class="container">
-    <span>Carretera vía La Unchía, San Bernardo · Cundinamarca</span>
+    <span data-cms="contacto_direccion">Carretera vía La Unchía, San Bernardo · Cundinamarca</span>
     <div class="topbar-links">
-      <a href="#">norsanber@enssanbernardo.edu.co</a>
+      <a href="mailto:norsanber@enssanbernardo.edu.co" data-cms="contacto_correo">norsanber@enssanbernardo.edu.co</a>
       <a href="/contacto.html">PQRSD</a>
       <a href="#">Trabaja con nosotros</a>
     </div>
@@ -669,5 +670,6 @@
   // Esta página no tiene carrusel de hero — nada más que hacer aquí.
 </script>
 
+<script src="/js/cms.js" defer></script>
 </body>
 </html>

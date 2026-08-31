@@ -129,7 +129,8 @@
   </header>
 
   <nav class="tabs">
-    <button data-panel="noticias" class="active">Noticias</button>
+    <button data-panel="contenido" class="active">Contenido de Páginas</button>
+    <button data-panel="noticias">Noticias</button>
     <button data-panel="calendario">Calendario</button>
     <button data-panel="directorio">Directorio</button>
     <button data-panel="documentos">Documentos</button>
@@ -138,8 +139,19 @@
 
   <main>
 
+    <!-- CONTENIDO DE PÁGINAS -->
+    <section class="panel active" id="panel-contenido">
+      <div class="panel-head">
+        <h2>Contenido de Páginas</h2>
+      </div>
+      <p style="font-size:13.5px;color:var(--tinta-suave);margin:-8px 0 22px;max-width:640px;">
+        Edita aquí los textos principales del sitio (portada, misión, visión, datos de contacto). Los cambios se ven reflejados en la página apenas los guardes — sin subir archivos ni esperar despliegues.
+      </p>
+      <div id="lista-contenido">Cargando…</div>
+    </section>
+
     <!-- NOTICIAS -->
-    <section class="panel active" id="panel-noticias">
+    <section class="panel" id="panel-noticias">
       <div class="panel-head">
         <h2>Noticias</h2>
         <button class="btn" onclick="toggleForm('form-noticias')">+ Nueva noticia</button>
@@ -336,12 +348,53 @@
   });
 
   function cargarTodo() {
+    cargarContenido();
     cargarNoticias();
     cargarCalendario();
     cargarDirectorio();
     cargarDocumentos();
     cargarPQRSD();
   }
+
+  // ---------- CONTENIDO DE PÁGINAS ----------
+  async function cargarContenido() {
+    const { data, error } = await supabase.from('contenido_sitio').select('*').order('pagina', { ascending: true });
+    const cont = document.getElementById('lista-contenido');
+    if (error) { cont.textContent = 'Error al cargar el contenido: ' + error.message; return; }
+
+    const porPagina = {};
+    data.forEach(fila => {
+      (porPagina[fila.pagina] = porPagina[fila.pagina] || []).push(fila);
+    });
+
+    cont.innerHTML = Object.entries(porPagina).map(([pagina, filas]) => `
+      <h3 style="font-size:15px;margin:26px 0 12px;color:var(--verde-paramo);">${escapeHtml(pagina)}</h3>
+      ${filas.map(f => `
+        <div style="background:#fff;border:1px solid var(--linea);border-radius:8px;padding:18px 20px;margin-bottom:14px;">
+          <label style="display:block;font-size:12.5px;font-weight:600;margin-bottom:8px;">${escapeHtml(f.etiqueta)}</label>
+          ${f.tipo === 'texto_largo'
+            ? `<textarea rows="3" id="cms_${f.clave}" style="width:100%;padding:10px 12px;border:1px solid var(--linea);border-radius:6px;font-family:inherit;font-size:13.5px;">${escapeHtml(f.valor)}</textarea>`
+            : `<input type="text" id="cms_${f.clave}" value="${escapeHtml(f.valor)}" style="width:100%;padding:10px 12px;border:1px solid var(--linea);border-radius:6px;font-family:inherit;font-size:13.5px;">`
+          }
+          <div style="margin-top:10px;display:flex;align-items:center;gap:10px;">
+            <button class="btn" style="padding:8px 16px;font-size:12.5px;" onclick="guardarContenido('${f.clave}')">Guardar</button>
+            <span id="ok_${f.clave}" style="font-size:12px;color:var(--verde-frailejon);display:none;">✓ Guardado</span>
+          </div>
+        </div>
+      `).join('')}
+    `).join('');
+  }
+
+  window.guardarContenido = async (clave) => {
+    const el = document.getElementById('cms_' + clave);
+    const { error } = await supabase.from('contenido_sitio')
+      .update({ valor: el.value, actualizado_en: new Date().toISOString() })
+      .eq('clave', clave);
+    if (error) { alert('Error al guardar: ' + error.message); return; }
+    const ok = document.getElementById('ok_' + clave);
+    ok.style.display = 'inline';
+    setTimeout(() => { ok.style.display = 'none'; }, 2500);
+  };
 
   // ---------- NOTICIAS ----------
   async function cargarNoticias() {
