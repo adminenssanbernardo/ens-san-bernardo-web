@@ -49,6 +49,40 @@ export async function obtenerDirectorio() {
   return res.json();
 }
 
+/** Trae las fotos activas del hero de la portada, en orden. */
+export async function obtenerFotosHero() {
+  const url = `${REST_URL}/home_hero_fotos?select=*&activa=eq.true&order=orden.asc`;
+  const res = await fetch(url, { headers: headers() });
+  if (!res.ok) throw new Error("No se pudieron cargar las fotos del hero");
+  return res.json();
+}
+
+/** Trae los eventos publicados de la Galería, cada uno con sus fotos. */
+export async function obtenerGaleria() {
+  const url = `${REST_URL}/galeria_eventos?select=*,galeria_fotos(*)&publicado=eq.true&order=orden.asc`;
+  const res = await fetch(url, { headers: headers() });
+  if (!res.ok) throw new Error("No se pudo cargar la galería");
+  const eventos = await res.json();
+  eventos.forEach((e) => e.galeria_fotos.sort((a, b) => a.orden - b.orden));
+  return eventos;
+}
+
+/** Trae las circulares publicadas, más recientes primero. */
+export async function obtenerCirculares(limite = 50) {
+  const url = `${REST_URL}/circulares?select=*&publicado=eq.true&order=fecha.desc&limit=${limite}`;
+  const res = await fetch(url, { headers: headers() });
+  if (!res.ok) throw new Error("No se pudieron cargar las circulares");
+  return res.json();
+}
+
+/** Trae TODOS los eventos del calendario escolar (para la vista mes a mes). */
+export async function obtenerCalendarioCompleto() {
+  const url = `${REST_URL}/calendario_escolar?select=*&order=fecha_inicio.asc`;
+  const res = await fetch(url, { headers: headers() });
+  if (!res.ok) throw new Error("No se pudo cargar el calendario");
+  return res.json();
+}
+
 /**
  * Radica una solicitud de PQRSD. Devuelve el registro creado (incluye el
  * número de radicado generado automáticamente, ej. "ENS-2026-04821").

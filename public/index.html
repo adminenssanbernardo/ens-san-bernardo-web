@@ -219,24 +219,41 @@
   .section-head .ver-todo{font-size:14px;font-weight:600;color:var(--mora);white-space:nowrap;padding-bottom:4px;border-bottom:1.5px solid var(--mora);}
 
   /* ---------- NOTICIAS ---------- */
-  .noticias-layout{display:grid;grid-template-columns:minmax(0,0.82fr) minmax(0,1.5fr) minmax(0,1fr);gap:28px;}
-  .sitios-interes{
-    background:var(--verde-paramo);border-radius:8px;padding:26px 22px;
-    display:flex;flex-direction:column;gap:10px;height:fit-content;min-width:0;
+  .noticias-layout{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:36px;}
+
+  .paneles-info-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;}
+  .panel-info-card{
+    background:#fff;border:1px solid var(--linea);border-radius:8px;padding:28px 26px;
+    display:flex;flex-direction:column;gap:10px;transition:transform .18s,box-shadow .18s;
   }
-  .sitios-interes h3{font-family:'Lora',serif;font-size:16px;margin:0 0 4px;font-weight:600;color:#fff;}
-  .sitios-interes .sub{font-size:12px;color:#B9C7BB;margin:0 0 10px;}
+  .panel-info-card:hover{transform:translateY(-3px);box-shadow:0 16px 28px -18px rgba(30,59,44,.35);}
+  .panel-info-icono{
+    width:44px;height:44px;border-radius:8px;background:var(--niebla-alt);color:var(--verde-paramo);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .panel-info-card h3{font-family:'Lora',serif;font-size:17px;margin:6px 0 0;font-weight:600;}
+  .panel-info-card p{font-size:13.5px;color:var(--tinta-suave);line-height:1.6;margin:0;flex:1;}
+  .panel-info-link{font-size:13px;font-weight:700;color:var(--mora);}
+  @media (max-width:860px){.paneles-info-grid{grid-template-columns:1fr;}}
+
+  /* Sitios de Interés (banda horizontal) */
+  .sitios-interes-banda{background:var(--verde-paramo);padding:36px 0;}
+  .sitios-interes-banda h3{font-family:'Lora',serif;font-size:16px;margin:0 0 4px;font-weight:600;color:#fff;}
+  .sitios-interes-banda .sub{font-size:12.5px;color:#B9C7BB;margin:0 0 18px;}
+  .sitios-fila{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px;}
   .sitio-btn{
     display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.06);
-    border:1px solid rgba(255,255,255,.14);border-radius:7px;padding:12px 14px;
+    border:1px solid rgba(255,255,255,.14);border-radius:7px;padding:14px 16px;
     color:#fff;transition:background .15s,border-color .15s;min-width:0;
   }
   .sitio-btn:hover{background:var(--mora);border-color:var(--mora);}
   .sitio-btn .icono{
-    width:30px;height:30px;border-radius:6px;background:var(--trigo);color:var(--verde-paramo-dark);
+    width:32px;height:32px;border-radius:6px;background:var(--trigo);color:var(--verde-paramo-dark);
     display:flex;align-items:center;justify-content:center;flex-shrink:0;
   }
   .sitio-btn span.txt{font-size:12.5px;font-weight:600;line-height:1.35;min-width:0;overflow-wrap:break-word;}
+  @media (max-width:960px){.sitios-fila{grid-template-columns:repeat(2,minmax(0,1fr));}}
+  @media (max-width:560px){.sitios-fila{grid-template-columns:1fr;}}
   .noticias-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;min-width:0;}
   .noticia-card{
     background:#fff;border:1px solid var(--linea);border-radius:8px;overflow:hidden;
@@ -303,7 +320,6 @@
   @media (max-width:860px){
     .destacado-inner{grid-template-columns:1fr;}
     .noticias-layout{grid-template-columns:1fr;}
-    .sitios-interes{order:3;}
     .noticias-grid{grid-template-columns:1fr;}
   }
 
@@ -362,7 +378,6 @@
       <a href="/galeria.html">Galería</a>
       <a href="/tramites-servicios.html">Trámites y Servicios</a>
       <a href="/contacto.html">Contacto</a>
-      <a href="https://www.gssoftwareysoluciones.com/2024/?view=index" class="nav-cta" target="_blank" rel="noopener">Plataforma Académica</a>
     </nav>
   </div>
 </header>
@@ -489,6 +504,36 @@
   </div>
 </section>
 
+<!-- ============ SITIOS DE INTERÉS (banda horizontal) ============ -->
+<section class="sitios-interes-banda">
+  <div class="container">
+    <h3>Sitios de Interés</h3>
+    <p class="sub">Accesos directos a plataformas y entidades educativas.</p>
+    <div class="sitios-fila">
+      <a href="https://www.gssoftwareysoluciones.com/2024/?view=index" class="sitio-btn" target="_blank" rel="noopener">
+        <span class="icono"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h10M4 18h7"/></svg></span>
+        <span class="txt">Plataforma Académica</span>
+      </a>
+      <a href="https://practicas.enssanbernardo.edu.co" class="sitio-btn" target="_blank" rel="noopener">
+        <span class="icono"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5-10-5Z"/></svg></span>
+        <span class="txt">Portal de Prácticas</span>
+      </a>
+      <a href="https://www.cundinamarca.gov.co/dependencias/seceducacion" class="sitio-btn" target="_blank" rel="noopener">
+        <span class="icono"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg></span>
+        <span class="txt">Secretaría de Educación de Cundinamarca</span>
+      </a>
+      <a href="https://www.mineducacion.gov.co" class="sitio-btn" target="_blank" rel="noopener">
+        <span class="icono"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg></span>
+        <span class="txt">Ministerio de Educación Nacional</span>
+      </a>
+      <a href="https://www.icfes.gov.co" class="sitio-btn" target="_blank" rel="noopener">
+        <span class="icono"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span>
+        <span class="txt">ICFES</span>
+      </a>
+    </div>
+  </div>
+</section>
+
 <!-- ============ NOTICIAS Y EVENTOS ============ -->
 <section class="section">
   <div class="container">
@@ -497,114 +542,35 @@
         <div class="section-eyebrow">Sala de prensa</div>
         <h2>Noticias, circulares y calendario escolar</h2>
       </div>
-      <a href="#" class="ver-todo">Ver todas las noticias →</a>
     </div>
 
-    <div class="noticias-layout">
-      <aside class="sitios-interes">
-        <h3>Sitios de Interés</h3>
-        <p class="sub">Accesos directos a plataformas y entidades educativas.</p>
-
-        <a href="https://www.gssoftwareysoluciones.com/2024/?view=index" class="sitio-btn" target="_blank" rel="noopener">
-          <span class="icono"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h10M4 18h7"/></svg></span>
-          <span class="txt">Plataforma Académica</span>
-        </a>
-        <a href="https://practicas.enssanbernardo.edu.co" class="sitio-btn" target="_blank" rel="noopener">
-          <span class="icono"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5-10-5Z"/></svg></span>
-          <span class="txt">Portal de Prácticas</span>
-        </a>
-        <a href="https://www.cundinamarca.gov.co/dependencias/seceducacion" class="sitio-btn" target="_blank" rel="noopener">
-          <span class="icono"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg></span>
-          <span class="txt">Secretaría de Educación de Cundinamarca</span>
-        </a>
-        <a href="https://www.mineducacion.gov.co" class="sitio-btn" target="_blank" rel="noopener">
-          <span class="icono"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg></span>
-          <span class="txt">Ministerio de Educación Nacional</span>
-        </a>
-        <a href="https://www.icfes.gov.co" class="sitio-btn" target="_blank" rel="noopener">
-          <span class="icono"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span>
-          <span class="txt">ICFES</span>
-        </a>
-      </aside>
-
-      <div class="noticias-grid">
-
-        <article class="noticia-card">
-          <div class="noticia-thumb">
-            <svg viewBox="0 0 300 130" preserveAspectRatio="xMidYMid slice" width="100%" height="100%">
-              <rect width="300" height="130" fill="#4F7A5B"/>
-              <path d="M0 90 L60 60 L120 85 L180 55 L240 85 L300 65 L300 130 L0 130 Z" fill="#1E3B2C"/>
-            </svg>
-          </div>
-          <div class="noticia-body">
-            <span class="noticia-tag">Circular 014</span>
-            <h3>Cronograma de prácticas pedagógicas — segundo semestre</h3>
-            <p>El PFC publica los bloques de práctica y los centros de práctica asignados para los maestros en formación.</p>
-            <span class="noticia-fecha">26 ago 2026</span>
-          </div>
-        </article>
-
-        <article class="noticia-card">
-          <div class="noticia-thumb">
-            <svg viewBox="0 0 300 130" preserveAspectRatio="xMidYMid slice" width="100%" height="100%">
-              <rect width="300" height="130" fill="#A8712A"/>
-              <circle cx="60" cy="70" r="26" fill="#EDEDE3" opacity=".25"/>
-              <circle cx="230" cy="40" r="34" fill="#EDEDE3" opacity=".2"/>
-            </svg>
-          </div>
-          <div class="noticia-body">
-            <span class="noticia-tag">Evento</span>
-            <h3>VIII Seminario Pedagógico Normalista</h3>
-            <p>Ponencias sobre educación rural, aulas multigrado y experiencias de Escuela Nueva en el territorio.</p>
-            <span class="noticia-fecha">12 sep 2026</span>
-          </div>
-        </article>
-
-        <article class="noticia-card">
-          <div class="noticia-thumb">
-            <svg viewBox="0 0 300 130" preserveAspectRatio="xMidYMid slice" width="100%" height="100%">
-              <rect width="300" height="130" fill="#C9A227"/>
-              <path d="M0 40 L300 70 L300 130 L0 130 Z" fill="#1E3B2C" opacity=".85"/>
-            </svg>
-          </div>
-          <div class="noticia-body">
-            <span class="noticia-tag">Institucional</span>
-            <h3>Feria PRAE: proyectos ambientales y agropecuarios</h3>
-            <p>Estudiantes de básica y media presentan sus proyectos de huerta escolar y manejo de residuos.</p>
-            <span class="noticia-fecha">18 sep 2026</span>
-          </div>
-        </article>
-
-      </div>
-
-      <aside class="calendario">
-        <h3>Calendario escolar</h3>
-        <div class="sub">Próximas fechas — Calendario A</div>
-
-        <div class="cal-item">
-          <div class="cal-fecha">02–06<br>OCT</div>
-          <div>
-            <h4>Semana de receso estudiantil</h4>
-            <p>No hay actividad académica presencial.</p>
-          </div>
+    <div class="paneles-info-grid">
+      <a href="/noticias.html" class="panel-info-card">
+        <div class="panel-info-icono">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h16M4 12h10M4 18h7"/></svg>
         </div>
-        <div class="cal-item">
-          <div class="cal-fecha">20<br>OCT</div>
-          <div>
-            <h4>Entrega de boletines — tercer periodo</h4>
-            <p>Encuentro con acudientes en jornada única.</p>
-          </div>
-        </div>
-        <div class="cal-item">
-          <div class="cal-fecha">27<br>NOV</div>
-          <div>
-            <h4>Clausura Programa de Formación Complementaria</h4>
-            <p>Grado de maestros normalistas — Auditorio institucional.</p>
-          </div>
-        </div>
+        <h3>Noticias</h3>
+        <p>Las últimas novedades institucionales, con fotos, ordenadas de la más reciente a la más antigua.</p>
+        <span class="panel-info-link">Ver noticias →</span>
+      </a>
 
-        <a href="#" class="cal-link">Ver calendario completo</a>
-      </aside>
+      <a href="/circulares.html" class="panel-info-card">
+        <div class="panel-info-icono">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg>
+        </div>
+        <h3>Circulares</h3>
+        <p>Consulta y descarga las circulares oficiales, siempre con la más reciente primero.</p>
+        <span class="panel-info-link">Ver circulares →</span>
+      </a>
+
+      <a href="/calendario.html" class="panel-info-card">
+        <div class="panel-info-icono">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+        </div>
+        <h3>Calendario Escolar</h3>
+        <p>Actividades y eventos destacados de la institución, organizados mes a mes.</p>
+        <span class="panel-info-link">Ver calendario →</span>
+      </a>
     </div>
   </div>
 </section>
@@ -706,7 +672,9 @@
 </div>
 
 
-<script>
+<script type="module">
+  import { obtenerFotosHero } from '/js/supabase-client.js';
+
   // Menú móvil
   const toggle = document.getElementById('menuToggle');
   const nav = document.getElementById('primaryNav');
@@ -715,7 +683,26 @@
     toggle.setAttribute('aria-expanded', isOpen);
   });
 
-  // Carrusel del hero
+  // Si hay fotos reales cargadas desde el panel de administración,
+  // reemplazan las ilustraciones de ejemplo del carrusel del hero.
+  async function cargarFotosHeroSiExisten() {
+    try {
+      const fotos = await obtenerFotosHero();
+      if (!fotos.length) return;
+      const heroSlides = document.getElementById('heroSlides');
+      heroSlides.innerHTML = fotos.map((f, i) => `
+        <div class="slide${i === 0 ? ' active' : ''}">
+          <img src="${f.imagen_url}" alt="" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+      `).join('');
+    } catch (e) {
+      console.warn('No se pudieron cargar fotos del hero, se usan las de ejemplo.', e);
+    }
+  }
+
+  await cargarFotosHeroSiExisten();
+
+  // Carrusel del hero (funciona igual con las fotos reales o con las de ejemplo)
   const slides = document.querySelectorAll('#heroSlides .slide');
   const dotsWrap = document.getElementById('heroDots');
   let current = 0;
@@ -744,7 +731,7 @@
     clearInterval(timer);
     timer = setInterval(next, 6000);
   }
-  startAuto();
+  if (slides.length > 1) startAuto();
 </script>
 
 <script src="/js/cms.js" defer></script>

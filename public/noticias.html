@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/png" href="/img/escudo-ens.png">
-<title>Oferta Educativa | Escuela Normal Superior de San Bernardo</title>
+<title>Noticias | Escuela Normal Superior de San Bernardo</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,500&family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -194,7 +194,7 @@
   .acceso-card.destaca{background:var(--mora);color:#fff;}
   .acceso-card.destaca .acceso-icon{background:rgba(255,255,255,.18);color:#fff;}
   .acceso-card.destaca p{color:#FBF1DC;}
-  .acceso-card.destaca .acceso-link{color:var(--trigo);}
+  .acceso-card.destaca .acceso-link{color:#FBF1DC;}
 
   @media (max-width:900px){
     .accesos-grid{grid-template-columns:repeat(2,1fr);margin-top:-40px;}
@@ -219,8 +219,42 @@
   .section-head .ver-todo{font-size:14px;font-weight:600;color:var(--mora);white-space:nowrap;padding-bottom:4px;border-bottom:1.5px solid var(--mora);}
 
   /* ---------- NOTICIAS ---------- */
-  .noticias-layout{display:grid;grid-template-columns:1.6fr 1fr;gap:36px;}
-  .noticias-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+  .noticias-layout{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:36px;}
+
+  .paneles-info-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;}
+  .panel-info-card{
+    background:#fff;border:1px solid var(--linea);border-radius:8px;padding:28px 26px;
+    display:flex;flex-direction:column;gap:10px;transition:transform .18s,box-shadow .18s;
+  }
+  .panel-info-card:hover{transform:translateY(-3px);box-shadow:0 16px 28px -18px rgba(30,59,44,.35);}
+  .panel-info-icono{
+    width:44px;height:44px;border-radius:8px;background:var(--niebla-alt);color:var(--verde-paramo);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .panel-info-card h3{font-family:'Lora',serif;font-size:17px;margin:6px 0 0;font-weight:600;}
+  .panel-info-card p{font-size:13.5px;color:var(--tinta-suave);line-height:1.6;margin:0;flex:1;}
+  .panel-info-link{font-size:13px;font-weight:700;color:var(--mora);}
+  @media (max-width:860px){.paneles-info-grid{grid-template-columns:1fr;}}
+
+  /* Sitios de Interés (banda horizontal) */
+  .sitios-interes-banda{background:var(--verde-paramo);padding:36px 0;}
+  .sitios-interes-banda h3{font-family:'Lora',serif;font-size:16px;margin:0 0 4px;font-weight:600;color:#fff;}
+  .sitios-interes-banda .sub{font-size:12.5px;color:#B9C7BB;margin:0 0 18px;}
+  .sitios-fila{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px;}
+  .sitio-btn{
+    display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.06);
+    border:1px solid rgba(255,255,255,.14);border-radius:7px;padding:14px 16px;
+    color:#fff;transition:background .15s,border-color .15s;min-width:0;
+  }
+  .sitio-btn:hover{background:var(--mora);border-color:var(--mora);}
+  .sitio-btn .icono{
+    width:32px;height:32px;border-radius:6px;background:var(--trigo);color:var(--verde-paramo-dark);
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  }
+  .sitio-btn span.txt{font-size:12.5px;font-weight:600;line-height:1.35;min-width:0;overflow-wrap:break-word;}
+  @media (max-width:960px){.sitios-fila{grid-template-columns:repeat(2,minmax(0,1fr));}}
+  @media (max-width:560px){.sitios-fila{grid-template-columns:1fr;}}
+  .noticias-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;min-width:0;}
   .noticia-card{
     background:#fff;border:1px solid var(--linea);border-radius:8px;overflow:hidden;
     display:flex;flex-direction:column;transition:box-shadow .18s,transform .18s;
@@ -239,7 +273,7 @@
 
   .calendario{
     background:var(--verde-paramo);color:#fff;border-radius:8px;padding:26px 24px;
-    display:flex;flex-direction:column;gap:4px;
+    display:flex;flex-direction:column;gap:4px;min-width:0;
   }
   .calendario h3{font-family:'Lora',serif;font-size:18px;margin:0 0 6px;font-weight:600;}
   .calendario .sub{font-size:12.5px;color:#B9C7BB;margin-bottom:16px;}
@@ -319,110 +353,25 @@
     .footer-grid{grid-template-columns:1fr;}
   }
 
-  /* ============ PÁGINA: OFERTA EDUCATIVA (reutiliza page-banner/subnav/content-section de Nuestro Colegio) ============ */
-  .page-banner{
-    background:var(--verde-paramo-dark);color:#fff;padding:56px 0 40px;
-    position:relative;overflow:hidden;
-  }
-  .breadcrumb{font-size:13px;color:#B9C7BB;margin-bottom:16px;font-family:'JetBrains Mono',monospace;}
+  /* ============ PÁGINA: NOTICIAS ============ */
+  .page-banner{background:var(--verde-paramo-dark);color:#fff;padding:56px 0 40px;}
+  .breadcrumb{font-size:13px;color:#B9C7BB;margin-bottom:16px;font-family:JetBrains Mono,monospace;}
   .breadcrumb a{color:#B9C7BB;}
-  .breadcrumb a:hover{color:#fff;}
   .page-banner h1{font-size:clamp(26px,4vw,40px);margin:0 0 12px;font-weight:600;}
   .page-banner p{font-size:15.5px;color:#D8E2D9;max-width:620px;margin:0;line-height:1.6;}
-
-  .subnav{
-    position:sticky;top:98px;z-index:40;background:var(--papel);
-    border-bottom:1px solid var(--linea);
-  }
-  .subnav .container{display:flex;gap:4px;overflow-x:auto;padding-top:4px;padding-bottom:4px;}
-  .subnav a{
-    font-size:13.5px;font-weight:600;padding:12px 16px;white-space:nowrap;
-    color:var(--tinta-suave);border-bottom:2px solid transparent;
-  }
-  .subnav a:hover{color:var(--mora);}
-  .subnav a.active{color:var(--mora);border-bottom-color:var(--mora);}
-
-  .content-section{padding:64px 0;}
-  .content-section.alt{background:var(--niebla);}
-  .content-section.pfc{background:var(--verde-paramo);color:#fff;}
-  .content-section h2{
-    font-size:clamp(22px,3vw,28px);font-weight:600;margin:0 0 8px;
-  }
-  .content-section .section-tag{
-    font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.1em;
-    text-transform:uppercase;color:var(--mora);margin-bottom:10px;display:block;
-  }
-  .content-section.pfc .section-tag{color:var(--trigo);}
-  .lead-text{font-size:15px;color:var(--tinta-suave);max-width:720px;margin:0 0 36px;line-height:1.65;}
-  .content-section.pfc .lead-text{color:#D8E2D9;}
-
-  /* Niveles básicos */
-  .niveles-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
-  .nivel-card{
-    background:#fff;border:1px solid var(--linea);border-radius:8px;overflow:hidden;
-    display:flex;flex-direction:column;
-  }
-  .nivel-banda{height:8px;}
-  .nivel-body{padding:22px 20px;display:flex;flex-direction:column;gap:10px;flex:1;}
-  .nivel-card h3{font-family:'Lora',serif;font-size:17px;margin:0;font-weight:600;}
-  .nivel-card .grados{
-    font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--mora);
-    text-transform:uppercase;letter-spacing:.04em;
-  }
-  .nivel-card p{font-size:13.5px;line-height:1.6;color:var(--tinta-suave);margin:0;flex:1;}
-
-  /* PFC ejes */
-  .ejes-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:8px;}
-  .eje-card{
-    background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:8px;
-    padding:24px 20px;
-  }
-  .eje-card .eje-num{
-    font-family:'Lora',serif;font-size:26px;font-weight:600;color:var(--trigo);
-    display:block;margin-bottom:10px;
-  }
-  .eje-card h4{font-size:15px;margin:0 0 10px;font-weight:600;}
-  .eje-card p{font-size:13px;line-height:1.65;color:#CBD6CB;margin:0;}
-
-  /* Perfil normalista destacado */
-  .perfil-box{
-    background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:8px;
-    padding:32px 30px;margin-top:36px;
-  }
-  .perfil-box h3{font-family:'Lora',serif;font-size:19px;margin:0 0 14px;font-weight:600;color:var(--trigo);}
-  .perfil-box p{font-size:14.5px;line-height:1.75;color:#D8E2D9;margin:0 0 12px;}
-  .perfil-box p:last-child{margin-bottom:0;}
-
-  /* Prácticas pedagógicas */
-  .practicas-card{
-    background:var(--mora);border-radius:10px;padding:36px 34px;color:#fff;
-    display:flex;justify-content:space-between;align-items:center;gap:30px;flex-wrap:wrap;
-  }
-  .practicas-card .txt{flex:1;min-width:260px;}
-  .practicas-card h3{font-family:'Lora',serif;font-size:20px;margin:0 0 10px;font-weight:600;}
-  .practicas-card p{font-size:14px;line-height:1.65;color:#FBF1DC;margin:0;max-width:520px;}
-  .practicas-card .btn-portafolios{
-    background:#fff;color:var(--mora);font-weight:700;font-size:14px;
-    padding:13px 24px;border-radius:6px;white-space:nowrap;flex-shrink:0;
-  }
-  .practicas-card .btn-portafolios:hover{background:var(--trigo);color:var(--verde-paramo-dark);}
-
-  /* Convenios / proyección */
-  .proyeccion-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:8px;}
-  .proyeccion-card{background:#fff;border:1px solid var(--linea);border-radius:8px;padding:26px 24px;}
-  .proyeccion-card h4{font-family:'Lora',serif;font-size:16px;margin:0 0 10px;font-weight:600;color:var(--verde-paramo);}
-  .proyeccion-card p{font-size:13.5px;line-height:1.7;color:var(--tinta-suave);margin:0;}
-
-  @media (max-width:900px){
-    .niveles-grid{grid-template-columns:repeat(2,1fr);}
-    .ejes-grid{grid-template-columns:repeat(2,1fr);}
-    .proyeccion-grid{grid-template-columns:1fr;}
-  }
-  @media (max-width:560px){
-    .niveles-grid{grid-template-columns:1fr;}
-    .ejes-grid{grid-template-columns:1fr;}
-    .practicas-card{flex-direction:column;align-items:flex-start;}
-  }
+  .content-section{padding:56px 0 80px;}
+  .noticias-full-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;}
+  .noticia-full-card{background:#fff;border:1px solid var(--linea);border-radius:8px;overflow:hidden;display:flex;flex-direction:column;}
+  .noticia-full-thumb{height:160px;background:var(--niebla-alt);overflow:hidden;}
+  .noticia-full-thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+  .noticia-full-body{padding:20px 22px;display:flex;flex-direction:column;gap:10px;flex:1;}
+  .noticia-full-tag{font-family:JetBrains Mono,monospace;font-size:11px;text-transform:uppercase;color:var(--verde-frailejon);}
+  .noticia-full-body h3{font-size:16.5px;margin:0;font-weight:600;line-height:1.35;}
+  .noticia-full-body p{font-size:13.5px;color:var(--tinta-suave);margin:0;line-height:1.6;flex:1;}
+  .noticia-full-fecha{font-size:12px;color:var(--tinta-suave);font-family:JetBrains Mono,monospace;}
+  .estado-vacio{text-align:center;padding:60px 20px;color:var(--tinta-suave);}
+  @media (max-width:900px){.noticias-full-grid{grid-template-columns:1fr 1fr;}}
+  @media (max-width:600px){.noticias-full-grid{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
@@ -443,7 +392,7 @@
     <nav class="primary" id="primaryNav">
       <a href="/">Inicio</a>
       <a href="/nuestro-colegio.html">Nuestro Colegio</a>
-      <a href="/oferta-educativa.html" style="background:rgba(255,255,255,.1);">Oferta Educativa</a>
+      <a href="/oferta-educativa.html">Oferta Educativa</a>
       <a href="/formacion-maestros.html">Formación de Maestros</a>
       <a href="/proyectos-investigacion.html">Proyectos e Investigación</a>
       <a href="/galeria.html">Galería</a>
@@ -453,93 +402,55 @@
   </div>
 </header>
 
-<!-- ============ BANNER DE PÁGINA ============ -->
 <section class="page-banner">
   <div class="container">
-    <div class="breadcrumb"><a href="/">Inicio</a> / Oferta Educativa</div>
-    <h1>Oferta Educativa</h1>
-    <p>Desde primera infancia hasta la formación de nuevos maestros: un solo camino formativo, pensado para el territorio rural de San Bernardo.</p>
+    <div class="breadcrumb"><a href="/">Inicio</a> / Noticias</div>
+    <h1>Noticias</h1>
+    <p>Las últimas novedades institucionales, con fotos, de la más reciente a la más antigua.</p>
   </div>
 </section>
 
-<!-- ============ SUBNAV ============ -->
-<nav class="subnav">
+<section class="content-section">
   <div class="container">
-    <a href="#niveles" class="active">Niveles Básicos</a>
-    <a href="#proyeccion">Convenios y Proyección</a>
-  </div>
-</nav>
-
-<!-- ============ NIVELES BÁSICOS ============ -->
-<section class="content-section" id="niveles">
-  <div class="container">
-    <span class="section-tag">Educación básica y media</span>
-    <h2>Niveles básicos</h2>
-    <p class="lead-text">La Normal atiende a 690 estudiantes en la sede principal y 8 sedes rurales, desde primera infancia hasta grado once, con proyección a jornada única.</p>
-
-    <div class="niveles-grid">
-      <div class="nivel-card">
-        <div class="nivel-banda" style="background:var(--trigo);"></div>
-        <div class="nivel-body">
-          <span class="grados">Primera infancia y Preescolar</span>
-          <h3>Educación Inicial</h3>
-          <p>Articulada con la Primera Infancia como imperativo pedagógico: exploración, juego y desarrollo integral como base de las trayectorias educativas.</p>
-        </div>
-      </div>
-      <div class="nivel-card">
-        <div class="nivel-banda" style="background:var(--verde-frailejon);"></div>
-        <div class="nivel-body">
-          <span class="grados">Grados 1° a 5°</span>
-          <h3>Básica Primaria</h3>
-          <p>Presente en la sede principal y en las 8 sedes rurales, muchas veces bajo modelos de aula multigrado adaptados al contexto veredal.</p>
-        </div>
-      </div>
-      <div class="nivel-card">
-        <div class="nivel-banda" style="background:var(--mora);"></div>
-        <div class="nivel-body">
-          <span class="grados">Grados 6° a 9°</span>
-          <h3>Básica Secundaria</h3>
-          <p>Estudiantes que empiezan a asumir actividades guiadas de mayor autonomía, con enfoque investigativo y construcción de identidad.</p>
-        </div>
-      </div>
-      <div class="nivel-card">
-        <div class="nivel-banda" style="background:var(--verde-paramo);"></div>
-        <div class="nivel-body">
-          <span class="grados">Grados 10° y 11°</span>
-          <h3>Media Académica</h3>
-          <p>Bajo jornada única (Resolución 004347 del 8 de mayo de 2025), preparando el tránsito hacia el Programa de Formación Complementaria.</p>
-        </div>
-      </div>
-    </div>
-
-    <div style="margin-top:36px;background:var(--verde-paramo);border-radius:10px;padding:30px 28px;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;">
-      <div style="flex:1;min-width:260px;">
-        <h3 style="font-family:'Lora',serif;font-size:18px;color:#fff;margin:0 0 8px;font-weight:600;">¿Quieres ser maestro normalista?</h3>
-        <p style="font-size:13.5px;color:#D8E2D9;margin:0;max-width:480px;">Conoce el Programa de Formación Complementaria: perfil, plan de estudios, prácticas pedagógicas y proyectos de investigación.</p>
-      </div>
-      <a href="/formacion-maestros.html" style="background:var(--trigo);color:var(--verde-paramo-dark);font-weight:700;font-size:14px;padding:13px 22px;border-radius:6px;white-space:nowrap;">Ver Programa de Formación de Maestros →</a>
+    <div id="listaNoticias" class="noticias-full-grid">
+      <p class="estado-vacio">Cargando noticias…</p>
     </div>
   </div>
 </section>
 
-<!-- ============ CONVENIOS Y PROYECCIÓN DEL EGRESADO ============ -->
-<section class="content-section" id="proyeccion">
-  <div class="container">
-    <span class="section-tag">Alianzas y futuro del egresado</span>
-    <h2>Convenios y proyección del egresado</h2>
+<script type="module">
+  import { obtenerNoticias } from '/js/supabase-client.js';
 
-    <div class="proyeccion-grid">
-      <div class="proyeccion-card">
-        <h4>Alianzas y convenios</h4>
-        <p>La Escuela Normal Superior establece alianzas con entidades del orden municipal, regional y nacional. Dado su contexto rural, teje vínculos estrechos con las Juntas de Acción Comunal de las veredas circundantes, aliadas estratégicas para acercar la formación a las realidades del territorio.</p>
-      </div>
-      <div class="proyeccion-card">
-        <h4>Proyección del egresado</h4>
-        <p>El Normalista Superior egresado puede continuar ejerciendo como docente de educación inicial, preescolar y básica primaria, como Director Rural, o continuar su formación profesional en programas de licenciatura afines, fortalecido por una base pedagógica e investigativa sólida.</p>
-      </div>
-    </div>
-  </div>
-</section>
+  function escapeHtml(str) {
+    if (!str) return '';
+    return String(str).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+  }
+
+  (async () => {
+    const cont = document.getElementById('listaNoticias');
+    try {
+      const noticias = await obtenerNoticias(50);
+      if (!noticias.length) {
+        cont.innerHTML = '<p class="estado-vacio">Aún no hay noticias publicadas. Vuelve pronto.</p>';
+        return;
+      }
+      cont.innerHTML = noticias.map(n => `
+        <article class="noticia-full-card">
+          ${n.imagen_url ? `<div class="noticia-full-thumb"><img src="${n.imagen_url}" alt=""></div>` : ''}
+          <div class="noticia-full-body">
+            <span class="noticia-full-tag">${escapeHtml(n.etiqueta)}</span>
+            <h3>${escapeHtml(n.titulo)}</h3>
+            <p>${escapeHtml(n.resumen)}</p>
+            <span class="noticia-full-fecha">${new Date(n.publicado_en || n.creado_en).toLocaleDateString('es-CO', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
+          </div>
+        </article>
+      `).join('');
+    } catch (e) {
+      cont.innerHTML = '<p class="estado-vacio">No se pudieron cargar las noticias. Intenta de nuevo más tarde.</p>';
+      console.error(e);
+    }
+  })();
+</script>
 <footer class="site">
   <div class="container">
     <div class="footer-grid">
@@ -606,7 +517,9 @@
 </div>
 
 
-<script>
+<script type="module">
+  import { obtenerFotosHero } from '/js/supabase-client.js';
+
   // Menú móvil
   const toggle = document.getElementById('menuToggle');
   const nav = document.getElementById('primaryNav');
@@ -615,7 +528,55 @@
     toggle.setAttribute('aria-expanded', isOpen);
   });
 
-  // Esta página no tiene carrusel de hero — nada más que hacer aquí.
+  // Si hay fotos reales cargadas desde el panel de administración,
+  // reemplazan las ilustraciones de ejemplo del carrusel del hero.
+  async function cargarFotosHeroSiExisten() {
+    try {
+      const fotos = await obtenerFotosHero();
+      if (!fotos.length) return;
+      const heroSlides = document.getElementById('heroSlides');
+      heroSlides.innerHTML = fotos.map((f, i) => `
+        <div class="slide${i === 0 ? ' active' : ''}">
+          <img src="${f.imagen_url}" alt="" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+      `).join('');
+    } catch (e) {
+      console.warn('No se pudieron cargar fotos del hero, se usan las de ejemplo.', e);
+    }
+  }
+
+  await cargarFotosHeroSiExisten();
+
+  // Carrusel del hero (funciona igual con las fotos reales o con las de ejemplo)
+  const slides = document.querySelectorAll('#heroSlides .slide');
+  const dotsWrap = document.getElementById('heroDots');
+  let current = 0;
+  let timer;
+
+  slides.forEach((_, i) => {
+    const dot = document.createElement('button');
+    if (i === 0) dot.classList.add('active');
+    dot.setAttribute('aria-label', 'Ir a la diapositiva ' + (i + 1));
+    dot.addEventListener('click', () => goTo(i));
+    dotsWrap.appendChild(dot);
+  });
+  const dots = dotsWrap.querySelectorAll('button');
+
+  function goTo(index) {
+    slides[current].classList.remove('active');
+    dots[current].classList.remove('active');
+    current = index;
+    slides[current].classList.add('active');
+    dots[current].classList.add('active');
+  }
+
+  function next() { goTo((current + 1) % slides.length); }
+
+  function startAuto() {
+    clearInterval(timer);
+    timer = setInterval(next, 6000);
+  }
+  if (slides.length > 1) startAuto();
 </script>
 
 <script src="/js/cms.js" defer></script>

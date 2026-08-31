@@ -132,7 +132,10 @@
   <nav class="tabs">
     <button data-panel="contenido" class="active">Contenido de Páginas</button>
     <button data-panel="noticias">Noticias</button>
+    <button data-panel="circulares">Circulares</button>
     <button data-panel="calendario">Calendario</button>
+    <button data-panel="galeria">Galería</button>
+    <button data-panel="hero">Fotos del Inicio</button>
     <button data-panel="directorio">Directorio</button>
     <button data-panel="documentos">Documentos</button>
     <button data-panel="pqrsd">PQRSD</button>
@@ -165,13 +168,40 @@
         </div>
         <div class="campo"><label>Resumen (aparece en la tarjeta)</label><textarea id="n_resumen" rows="2" required></textarea></div>
         <div class="campo"><label>Cuerpo completo (opcional)</label><textarea id="n_cuerpo" rows="4"></textarea></div>
+        <div class="campo"><label>Foto (opcional)</label><input type="file" id="n_foto" accept="image/*"></div>
         <div class="campo"><label><input type="checkbox" id="n_publicado" checked style="width:auto;"> Publicar inmediatamente</label></div>
         <div class="form-acciones">
-          <button type="submit" class="btn">Guardar noticia</button>
+          <button type="submit" class="btn" id="btnGuardarNoticia">Guardar noticia</button>
           <button type="button" class="btn secundario" onclick="toggleForm('form-noticias')">Cancelar</button>
         </div>
       </form>
       <div id="tabla-noticias">Cargando…</div>
+    </section>
+
+    <!-- CIRCULARES -->
+    <section class="panel" id="panel-circulares">
+      <div class="panel-head">
+        <h2>Circulares</h2>
+        <button class="btn" onclick="toggleForm('form-circulares')">+ Nueva circular</button>
+      </div>
+      <form class="form-nuevo" id="form-circulares">
+        <h3>Nueva circular</h3>
+        <div class="grid2">
+          <div class="campo"><label>Título</label><input type="text" id="cir_titulo" required></div>
+          <div class="campo"><label>Número (opcional)</label><input type="text" id="cir_numero" placeholder="014"></div>
+        </div>
+        <div class="grid2">
+          <div class="campo"><label>Fecha</label><input type="date" id="cir_fecha" required></div>
+          <div class="campo"><label>Archivo PDF</label><input type="file" id="cir_archivo" accept="application/pdf" required></div>
+        </div>
+        <div class="campo"><label>Descripción (opcional)</label><textarea id="cir_descripcion" rows="2"></textarea></div>
+        <div class="campo"><label><input type="checkbox" id="cir_publicado" checked style="width:auto;"> Publicar inmediatamente</label></div>
+        <div class="form-acciones">
+          <button type="submit" class="btn" id="btnGuardarCircular">Guardar circular</button>
+          <button type="button" class="btn secundario" onclick="toggleForm('form-circulares')">Cancelar</button>
+        </div>
+      </form>
+      <div id="tabla-circulares">Cargando…</div>
     </section>
 
     <!-- CALENDARIO -->
@@ -269,6 +299,52 @@
       <div id="tabla-documentos">Cargando…</div>
     </section>
 
+    <!-- GALERÍA -->
+    <section class="panel" id="panel-galeria">
+      <div class="panel-head">
+        <h2>Galería — Eventos</h2>
+        <button class="btn" onclick="toggleForm('form-evento-galeria')">+ Nuevo evento</button>
+      </div>
+      <form class="form-nuevo" id="form-evento-galeria">
+        <h3>Nuevo evento de la galería</h3>
+        <div class="grid2">
+          <div class="campo"><label>Título</label><input type="text" id="ge_titulo" required></div>
+          <div class="campo"><label>Fecha (texto, ej. "Septiembre 2026")</label><input type="text" id="ge_fecha_texto"></div>
+        </div>
+        <div class="campo"><label>Descripción</label><textarea id="ge_descripcion" rows="2"></textarea></div>
+        <div class="grid2">
+          <div class="campo"><label>Orden (menor = aparece primero)</label><input type="number" id="ge_orden" value="0"></div>
+          <div class="campo"><label><input type="checkbox" id="ge_publicado" checked style="width:auto;"> Publicado</label></div>
+        </div>
+        <div class="form-acciones">
+          <button type="submit" class="btn">Guardar evento</button>
+          <button type="button" class="btn secundario" onclick="toggleForm('form-evento-galeria')">Cancelar</button>
+        </div>
+      </form>
+      <div id="lista-galeria">Cargando…</div>
+    </section>
+
+    <!-- FOTOS DEL INICIO -->
+    <section class="panel" id="panel-hero">
+      <div class="panel-head">
+        <h2>Fotos del Inicio (carrusel del hero)</h2>
+      </div>
+      <p style="font-size:13.5px;color:var(--tinta-suave);margin:-8px 0 22px;max-width:640px;">
+        Si subes al menos una foto aquí, reemplaza las ilustraciones de ejemplo del carrusel de la portada. El orden determina en qué secuencia rotan.
+      </p>
+      <form class="form-nuevo abierto" id="form-hero-foto" style="margin-bottom:20px;">
+        <h3>Agregar foto</h3>
+        <div class="grid2">
+          <div class="campo"><label>Imagen</label><input type="file" id="hf_archivo" accept="image/*" required></div>
+          <div class="campo"><label>Orden</label><input type="number" id="hf_orden" value="0"></div>
+        </div>
+        <div class="form-acciones">
+          <button type="submit" class="btn" id="btnSubirHeroFoto">Subir foto</button>
+        </div>
+      </form>
+      <div id="lista-hero-fotos">Cargando…</div>
+    </section>
+
     <!-- PQRSD -->
     <section class="panel" id="panel-pqrsd">
       <div class="panel-head"><h2>Solicitudes PQRSD</h2></div>
@@ -351,9 +427,12 @@
   function cargarTodo() {
     cargarContenido();
     cargarNoticias();
+    cargarCirculares();
     cargarCalendario();
     cargarDirectorio();
     cargarDocumentos();
+    cargarGaleria();
+    cargarHeroFotos();
     cargarPQRSD();
   }
 
@@ -419,13 +498,29 @@
 
   document.getElementById('form-noticias').addEventListener('submit', async (e) => {
     e.preventDefault();
+    const btn = document.getElementById('btnGuardarNoticia');
+    btn.disabled = true; btn.textContent = 'Guardando...';
+
+    let imagen_url = null;
+    const archivo = document.getElementById('n_foto').files[0];
+    if (archivo) {
+      const ruta = `noticias/${Date.now()}-${archivo.name}`;
+      const { error: errSubida } = await supabase.storage.from('imagenes-sitio').upload(ruta, archivo);
+      if (errSubida) { alert('Error al subir la foto: ' + errSubida.message); btn.disabled = false; btn.textContent = 'Guardar noticia'; return; }
+      imagen_url = supabase.storage.from('imagenes-sitio').getPublicUrl(ruta).data.publicUrl;
+    }
+
     const { error } = await supabase.from('noticias').insert({
       titulo: document.getElementById('n_titulo').value,
       resumen: document.getElementById('n_resumen').value,
       cuerpo: document.getElementById('n_cuerpo').value || null,
       etiqueta: document.getElementById('n_etiqueta').value || 'Institucional',
       publicado: document.getElementById('n_publicado').checked,
+      imagen_url,
     });
+
+    btn.disabled = false; btn.textContent = 'Guardar noticia';
+
     if (!error) {
       e.target.reset();
       toggleForm('form-noticias');
@@ -441,6 +536,68 @@
     if (!confirm('¿Borrar esta noticia?')) return;
     await supabase.from('noticias').delete().eq('id', id);
     cargarNoticias();
+  };
+
+  // ---------- CIRCULARES ----------
+  async function cargarCirculares() {
+    const { data, error } = await supabase.from('circulares').select('*').order('fecha', { ascending: false });
+    const cont = document.getElementById('tabla-circulares');
+    if (error) { cont.textContent = 'Error al cargar circulares.'; return; }
+    if (!data.length) { cont.innerHTML = '<p style="color:var(--tinta-suave);font-size:13.5px;">Aún no hay circulares.</p>'; return; }
+    cont.innerHTML = `<table><thead><tr><th>Fecha</th><th>Título</th><th>Publicada</th><th>Archivo</th><th>Acciones</th></tr></thead><tbody>
+      ${data.map(c => `
+        <tr>
+          <td class="mono">${c.fecha}${c.numero ? '<br>N° ' + escapeHtml(c.numero) : ''}</td>
+          <td><strong>${escapeHtml(c.titulo)}</strong></td>
+          <td><span class="badge ${c.publicado ? 'si' : 'no'}">${c.publicado ? 'Sí' : 'No'}</span></td>
+          <td><a href="${c.archivo_url}" target="_blank" rel="noopener">Ver PDF ↗</a></td>
+          <td class="acciones">
+            <button onclick="togglePublicadaCircular('${c.id}', ${!c.publicado})">${c.publicado ? 'Ocultar' : 'Publicar'}</button>
+            <button class="borrar" onclick="borrarCircular('${c.id}')">Borrar</button>
+          </td>
+        </tr>`).join('')}
+    </tbody></table>`;
+  }
+
+  document.getElementById('form-circulares').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = document.getElementById('btnGuardarCircular');
+    btn.disabled = true; btn.textContent = 'Guardando...';
+
+    const archivo = document.getElementById('cir_archivo').files[0];
+    if (!archivo) { alert('Selecciona un archivo PDF.'); btn.disabled = false; btn.textContent = 'Guardar circular'; return; }
+
+    const ruta = `${Date.now()}-${archivo.name}`;
+    const { error: errSubida } = await supabase.storage.from('circulares-archivos').upload(ruta, archivo, { contentType: 'application/pdf' });
+    if (errSubida) { alert('Error al subir el archivo: ' + errSubida.message); btn.disabled = false; btn.textContent = 'Guardar circular'; return; }
+    const archivo_url = supabase.storage.from('circulares-archivos').getPublicUrl(ruta).data.publicUrl;
+
+    const { error } = await supabase.from('circulares').insert({
+      titulo: document.getElementById('cir_titulo').value,
+      numero: document.getElementById('cir_numero').value || null,
+      fecha: document.getElementById('cir_fecha').value,
+      descripcion: document.getElementById('cir_descripcion').value || null,
+      archivo_url,
+      publicado: document.getElementById('cir_publicado').checked,
+    });
+
+    btn.disabled = false; btn.textContent = 'Guardar circular';
+
+    if (!error) {
+      e.target.reset();
+      toggleForm('form-circulares');
+      cargarCirculares();
+    } else { alert('Error al guardar: ' + error.message); }
+  });
+
+  window.togglePublicadaCircular = async (id, valor) => {
+    await supabase.from('circulares').update({ publicado: valor }).eq('id', id);
+    cargarCirculares();
+  };
+  window.borrarCircular = async (id) => {
+    if (!confirm('¿Borrar esta circular?')) return;
+    await supabase.from('circulares').delete().eq('id', id);
+    cargarCirculares();
   };
 
   // ---------- CALENDARIO ----------
@@ -600,6 +757,154 @@
     if (!confirm('¿Borrar este documento?')) return;
     await supabase.from('documentos_institucionales').delete().eq('id', id);
     cargarDocumentos();
+  };
+
+  // ---------- GALERÍA (eventos + fotos) ----------
+  async function cargarGaleria() {
+    const { data: eventos, error } = await supabase.from('galeria_eventos').select('*').order('orden', { ascending: true });
+    const cont = document.getElementById('lista-galeria');
+    if (error) { cont.textContent = 'Error al cargar la galería.'; return; }
+    if (!eventos.length) { cont.innerHTML = '<p style="color:var(--tinta-suave);font-size:13.5px;">Aún no hay eventos.</p>'; return; }
+
+    const bloques = await Promise.all(eventos.map(async (ev) => {
+      const { data: fotos } = await supabase.from('galeria_fotos').select('*').eq('evento_id', ev.id).order('orden', { ascending: true });
+      return `
+        <div style="background:#fff;border:1px solid var(--linea);border-radius:8px;padding:20px 22px;margin-bottom:16px;">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:14px;flex-wrap:wrap;">
+            <div>
+              <span class="badge ${ev.publicado ? 'si' : 'no'}" style="margin-bottom:6px;display:inline-block;">${ev.publicado ? 'Publicado' : 'Oculto'}</span>
+              <h3 style="margin:0 0 4px;font-size:15.5px;">${escapeHtml(ev.titulo)}</h3>
+              <p style="margin:0;font-size:12.5px;color:var(--tinta-suave);">${escapeHtml(ev.fecha_texto || '')} — ${escapeHtml(ev.descripcion || '')}</p>
+            </div>
+            <div class="acciones">
+              <button onclick="toggleEventoPublicado('${ev.id}', ${!ev.publicado})">${ev.publicado ? 'Ocultar' : 'Publicar'}</button>
+              <button class="borrar" onclick="borrarEventoGaleria('${ev.id}')">Borrar evento</button>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;">
+            ${(fotos || []).map(f => `
+              <div style="position:relative;">
+                <img src="${f.imagen_url}" style="width:90px;height:70px;object-fit:cover;border-radius:6px;border:1px solid var(--linea);">
+                <button onclick="borrarFotoGaleria('${f.id}', '${ev.id}')" style="position:absolute;top:-6px;right:-6px;background:#8B2E2E;color:#fff;border:none;border-radius:50%;width:20px;height:20px;font-size:11px;cursor:pointer;">✕</button>
+              </div>
+            `).join('')}
+          </div>
+
+          <form onsubmit="return subirFotoGaleria(event, '${ev.id}')" style="margin-top:12px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+            <input type="file" accept="image/*" required style="flex:1;min-width:180px;">
+            <button type="submit" class="btn" style="padding:8px 14px;font-size:12.5px;">+ Agregar foto</button>
+          </form>
+        </div>`;
+    }));
+
+    cont.innerHTML = bloques.join('');
+  }
+
+  document.getElementById('form-evento-galeria').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const { error } = await supabase.from('galeria_eventos').insert({
+      titulo: document.getElementById('ge_titulo').value,
+      fecha_texto: document.getElementById('ge_fecha_texto').value || null,
+      descripcion: document.getElementById('ge_descripcion').value || null,
+      orden: parseInt(document.getElementById('ge_orden').value || '0', 10),
+      publicado: document.getElementById('ge_publicado').checked,
+    });
+    if (!error) {
+      e.target.reset();
+      toggleForm('form-evento-galeria');
+      cargarGaleria();
+    } else { alert('Error al guardar: ' + error.message); }
+  });
+
+  window.subirFotoGaleria = (evt, eventoId) => {
+    evt.preventDefault();
+    (async () => {
+      const input = evt.target.querySelector('input[type="file"]');
+      const archivo = input.files[0];
+      if (!archivo) return false;
+      const ruta = `galeria/${eventoId}/${Date.now()}-${archivo.name}`;
+      const { error: errSubida } = await supabase.storage.from('imagenes-sitio').upload(ruta, archivo);
+      if (errSubida) { alert('Error al subir la foto: ' + errSubida.message); return; }
+      const imagen_url = supabase.storage.from('imagenes-sitio').getPublicUrl(ruta).data.publicUrl;
+      await supabase.from('galeria_fotos').insert({ evento_id: eventoId, imagen_url, orden: 0 });
+      cargarGaleria();
+    })();
+    return false;
+  };
+
+  window.toggleEventoPublicado = async (id, valor) => {
+    await supabase.from('galeria_eventos').update({ publicado: valor }).eq('id', id);
+    cargarGaleria();
+  };
+  window.borrarEventoGaleria = async (id) => {
+    if (!confirm('¿Borrar este evento y todas sus fotos?')) return;
+    await supabase.from('galeria_eventos').delete().eq('id', id);
+    cargarGaleria();
+  };
+  window.borrarFotoGaleria = async (fotoId) => {
+    if (!confirm('¿Borrar esta foto?')) return;
+    await supabase.from('galeria_fotos').delete().eq('id', fotoId);
+    cargarGaleria();
+  };
+
+  // ---------- FOTOS DEL INICIO (hero) ----------
+  async function cargarHeroFotos() {
+    const { data, error } = await supabase.from('home_hero_fotos').select('*').order('orden', { ascending: true });
+    const cont = document.getElementById('lista-hero-fotos');
+    if (error) { cont.textContent = 'Error al cargar las fotos.'; return; }
+    if (!data.length) { cont.innerHTML = '<p style="color:var(--tinta-suave);font-size:13.5px;">Aún no hay fotos — la portada sigue mostrando las ilustraciones de ejemplo.</p>'; return; }
+    cont.innerHTML = `<div style="display:flex;gap:14px;flex-wrap:wrap;">
+      ${data.map(f => `
+        <div style="background:#fff;border:1px solid var(--linea);border-radius:8px;padding:10px;width:180px;">
+          <img src="${f.imagen_url}" style="width:100%;height:110px;object-fit:cover;border-radius:6px;margin-bottom:8px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;">
+            <span class="badge ${f.activa ? 'si' : 'no'}">${f.activa ? 'Activa' : 'Oculta'}</span>
+            <span class="mono" style="color:var(--tinta-suave);">#${f.orden}</span>
+          </div>
+          <div class="acciones" style="margin-top:8px;">
+            <button onclick="toggleHeroFotoActiva('${f.id}', ${!f.activa})" style="flex:1;">${f.activa ? 'Ocultar' : 'Activar'}</button>
+            <button class="borrar" onclick="borrarHeroFoto('${f.id}')">Borrar</button>
+          </div>
+        </div>
+      `).join('')}
+    </div>`;
+  }
+
+  document.getElementById('form-hero-foto').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = document.getElementById('btnSubirHeroFoto');
+    btn.disabled = true; btn.textContent = 'Subiendo...';
+
+    const archivo = document.getElementById('hf_archivo').files[0];
+    if (!archivo) { alert('Selecciona una imagen.'); btn.disabled = false; btn.textContent = 'Subir foto'; return; }
+
+    const ruta = `hero/${Date.now()}-${archivo.name}`;
+    const { error: errSubida } = await supabase.storage.from('imagenes-sitio').upload(ruta, archivo);
+    if (errSubida) { alert('Error al subir: ' + errSubida.message); btn.disabled = false; btn.textContent = 'Subir foto'; return; }
+    const imagen_url = supabase.storage.from('imagenes-sitio').getPublicUrl(ruta).data.publicUrl;
+
+    const { error } = await supabase.from('home_hero_fotos').insert({
+      imagen_url,
+      orden: parseInt(document.getElementById('hf_orden').value || '0', 10),
+    });
+
+    btn.disabled = false; btn.textContent = 'Subir foto';
+
+    if (!error) {
+      e.target.reset();
+      cargarHeroFotos();
+    } else { alert('Error al guardar: ' + error.message); }
+  });
+
+  window.toggleHeroFotoActiva = async (id, valor) => {
+    await supabase.from('home_hero_fotos').update({ activa: valor }).eq('id', id);
+    cargarHeroFotos();
+  };
+  window.borrarHeroFoto = async (id) => {
+    if (!confirm('¿Borrar esta foto?')) return;
+    await supabase.from('home_hero_fotos').delete().eq('id', id);
+    cargarHeroFotos();
   };
 
   // ---------- PQRSD ----------
