@@ -240,7 +240,7 @@
   .sitios-interes-banda{background:var(--verde-paramo);padding:36px 0;}
   .sitios-interes-banda h3{font-family:'Lora',serif;font-size:16px;margin:0 0 4px;font-weight:600;color:#fff;}
   .sitios-interes-banda .sub{font-size:12.5px;color:#B9C7BB;margin:0 0 18px;}
-  .sitios-fila{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px;}
+  .sitios-fila{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;}
   .sitio-btn{
     display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.06);
     border:1px solid rgba(255,255,255,.14);border-radius:7px;padding:14px 16px;
@@ -252,8 +252,7 @@
     display:flex;align-items:center;justify-content:center;flex-shrink:0;
   }
   .sitio-btn span.txt{font-size:12.5px;font-weight:600;line-height:1.35;min-width:0;overflow-wrap:break-word;}
-  @media (max-width:960px){.sitios-fila{grid-template-columns:repeat(2,minmax(0,1fr));}}
-  @media (max-width:560px){.sitios-fila{grid-template-columns:1fr;}}
+
   .noticias-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;min-width:0;}
   .noticia-card{
     background:#fff;border:1px solid var(--linea);border-radius:8px;overflow:hidden;
@@ -459,81 +458,6 @@
   </div>
 </section>
 
-<!-- ============ ACCESOS RAPIDOS ============ -->
-<section class="accesos">
-  <div class="container">
-    <div class="accesos-grid">
-
-      <div class="acceso-card">
-        <div class="acceso-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h16M4 12h10M4 18h7"/></svg>
-        </div>
-        <h3>Plataforma Académica</h3>
-        <p>Consulta notas, boletines e inasistencias. Ingreso para estudiantes, acudientes y docentes.</p>
-        <a href="https://www.gssoftwareysoluciones.com/2024/?view=index" class="acceso-link" target="_blank" rel="noopener">Ingresar →</a>
-      </div>
-
-      <div class="acceso-card">
-        <div class="acceso-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20V10l8-6 8 6v10"/><path d="M9 20v-6h6v6"/></svg>
-        </div>
-        <h3>Admisiones y Matrículas</h3>
-        <p>Requisitos, fechas clave y formularios para estudiantes nuevos y antiguos.</p>
-        <a href="/tramites-servicios.html#admisiones" class="acceso-link">Ver requisitos →</a>
-      </div>
-
-      <div class="acceso-card destaca">
-        <div class="acceso-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 10v6M2 10l10-5 10 5-10 5-10-5Z"/><path d="M6 12v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/></svg>
-        </div>
-        <h3>Formación de Maestros</h3>
-        <p>Conoce el Programa de Formación Complementaria: perfil, plan de estudios y prácticas pedagógicas.</p>
-        <a href="/formacion-maestros.html" class="acceso-link">Ver el programa →</a>
-      </div>
-
-      <div class="acceso-card">
-        <div class="acceso-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
-        </div>
-        <h3>Correo Institucional</h3>
-        <p>Acceso al correo oficial @enssanbernardo.edu.co para la comunidad educativa.</p>
-        <span class="acceso-link">Abrir correo →</span>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ============ SITIOS DE INTERÉS (banda horizontal) ============ -->
-<section class="sitios-interes-banda">
-  <div class="container">
-    <h3>Sitios de Interés</h3>
-    <p class="sub">Accesos directos a plataformas y entidades educativas.</p>
-    <div class="sitios-fila">
-      <a href="https://www.gssoftwareysoluciones.com/2024/?view=index" class="sitio-btn" target="_blank" rel="noopener">
-        <span class="icono"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h10M4 18h7"/></svg></span>
-        <span class="txt">Plataforma Académica</span>
-      </a>
-      <a href="https://practicas.enssanbernardo.edu.co" class="sitio-btn" target="_blank" rel="noopener">
-        <span class="icono"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5-10-5Z"/></svg></span>
-        <span class="txt">Portal de Prácticas</span>
-      </a>
-      <a href="https://www.cundinamarca.gov.co/dependencias/seceducacion" class="sitio-btn" target="_blank" rel="noopener">
-        <span class="icono"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg></span>
-        <span class="txt">Secretaría de Educación de Cundinamarca</span>
-      </a>
-      <a href="https://www.mineducacion.gov.co" class="sitio-btn" target="_blank" rel="noopener">
-        <span class="icono"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg></span>
-        <span class="txt">Ministerio de Educación Nacional</span>
-      </a>
-      <a href="https://www.icfes.gov.co" class="sitio-btn" target="_blank" rel="noopener">
-        <span class="icono"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span>
-        <span class="txt">ICFES</span>
-      </a>
-    </div>
-  </div>
-</section>
-
 <!-- ============ NOTICIAS Y EVENTOS ============ -->
 <section class="section">
   <div class="container">
@@ -570,6 +494,40 @@
         <h3>Calendario Escolar</h3>
         <p>Actividades y eventos destacados de la institución, organizados mes a mes.</p>
         <span class="panel-info-link">Ver calendario →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SITIOS DE INTERÉS (banda horizontal) ============ -->
+<section class="sitios-interes-banda">
+  <div class="container">
+    <h3>Sitios de Interés</h3>
+    <p class="sub">Accesos directos a plataformas y entidades educativas.</p>
+    <div class="sitios-fila">
+      <a href="https://www.gssoftwareysoluciones.com/2024/?view=index" class="sitio-btn" target="_blank" rel="noopener">
+        <span class="icono"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h10M4 18h7"/></svg></span>
+        <span class="txt">Plataforma Académica</span>
+      </a>
+      <a href="https://practicas.enssanbernardo.edu.co" class="sitio-btn" target="_blank" rel="noopener">
+        <span class="icono"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5-10-5Z"/></svg></span>
+        <span class="txt">Portal de Prácticas</span>
+      </a>
+      <a href="https://www.cundinamarca.gov.co/dependencias/seceducacion" class="sitio-btn" target="_blank" rel="noopener">
+        <span class="icono"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg></span>
+        <span class="txt">Secretaría de Educación de Cundinamarca</span>
+      </a>
+      <a href="https://www.mineducacion.gov.co" class="sitio-btn" target="_blank" rel="noopener">
+        <span class="icono"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg></span>
+        <span class="txt">Ministerio de Educación Nacional</span>
+      </a>
+      <a href="https://www.icfes.gov.co" class="sitio-btn" target="_blank" rel="noopener">
+        <span class="icono"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span>
+        <span class="txt">ICFES</span>
+      </a>
+      <a href="mailto:norsanber@enssanbernardo.edu.co" class="sitio-btn">
+        <span class="icono"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg></span>
+        <span class="txt">Correo Institucional</span>
       </a>
     </div>
   </div>
