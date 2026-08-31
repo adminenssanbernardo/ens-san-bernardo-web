@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/png" href="/img/escudo-ens.png">
-<title>Trámites y Servicios | Escuela Normal Superior de San Bernardo</title>
+<title>Galería | Escuela Normal Superior de San Bernardo</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,500&family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -194,7 +194,7 @@
   .acceso-card.destaca{background:var(--mora);color:#fff;}
   .acceso-card.destaca .acceso-icon{background:rgba(255,255,255,.18);color:#fff;}
   .acceso-card.destaca p{color:#FBF1DC;}
-  .acceso-card.destaca .acceso-link{color:var(--trigo);}
+  .acceso-card.destaca .acceso-link{color:#FBF1DC;}
 
   @media (max-width:900px){
     .accesos-grid{grid-template-columns:repeat(2,1fr);margin-top:-40px;}
@@ -219,7 +219,24 @@
   .section-head .ver-todo{font-size:14px;font-weight:600;color:var(--mora);white-space:nowrap;padding-bottom:4px;border-bottom:1.5px solid var(--mora);}
 
   /* ---------- NOTICIAS ---------- */
-  .noticias-layout{display:grid;grid-template-columns:1.6fr 1fr;gap:36px;}
+  .noticias-layout{display:grid;grid-template-columns:0.82fr 1.5fr 1fr;gap:28px;}
+  .sitios-interes{
+    background:var(--verde-paramo);border-radius:8px;padding:26px 22px;
+    display:flex;flex-direction:column;gap:10px;height:fit-content;
+  }
+  .sitios-interes h3{font-family:'Lora',serif;font-size:16px;margin:0 0 4px;font-weight:600;color:#fff;}
+  .sitios-interes .sub{font-size:12px;color:#B9C7BB;margin:0 0 10px;}
+  .sitio-btn{
+    display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.06);
+    border:1px solid rgba(255,255,255,.14);border-radius:7px;padding:12px 14px;
+    color:#fff;transition:background .15s,border-color .15s;
+  }
+  .sitio-btn:hover{background:var(--mora);border-color:var(--mora);}
+  .sitio-btn .icono{
+    width:30px;height:30px;border-radius:6px;background:var(--trigo);color:var(--verde-paramo-dark);
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  }
+  .sitio-btn span.txt{font-size:12.5px;font-weight:600;line-height:1.35;}
   .noticias-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
   .noticia-card{
     background:#fff;border:1px solid var(--linea);border-radius:8px;overflow:hidden;
@@ -286,6 +303,7 @@
   @media (max-width:860px){
     .destacado-inner{grid-template-columns:1fr;}
     .noticias-layout{grid-template-columns:1fr;}
+    .sitios-interes{order:3;}
     .noticias-grid{grid-template-columns:1fr;}
   }
 
@@ -319,7 +337,7 @@
     .footer-grid{grid-template-columns:1fr;}
   }
 
-  /* ============ PÁGINA: TRÁMITES Y SERVICIOS ============ */
+  /* ============ PÁGINA: GALERÍA ============ */
   .page-banner{background:var(--verde-paramo-dark);color:#fff;padding:56px 0 40px;position:relative;overflow:hidden;}
   .breadcrumb{font-size:13px;color:#B9C7BB;margin-bottom:16px;font-family:'JetBrains Mono',monospace;}
   .breadcrumb a{color:#B9C7BB;}
@@ -327,85 +345,44 @@
   .page-banner h1{font-size:clamp(26px,4vw,40px);margin:0 0 12px;font-weight:600;}
   .page-banner p{font-size:15.5px;color:#D8E2D9;max-width:640px;margin:0;line-height:1.6;}
 
-  .subnav{position:sticky;top:98px;z-index:40;background:var(--papel);border-bottom:1px solid var(--linea);}
-  .subnav .container{display:flex;gap:4px;overflow-x:auto;padding-top:4px;padding-bottom:4px;}
-  .subnav a{font-size:13.5px;font-weight:600;padding:12px 16px;white-space:nowrap;color:var(--tinta-suave);border-bottom:2px solid transparent;}
-  .subnav a:hover{color:var(--mora);}
-  .subnav a.active{color:var(--mora);border-bottom-color:var(--mora);}
-
   .content-section{padding:64px 0;}
   .content-section.alt{background:var(--niebla);}
-  .content-section h2{font-size:clamp(22px,3vw,28px);font-weight:600;margin:0 0 8px;}
-  .content-section .section-tag{
-    font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.1em;
-    text-transform:uppercase;color:var(--mora);margin-bottom:10px;display:block;
-  }
   .lead-text{font-size:15px;color:var(--tinta-suave);max-width:720px;margin:0 0 36px;line-height:1.65;}
 
-  /* Admisiones: pasos + requisitos */
-  .admisiones-layout{display:grid;grid-template-columns:1.3fr 1fr;gap:40px;align-items:start;}
-  .pasos-list{display:flex;flex-direction:column;gap:0;}
-  .paso-item{display:flex;gap:18px;padding:20px 0;border-top:1px solid var(--linea);}
-  .paso-item:first-child{border-top:none;}
-  .paso-num{
-    font-family:'Lora',serif;font-size:20px;font-weight:700;color:var(--mora);
-    width:36px;height:36px;border-radius:50%;border:2px solid var(--mora);
-    display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  .eventos-galeria{display:flex;flex-direction:column;gap:44px;}
+  .evento-galeria-card{
+    display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:center;
+    background:#fff;border:1px solid var(--linea);border-radius:10px;overflow:hidden;
   }
-  .paso-item h4{font-size:15px;margin:0 0 6px;font-weight:600;}
-  .paso-item p{font-size:13.5px;color:var(--tinta-suave);line-height:1.6;margin:0;}
+  .evento-galeria-card:nth-child(even){grid-template-columns:1fr 1fr;}
+  .evento-galeria-card:nth-child(even) .galeria-rotador{order:2;}
 
-  .requisitos-box{background:#fff;border:1px solid var(--linea);border-radius:8px;padding:26px 24px;}
-  .requisitos-box h3{font-family:'Lora',serif;font-size:16px;margin:0 0 14px;font-weight:600;}
-  .requisitos-box ul{margin:0;padding-left:20px;}
-  .requisitos-box li{font-size:13.5px;line-height:1.8;color:var(--tinta-suave);}
-  .nota-gratuidad{
-    margin-top:18px;padding:14px 16px;background:var(--niebla-alt);border-radius:6px;
-    font-size:12.5px;color:var(--tinta-suave);line-height:1.6;
+  .galeria-rotador{position:relative;height:280px;background:var(--verde-paramo-dark);}
+  .galeria-slide{position:absolute;inset:0;opacity:0;transition:opacity 1s ease;}
+  .galeria-slide.activa{opacity:1;}
+  .galeria-slide svg{width:100%;height:100%;display:block;}
+  .galeria-dots{position:absolute;bottom:14px;left:0;right:0;display:flex;justify-content:center;gap:6px;}
+  .galeria-dots span{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.4);}
+  .galeria-dots span.activa{background:var(--trigo);}
+  .galeria-contador{
+    position:absolute;top:14px;right:14px;background:rgba(21,42,32,.7);color:#fff;
+    font-family:'JetBrains Mono',monospace;font-size:11px;padding:4px 9px;border-radius:20px;
   }
 
-  /* Certificados */
-  .certificados-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
-  .cert-card{background:#fff;border:1px solid var(--linea);border-radius:8px;padding:24px 22px;}
-  .cert-card .icono{
-    width:36px;height:36px;border-radius:8px;background:var(--niebla-alt);
-    display:flex;align-items:center;justify-content:center;color:var(--verde-paramo);margin-bottom:12px;
+  .evento-galeria-info{padding:8px 30px 8px 0;}
+  .evento-galeria-card:nth-child(even) .evento-galeria-info{padding:8px 0 8px 30px;}
+  .evento-galeria-info .fecha{
+    font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--mora);font-weight:700;
+    text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px;display:block;
   }
-  .cert-card h3{font-size:14.5px;margin:0 0 8px;font-weight:600;}
-  .cert-card p{font-size:13px;color:var(--tinta-suave);line-height:1.6;margin:0;}
+  .evento-galeria-info h3{font-family:'Lora',serif;font-size:19px;margin:0 0 10px;font-weight:600;}
+  .evento-galeria-info p{font-size:13.5px;color:var(--tinta-suave);line-height:1.7;margin:0;}
 
-  .como-solicitar{
-    background:var(--verde-paramo);color:#fff;border-radius:8px;padding:30px 28px;margin-top:28px;
-  }
-  .como-solicitar h3{font-family:'Lora',serif;font-size:16px;margin:0 0 14px;font-weight:600;color:var(--trigo);}
-  .como-solicitar ol{margin:0;padding-left:20px;}
-  .como-solicitar li{font-size:13.5px;line-height:1.9;color:#D8E2D9;}
-
-  /* Bienestar */
-  .bienestar-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
-  .bienestar-card{
-    background:#fff;border:1px solid var(--linea);border-radius:8px;padding:22px 20px;
-    display:flex;flex-direction:column;gap:10px;
-  }
-  .bienestar-card .icono{
-    width:38px;height:38px;border-radius:8px;background:var(--mora);color:#fff;
-    display:flex;align-items:center;justify-content:center;
-  }
-  .bienestar-card h4{font-size:14.5px;margin:0;font-weight:600;font-family:'Lora',serif;}
-  .bienestar-card p{font-size:12.5px;color:var(--tinta-suave);line-height:1.6;margin:0;}
-  .bienestar-card .detalle{
-    font-size:11.5px;color:var(--verde-frailejon);font-weight:600;
-    font-family:'JetBrains Mono',monospace;
-  }
-
-  @media (max-width:900px){
-    .admisiones-layout{grid-template-columns:1fr;}
-    .certificados-grid{grid-template-columns:1fr 1fr;}
-    .bienestar-grid{grid-template-columns:1fr 1fr;}
-  }
-  @media (max-width:560px){
-    .certificados-grid{grid-template-columns:1fr;}
-    .bienestar-grid{grid-template-columns:1fr;}
+  @media (max-width:800px){
+    .evento-galeria-card, .evento-galeria-card:nth-child(even){grid-template-columns:1fr;}
+    .evento-galeria-card:nth-child(even) .galeria-rotador{order:0;}
+    .evento-galeria-info, .evento-galeria-card:nth-child(even) .evento-galeria-info{padding:0 4px;}
+    .galeria-rotador{height:220px;}
   }
 </style>
 </head>
@@ -430,8 +407,8 @@
       <a href="/oferta-educativa.html">Oferta Educativa</a>
       <a href="/formacion-maestros.html">Formación de Maestros</a>
       <a href="/proyectos-investigacion.html">Proyectos e Investigación</a>
-      <a href="/galeria.html">Galería</a>
-      <a href="/tramites-servicios.html" style="background:rgba(255,255,255,.1);">Trámites y Servicios</a>
+      <a href="/galeria.html" style="background:rgba(255,255,255,.1);">Galería</a>
+      <a href="/tramites-servicios.html">Trámites y Servicios</a>
       <a href="/contacto.html">Contacto</a>
       <a href="https://www.gssoftwareysoluciones.com/2024/?view=index" class="nav-cta" target="_blank" rel="noopener">Plataforma Académica</a>
     </nav>
@@ -441,156 +418,85 @@
 <!-- ============ BANNER DE PÁGINA ============ -->
 <section class="page-banner">
   <div class="container">
-    <div class="breadcrumb"><a href="/">Inicio</a> / Trámites y Servicios</div>
-    <h1>Trámites y Servicios</h1>
-    <p>Todo lo que familias, estudiantes y egresados necesitan para gestionar matrículas, certificados y bienestar escolar — sin tener que pasar por la secretaría en persona.</p>
+    <div class="breadcrumb"><a href="/">Inicio</a> / Galería</div>
+    <h1>Galería</h1>
+    <p>Un recorrido fotográfico por los eventos, seminarios y proyectos de la Escuela Normal Superior de San Bernardo.</p>
   </div>
 </section>
 
-<!-- ============ SUBNAV ============ -->
-<nav class="subnav">
+<!-- ============ EVENTOS CON GALERÍA ROTATIVA ============ -->
+<section class="content-section">
   <div class="container">
-    <a href="#admisiones" class="active">Admisiones y Matrículas</a>
-    <a href="#certificados">Certificados y Constancias</a>
-    <a href="#bienestar">Bienestar Estudiantil</a>
-  </div>
-</nav>
+    <p class="lead-text">Cada evento reúne varias fotografías que rotan automáticamente. Se irá actualizando después de cada actividad institucional.</p>
 
-<!-- ============ ADMISIONES Y MATRÍCULAS ============ -->
-<section class="content-section" id="admisiones">
-  <div class="container">
-    <span class="section-tag">Estudiantes nuevos y antiguos</span>
-    <h2>Admisiones y Matrículas</h2>
-    <p class="lead-text">Para la ENS, la matrícula es un contrato solemne entre la familia y la institución — un proceso que debe ser claro, completo y estar dentro del marco legal.</p>
+    <div class="eventos-galeria" id="eventosGaleria">
 
-    <div class="admisiones-layout">
-      <div class="pasos-list">
-        <div class="paso-item">
-          <span class="paso-num">1</span>
-          <div>
-            <h4>Matrícula (estudiantes nuevos)</h4>
-            <p>Se realiza una única vez, al vincular al estudiante por primera vez a la ENS, en cualquiera de sus 8 sedes o la sede principal.</p>
+      <!-- Evento 1 -->
+      <article class="evento-galeria-card">
+        <div class="galeria-rotador" data-evento="0">
+          <div class="galeria-slide activa">
+            <svg viewBox="0 0 400 280" preserveAspectRatio="xMidYMid slice"><rect width="400" height="280" fill="#4F7A5B"/><path d="M0 190 L100 150 L200 180 L300 140 L400 175 L400 280 L0 280 Z" fill="#1E3B2C"/><circle cx="120" cy="90" r="34" fill="#C9A227" opacity=".5"/></svg>
           </div>
-        </div>
-        <div class="paso-item">
-          <span class="paso-num">2</span>
-          <div>
-            <h4>Renovación (estudiantes antiguos)</h4>
-            <p>Proceso anual donde el acudiente ratifica el contrato de matrícula. Pueden incluir acuerdos académicos o de convivencia que deben cumplirse.</p>
+          <div class="galeria-slide">
+            <svg viewBox="0 0 400 280" preserveAspectRatio="xMidYMid slice"><rect width="400" height="280" fill="#6B7F45"/><rect x="60" y="120" width="280" height="120" rx="6" fill="#FAF9F4"/><rect x="60" y="120" width="280" height="18" fill="#C9A227"/></svg>
           </div>
-        </div>
-        <div class="paso-item">
-          <span class="paso-num">3</span>
-          <div>
-            <h4>Registro en plataformas oficiales</h4>
-            <p>La secretaría académica gestiona el proceso en las plataformas nacionales SIMAT y SIGES.</p>
+          <div class="galeria-slide">
+            <svg viewBox="0 0 400 280" preserveAspectRatio="xMidYMid slice"><rect width="400" height="280" fill="#1E3B2C"/><path d="M0 200 L120 160 L240 195 L400 150 L400 280 L0 280 Z" fill="#2C4E38"/><circle cx="300" cy="80" r="46" fill="#A8712A" opacity=".5"/></svg>
           </div>
+          <span class="galeria-contador">1 / 3</span>
+          <div class="galeria-dots"><span class="activa"></span><span></span><span></span></div>
         </div>
-        <div class="paso-item">
-          <span class="paso-num">4</span>
-          <div>
-            <h4>Archivo del estudiante</h4>
-            <p>Se organiza una carpeta por sede y grado con el contrato de matrícula, certificado de afiliación a EPS y diagnóstico de discapacidad (si aplica), conforme a la Ley 594 de 2000.</p>
+        <div class="evento-galeria-info">
+          <span class="fecha">Septiembre 2026</span>
+          <h3>VIII Seminario Pedagógico Normalista</h3>
+          <p>Ponencias sobre educación rural, aulas multigrado y experiencias de Escuela Nueva compartidas por maestros en formación y docentes invitados.</p>
+        </div>
+      </article>
+
+      <!-- Evento 2 -->
+      <article class="evento-galeria-card">
+        <div class="galeria-rotador" data-evento="1">
+          <div class="galeria-slide activa">
+            <svg viewBox="0 0 400 280" preserveAspectRatio="xMidYMid slice"><rect width="400" height="280" fill="#C9A227"/><path d="M0 190 L400 220 L400 280 L0 280 Z" fill="#1E3B2C" opacity=".85"/></svg>
           </div>
+          <div class="galeria-slide">
+            <svg viewBox="0 0 400 280" preserveAspectRatio="xMidYMid slice"><rect width="400" height="280" fill="#4F7A5B"/><circle cx="200" cy="120" r="60" fill="#FAF9F4" opacity=".85"/><rect x="150" y="180" width="100" height="70" rx="6" fill="#1E3B2C"/></svg>
+          </div>
+          <div class="galeria-slide">
+            <svg viewBox="0 0 400 280" preserveAspectRatio="xMidYMid slice"><rect width="400" height="280" fill="#875E1F"/><path d="M0 100 L400 60 L400 280 L0 280Z" fill="#A8712A" opacity=".6"/></svg>
+          </div>
+          <span class="galeria-contador">1 / 3</span>
+          <div class="galeria-dots"><span class="activa"></span><span></span><span></span></div>
         </div>
-      </div>
+        <div class="evento-galeria-info">
+          <span class="fecha">Septiembre 2026</span>
+          <h3>Feria PRAE: Proyectos Ambientales y Agropecuarios</h3>
+          <p>Estudiantes de básica y media presentan sus proyectos de huerta escolar, manejo de residuos y bioconversión, con la comunidad educativa como jurado.</p>
+        </div>
+      </article>
 
-      <div class="requisitos-box">
-        <h3>Documentos habituales</h3>
-        <ul>
-          <li>Registro civil o tarjeta de identidad</li>
-          <li>Certificado de afiliación a EPS</li>
-          <li>Boletín o certificado del año anterior (estudiantes nuevos)</li>
-          <li>Diagnóstico de discapacidad, si aplica</li>
-          <li>Documento de identidad del acudiente</li>
-        </ul>
-        <div class="nota-gratuidad">
-          <strong>Gratuidad:</strong> preescolar, básica y media están cubiertos por la política pública de gratuidad (Decreto 4807 de 2011). Los costos del Programa de Formación Complementaria (PFC) los fija el Consejo Directivo, sin superar un salario mínimo legal vigente.
+      <!-- Evento 3 -->
+      <article class="evento-galeria-card">
+        <div class="galeria-rotador" data-evento="2">
+          <div class="galeria-slide activa">
+            <svg viewBox="0 0 400 280" preserveAspectRatio="xMidYMid slice"><rect width="400" height="280" fill="#1E3B2C"/><path d="M40 220 L100 90 L160 220 Z" fill="#C9A227" opacity=".7"/><path d="M180 220 L240 130 L300 220 Z" fill="#4F7A5B" opacity=".8"/></svg>
+          </div>
+          <div class="galeria-slide">
+            <svg viewBox="0 0 400 280" preserveAspectRatio="xMidYMid slice"><rect width="400" height="280" fill="#6B2545" opacity=".55"/><rect width="400" height="280" fill="#1E3B2C" opacity=".5"/><circle cx="200" cy="140" r="70" fill="#FBF1DC" opacity=".2"/></svg>
+          </div>
+          <div class="galeria-slide">
+            <svg viewBox="0 0 400 280" preserveAspectRatio="xMidYMid slice"><rect width="400" height="280" fill="#4F7A5B"/><rect x="40" y="60" width="320" height="160" rx="8" fill="#FAF9F4" opacity=".9"/><rect x="40" y="60" width="320" height="24" fill="#C9A227"/></svg>
+          </div>
+          <span class="galeria-contador">1 / 3</span>
+          <div class="galeria-dots"><span class="activa"></span><span></span><span></span></div>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
+        <div class="evento-galeria-info">
+          <span class="fecha">Noviembre 2026</span>
+          <h3>Clausura del Programa de Formación Complementaria</h3>
+          <p>Grado de nuevos maestros normalistas — un cierre de ciclo que celebra cuatro semestres de formación pedagógica, investigativa y de práctica rural.</p>
+        </div>
+      </article>
 
-<!-- ============ CERTIFICADOS Y CONSTANCIAS ============ -->
-<section class="content-section alt" id="certificados">
-  <div class="container">
-    <span class="section-tag">Alumnos activos y egresados</span>
-    <h2>Certificados y Constancias</h2>
-    <p class="lead-text">Gestionados por la secretaría académica, con base en los archivos oficiales de calificaciones y matrícula de cada estudiante.</p>
-
-    <div class="certificados-grid">
-      <div class="cert-card">
-        <div class="icono">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/></svg>
-        </div>
-        <h3>Certificado de estudio</h3>
-        <p>Constancia de los grados cursados, para alumnos activos y egresados, desde preescolar hasta el PFC.</p>
-      </div>
-      <div class="cert-card">
-        <div class="icono">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-        </div>
-        <h3>Boletines y notas</h3>
-        <p>Copia de boletines por periodo, con base en los libros de calificaciones firmados anualmente.</p>
-      </div>
-      <div class="cert-card">
-        <div class="icono">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-        </div>
-        <h3>Actas y constancias</h3>
-        <p>Actas de grado y constancias varias, expedidas desde la secretaría académica de la institución.</p>
-      </div>
-    </div>
-
-    <div class="como-solicitar">
-      <h3>Cómo solicitarlo</h3>
-      <ol>
-        <li>Acércate o escribe a la secretaría académica de la sede principal (Km 1, vía La Unchía).</li>
-        <li>Indica el nombre completo, documento de identidad, grado(s) y periodo que necesitas certificar.</li>
-        <li>Los tiempos de entrega dependen de la disponibilidad del archivo físico de la institución.</li>
-      </ol>
-    </div>
-  </div>
-</section>
-
-<!-- ============ BIENESTAR ESTUDIANTIL ============ -->
-<section class="content-section" id="bienestar">
-  <div class="container">
-    <span class="section-tag">Acompañamiento integral</span>
-    <h2>Bienestar Estudiantil</h2>
-    <p class="lead-text">Servicios de apoyo que acompañan a la comunidad educativa más allá del aula.</p>
-
-    <div class="bienestar-grid">
-      <div class="bienestar-card">
-        <div class="icono">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2a5 5 0 0 1 5 5v2a5 5 0 0 1-10 0V7a5 5 0 0 1 5-5Z"/><path d="M8 21h8M12 17v4"/></svg>
-        </div>
-        <h4>Orientación Escolar</h4>
-        <p>Acompañamiento a estudiantes y familias, escuelas de padres y talleres sobre educación, crianza y desarrollo.</p>
-        <span class="detalle">1 orientadora</span>
-      </div>
-      <div class="bienestar-card">
-        <div class="icono">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 11l18-5v12L3 14v-3Z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg>
-        </div>
-        <h4>Restaurante Escolar (PAE)</h4>
-        <p>Programa de Alimentación Escolar en todas las sedes, con Comité de Alimentación Escolar (CAE) y menú según lineamientos del MEN.</p>
-      </div>
-      <div class="bienestar-card">
-        <div class="icono">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="1" y="6" width="15" height="12" rx="2"/><path d="M16 10h4l3 4v4h-7"/><circle cx="5.5" cy="18.5" r="1.5"/><circle cx="18.5" cy="18.5" r="1.5"/></svg>
-        </div>
-        <h4>Transporte Escolar</h4>
-        <p>Rutas focalizadas para preescolar, básica primaria y media en las sedes Santa Rita, Pirineos Bajo, La Anexa y la sede principal.</p>
-      </div>
-      <div class="bienestar-card">
-        <div class="icono">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2h12v20l-6-4-6 4V2Z"/></svg>
-        </div>
-        <h4>Tienda Escolar</h4>
-        <p>Contratista seleccionado por licitación pública, con oferta de alimentos saludables y precios accesibles para los estudiantes.</p>
-      </div>
     </div>
   </div>
 </section>
@@ -669,7 +575,23 @@
     toggle.setAttribute('aria-expanded', isOpen);
   });
 
-  // Esta página no tiene carrusel de hero — nada más que hacer aquí.
+  // Rotación automática independiente para cada evento de la galería
+  document.querySelectorAll('.galeria-rotador').forEach((rotador) => {
+    const slides = rotador.querySelectorAll('.galeria-slide');
+    const dots = rotador.querySelectorAll('.galeria-dots span');
+    const contador = rotador.querySelector('.galeria-contador');
+    let actual = 0;
+    if (slides.length < 2) return;
+
+    setInterval(() => {
+      slides[actual].classList.remove('activa');
+      dots[actual].classList.remove('activa');
+      actual = (actual + 1) % slides.length;
+      slides[actual].classList.add('activa');
+      dots[actual].classList.add('activa');
+      if (contador) contador.textContent = (actual + 1) + ' / ' + slides.length;
+    }, 3500);
+  });
 </script>
 
 <script src="/js/cms.js" defer></script>
