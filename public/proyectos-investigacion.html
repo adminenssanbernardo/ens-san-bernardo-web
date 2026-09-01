@@ -95,12 +95,18 @@
     .brand-name .title{font-size:16px;}
     .brand-name .subtitle{font-size:11.5px;}
   }
-  nav.primary{display:flex;gap:2px;align-items:center;}
+  nav.primary{display:flex;gap:4px;align-items:center;}
   nav.primary a{
-    font-size:14.5px;font-weight:500;padding:10px 14px;border-radius:var(--radius);
-    transition:background .15s;white-space:nowrap;
+    position:relative;font-size:13px;font-weight:600;padding:10px 13px;
+    letter-spacing:.03em;color:#E4EAE5;transition:color .2s;white-space:nowrap;
   }
-  nav.primary a:hover{background:rgba(255,255,255,.08);}
+  nav.primary a::after{
+    content:"";position:absolute;left:13px;right:13px;bottom:6px;height:2px;
+    background:var(--trigo);transform:scaleX(0);transform-origin:center;
+    transition:transform .25s ease;
+  }
+  nav.primary a:hover{color:#fff;}
+  nav.primary a:hover::after{transform:scaleX(1);}
   .nav-cta{
     background:var(--mora);color:#fff !important;font-weight:600;
     padding:9px 16px !important;

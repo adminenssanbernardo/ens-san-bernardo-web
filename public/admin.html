@@ -136,6 +136,8 @@
     <button data-panel="calendario">Calendario</button>
     <button data-panel="galeria">Galería</button>
     <button data-panel="hero">Fotos del Inicio</button>
+    <button data-panel="novedades-docentes">Novedades Docentes</button>
+    <button data-panel="permisos-docentes">Permisos Docentes</button>
     <button data-panel="directorio">Directorio</button>
     <button data-panel="documentos">Documentos</button>
     <button data-panel="pqrsd">PQRSD</button>
@@ -345,6 +347,34 @@
       <div id="lista-hero-fotos">Cargando…</div>
     </section>
 
+    <!-- NOVEDADES DOCENTES -->
+    <section class="panel" id="panel-novedades-docentes">
+      <div class="panel-head">
+        <h2>Novedades Docentes</h2>
+        <button class="btn" onclick="toggleForm('form-novedad-docente')">+ Nueva novedad</button>
+      </div>
+      <p style="font-size:13.5px;color:var(--tinta-suave);margin:-8px 0 22px;max-width:640px;">
+        Solo visibles para docentes con sesión iniciada en el Portal Docente.
+      </p>
+      <form class="form-nuevo" id="form-novedad-docente">
+        <h3>Nueva novedad para docentes</h3>
+        <div class="campo"><label>Título</label><input type="text" id="nd_titulo" required></div>
+        <div class="campo"><label>Mensaje</label><textarea id="nd_cuerpo" rows="3" required></textarea></div>
+        <div class="campo"><label><input type="checkbox" id="nd_publicado" checked style="width:auto;"> Publicar inmediatamente</label></div>
+        <div class="form-acciones">
+          <button type="submit" class="btn">Guardar novedad</button>
+          <button type="button" class="btn secundario" onclick="toggleForm('form-novedad-docente')">Cancelar</button>
+        </div>
+      </form>
+      <div id="tabla-novedades-docentes">Cargando…</div>
+    </section>
+
+    <!-- PERMISOS DOCENTES -->
+    <section class="panel" id="panel-permisos-docentes">
+      <div class="panel-head"><h2>Solicitudes de Permisos de Docentes</h2></div>
+      <div id="tabla-permisos-docentes">Cargando…</div>
+    </section>
+
     <!-- PQRSD -->
     <section class="panel" id="panel-pqrsd">
       <div class="panel-head"><h2>Solicitudes PQRSD</h2></div>
@@ -433,6 +463,8 @@
     cargarDocumentos();
     cargarGaleria();
     cargarHeroFotos();
+    cargarNovedadesDocentes();
+    cargarPermisosDocentes();
     cargarPQRSD();
   }
 
@@ -905,6 +937,77 @@
     if (!confirm('¿Borrar esta foto?')) return;
     await supabase.from('home_hero_fotos').delete().eq('id', id);
     cargarHeroFotos();
+  };
+
+  // ---------- NOVEDADES DOCENTES ----------
+  async function cargarNovedadesDocentes() {
+    const { data, error } = await supabase.from('novedades_docentes').select('*').order('creado_en', { ascending: false });
+    const cont = document.getElementById('tabla-novedades-docentes');
+    if (error) { cont.textContent = 'Error al cargar novedades.'; return; }
+    if (!data.length) { cont.innerHTML = '<p style="color:var(--tinta-suave);font-size:13.5px;">Aún no hay novedades para docentes.</p>'; return; }
+    cont.innerHTML = `<table><thead><tr><th>Título</th><th>Publicada</th><th>Acciones</th></tr></thead><tbody>
+      ${data.map(n => `
+        <tr>
+          <td><strong>${escapeHtml(n.titulo)}</strong><br><span style="color:var(--tinta-suave);font-size:12px;">${escapeHtml(n.cuerpo)}</span></td>
+          <td><span class="badge ${n.publicado ? 'si' : 'no'}">${n.publicado ? 'Sí' : 'No'}</span></td>
+          <td class="acciones">
+            <button onclick="toggleNovedadDocente('${n.id}', ${!n.publicado})">${n.publicado ? 'Ocultar' : 'Publicar'}</button>
+            <button class="borrar" onclick="borrarNovedadDocente('${n.id}')">Borrar</button>
+          </td>
+        </tr>`).join('')}
+    </tbody></table>`;
+  }
+
+  document.getElementById('form-novedad-docente').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const { error } = await supabase.from('novedades_docentes').insert({
+      titulo: document.getElementById('nd_titulo').value,
+      cuerpo: document.getElementById('nd_cuerpo').value,
+      publicado: document.getElementById('nd_publicado').checked,
+    });
+    if (!error) {
+      e.target.reset();
+      toggleForm('form-novedad-docente');
+      cargarNovedadesDocentes();
+    } else { alert('Error al guardar: ' + error.message); }
+  });
+
+  window.toggleNovedadDocente = async (id, valor) => {
+    await supabase.from('novedades_docentes').update({ publicado: valor }).eq('id', id);
+    cargarNovedadesDocentes();
+  };
+  window.borrarNovedadDocente = async (id) => {
+    if (!confirm('¿Borrar esta novedad?')) return;
+    await supabase.from('novedades_docentes').delete().eq('id', id);
+    cargarNovedadesDocentes();
+  };
+
+  // ---------- PERMISOS DOCENTES ----------
+  async function cargarPermisosDocentes() {
+    const { data, error } = await supabase.from('permisos_solicitudes').select('*').order('creado_en', { ascending: false });
+    const cont = document.getElementById('tabla-permisos-docentes');
+    if (error) { cont.textContent = 'Error al cargar solicitudes: ' + error.message; return; }
+    if (!data.length) { cont.innerHTML = '<p style="color:var(--tinta-suave);font-size:13.5px;">Aún no hay solicitudes de permiso.</p>'; return; }
+    cont.innerHTML = `<table><thead><tr><th>Docente</th><th>Tipo</th><th>Fechas</th><th>Motivo</th><th>Estado</th></tr></thead><tbody>
+      ${data.map(p => `
+        <tr>
+          <td><strong>${escapeHtml(p.nombre_docente)}</strong><br><span style="color:var(--tinta-suave);font-size:12px;">${escapeHtml(p.correo_docente)}</span></td>
+          <td>${escapeHtml(p.tipo)}</td>
+          <td class="mono">${p.fecha_inicio}<br>→ ${p.fecha_fin}</td>
+          <td>${escapeHtml(p.motivo || '')}</td>
+          <td>
+            <select onchange="cambiarEstadoPermiso('${p.id}', this.value)">
+              <option value="pendiente" ${p.estado === 'pendiente' ? 'selected' : ''}>Pendiente</option>
+              <option value="aprobado" ${p.estado === 'aprobado' ? 'selected' : ''}>Aprobado</option>
+              <option value="rechazado" ${p.estado === 'rechazado' ? 'selected' : ''}>Rechazado</option>
+            </select>
+          </td>
+        </tr>`).join('')}
+    </tbody></table>`;
+  }
+
+  window.cambiarEstadoPermiso = async (id, estado) => {
+    await supabase.from('permisos_solicitudes').update({ estado }).eq('id', id);
   };
 
   // ---------- PQRSD ----------

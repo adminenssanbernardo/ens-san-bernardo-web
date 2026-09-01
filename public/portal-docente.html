@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portal Docente | Escuela Normal Superior de San Bernardo</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/png" href="/img/escudo-ens.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,600;0,700&family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --verde-paramo:#1E3B2C; --verde-paramo-dark:#152A20; --verde-frailejon:#4F7A5B;
+    --mora:#A8712A; --trigo:#C9A227; --niebla:#EDEDE3; --niebla-alt:#E4E4D6;
+    --papel:#FAF9F4; --tinta:#21261F; --tinta-suave:#4A5248; --linea:#D8D8C8;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:'Public Sans',sans-serif;background:var(--papel);color:var(--tinta);}
+  h1,h2,h3{font-family:'Lora',serif;}
+  .mono{font-family:'JetBrains Mono',monospace;}
+
+  #loginScreen{
+    min-height:100vh;display:flex;align-items:center;justify-content:center;
+    background:var(--verde-paramo-dark);padding:20px;
+  }
+  .login-box{
+    background:#fff;border-radius:10px;padding:40px 36px;max-width:380px;width:100%;
+    box-shadow:0 20px 50px -20px rgba(0,0,0,.5);text-align:center;
+  }
+  .login-box .escudo{width:60px;margin:0 auto 16px;display:block;filter:drop-shadow(0 2px 6px rgba(0,0,0,.25));}
+  .login-box h1{font-size:19px;margin:0 0 6px;}
+  .login-box .sub{font-size:13px;color:var(--tinta-suave);margin:0 0 26px;}
+  .campo{margin-bottom:16px;text-align:left;}
+  .campo label{display:block;font-size:12.5px;font-weight:600;margin-bottom:6px;}
+  .campo input, .campo select, .campo textarea{
+    width:100%;padding:10px 12px;border:1px solid var(--linea);border-radius:6px;
+    font-family:inherit;font-size:13.5px;background:var(--papel);
+  }
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:6px;
+    background:var(--mora);color:#fff;font-weight:700;font-size:13.5px;
+    padding:11px 18px;border:none;border-radius:6px;cursor:pointer;
+  }
+  .btn:hover{background:#875E1F;}
+  .btn.secundario{background:var(--niebla-alt);color:var(--tinta);}
+  .btn:disabled{background:var(--linea);color:var(--tinta-suave);cursor:not-allowed;}
+  .btn-full{width:100%;}
+  .error-msg{background:#F8DEDE;color:#8B2E2E;font-size:12.5px;padding:10px 12px;border-radius:6px;margin-top:12px;display:none;text-align:left;}
+  .ok-msg{background:#E3EFE5;color:#1E3B2C;font-size:12.5px;padding:10px 12px;border-radius:6px;margin-top:12px;display:none;text-align:left;}
+
+  #app{display:none;min-height:100vh;}
+  header.app-header{
+    background:var(--verde-paramo-dark);color:#fff;padding:14px 24px;
+    display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;
+  }
+  header.app-header h1{font-size:15.5px;margin:0;color:#fff;}
+  header.app-header .quien{font-size:12px;color:#B9C7BB;}
+  .tabs{display:flex;gap:2px;background:var(--verde-paramo);padding:0 16px;overflow-x:auto;}
+  .tabs button{
+    background:none;border:none;color:#D8E2D9;font-size:13.5px;font-weight:600;
+    padding:13px 16px;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;
+  }
+  .tabs button.active{color:#fff;border-bottom-color:var(--trigo);}
+  main{max-width:900px;margin:0 auto;padding:32px 24px 80px;}
+  .panel{display:none;}
+  .panel.active{display:block;}
+  .panel-head{margin-bottom:18px;}
+  .panel-head h2{font-size:19px;margin:0;}
+
+  .novedad-card{background:#fff;border:1px solid var(--linea);border-left:3px solid var(--trigo);border-radius:8px;padding:20px 22px;margin-bottom:14px;}
+  .novedad-card h3{font-size:15px;margin:0 0 6px;font-weight:600;}
+  .novedad-card p{font-size:13.5px;color:var(--tinta-suave);margin:0 0 8px;line-height:1.6;}
+  .novedad-card .fecha{font-size:11.5px;color:var(--tinta-suave);font-family:'JetBrains Mono',monospace;}
+
+  .form-permiso{background:#fff;border:1px solid var(--linea);border-radius:8px;padding:24px 26px;margin-bottom:26px;}
+  .form-permiso h3{font-size:16px;margin:0 0 16px;}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+
+  table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--linea);border-radius:8px;overflow:hidden;font-size:13px;}
+  table th{background:var(--niebla);text-align:left;padding:10px 12px;font-size:11.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--tinta-suave);}
+  table td{padding:10px 12px;border-top:1px solid var(--linea);vertical-align:top;}
+  .badge{font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:10px;text-transform:uppercase;}
+  .badge.pendiente{background:#F5E9D4;color:#8A6417;}
+  .badge.aprobado{background:#E3EFE5;color:#1E3B2C;}
+  .badge.rechazado{background:#F8DEDE;color:#8B2E2E;}
+  .estado-vacio{color:var(--tinta-suave);font-size:13.5px;}
+
+  @media (max-width:600px){.grid2{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<!-- ============ LOGIN ============ -->
+<div id="loginScreen">
+  <div class="login-box">
+    <img src="/img/escudo-ens.png" class="escudo" alt="">
+    <h1>Portal Docente</h1>
+    <p class="sub">Escuela Normal Superior de San Bernardo</p>
+    <form id="formLogin">
+      <div class="campo">
+        <label for="loginEmail">Correo institucional</label>
+        <input type="email" id="loginEmail" required autocomplete="username">
+      </div>
+      <div class="campo">
+        <label for="loginPass">Contraseña</label>
+        <input type="password" id="loginPass" required autocomplete="current-password">
+      </div>
+      <button type="submit" class="btn btn-full" id="btnLogin">Ingresar</button>
+      <div class="error-msg" id="loginError"></div>
+    </form>
+  </div>
+</div>
+
+<!-- ============ APP ============ -->
+<div id="app">
+  <header class="app-header">
+    <h1>Portal Docente — ENS San Bernardo</h1>
+    <div style="display:flex;align-items:center;gap:14px;">
+      <span class="quien" id="quienSoy"></span>
+      <button class="btn secundario" id="btnLogout" style="padding:7px 14px;font-size:12.5px;">Cerrar sesión</button>
+    </div>
+  </header>
+
+  <nav class="tabs">
+    <button data-panel="novedades" class="active">Novedades</button>
+    <button data-panel="permisos">Mis Solicitudes de Permiso</button>
+  </nav>
+
+  <main>
+    <!-- NOVEDADES -->
+    <section class="panel active" id="panel-novedades">
+      <div class="panel-head"><h2>Novedades para docentes</h2></div>
+      <div id="lista-novedades">Cargando…</div>
+    </section>
+
+    <!-- PERMISOS -->
+    <section class="panel" id="panel-permisos">
+      <div class="panel-head"><h2>Mis Solicitudes de Permiso</h2></div>
+
+      <form class="form-permiso" id="formPermiso">
+        <h3>Nueva solicitud</h3>
+        <div class="grid2">
+          <div class="campo">
+            <label>Tipo de permiso</label>
+            <select id="p_tipo" required>
+              <option value="personal">Personal</option>
+              <option value="enfermedad">Enfermedad / incapacidad</option>
+              <option value="luto">Luto</option>
+              <option value="estudio">Estudio / capacitación</option>
+              <option value="otro">Otro</option>
+            </select>
+          </div>
+          <div class="campo"><label>Nombre completo</label><input type="text" id="p_nombre" required></div>
+        </div>
+        <div class="grid2">
+          <div class="campo"><label>Fecha de inicio</label><input type="date" id="p_fecha_inicio" required></div>
+          <div class="campo"><label>Fecha de fin</label><input type="date" id="p_fecha_fin" required></div>
+        </div>
+        <div class="campo"><label>Motivo</label><textarea id="p_motivo" rows="3" required></textarea></div>
+        <button type="submit" class="btn" id="btnEnviarPermiso">Enviar solicitud</button>
+        <div class="ok-msg" id="permisoOk">Solicitud enviada correctamente.</div>
+        <div class="error-msg" id="permisoError"></div>
+      </form>
+
+      <div id="tabla-mis-permisos">Cargando…</div>
+    </section>
+  </main>
+</div>
+
+<script type="module">
+  import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+
+  const SUPABASE_URL = 'https://wvckbobdqnmeazupbnmy.supabase.co';
+  const SUPABASE_ANON_KEY = 'sb_publishable_4SJlfq5wUs6j8FNBb0Dxkg_tVPrTbHp';
+  const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  const loginScreen = document.getElementById('loginScreen');
+  const app = document.getElementById('app');
+  let sesionActual = null;
+
+  function escapeHtml(str) {
+    if (!str) return '';
+    return String(str).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+  }
+
+  async function checkSession() {
+    const { data: { session } } = await supabase.auth.getSession();
+    if (session) mostrarApp(session);
+  }
+
+  async function mostrarApp(session) {
+    sesionActual = session;
+    loginScreen.style.display = 'none';
+    app.style.display = 'block';
+    document.getElementById('quienSoy').textContent = session.user.email;
+
+    // Asegura que exista un perfil (docente por defecto) para este usuario
+    await supabase.from('perfiles').upsert(
+      { id: session.user.id, nombre: session.user.email.split('@')[0] },
+      { onConflict: 'id', ignoreDuplicates: true }
+    );
+
+    cargarNovedades();
+    cargarMisPermisos();
+  }
+
+  document.getElementById('formLogin').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = document.getElementById('btnLogin');
+    const err = document.getElementById('loginError');
+    btn.disabled = true; btn.textContent = 'Ingresando...'; err.style.display = 'none';
+
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: document.getElementById('loginEmail').value,
+      password: document.getElementById('loginPass').value,
+    });
+
+    if (error) {
+      err.textContent = 'Correo o contraseña incorrectos.';
+      err.style.display = 'block';
+      btn.disabled = false; btn.textContent = 'Ingresar';
+    } else {
+      mostrarApp(data.session);
+    }
+  });
+
+  document.getElementById('btnLogout').addEventListener('click', async () => {
+    await supabase.auth.signOut();
+    location.reload();
+  });
+
+  checkSession();
+
+  document.querySelectorAll('.tabs button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tabs button').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('panel-' + btn.dataset.panel).classList.add('active');
+    });
+  });
+
+  // ---------- NOVEDADES ----------
+  async function cargarNovedades() {
+    const { data, error } = await supabase.from('novedades_docentes').select('*').order('creado_en', { ascending: false });
+    const cont = document.getElementById('lista-novedades');
+    if (error) { cont.innerHTML = '<p class="estado-vacio">No se pudieron cargar las novedades.</p>'; return; }
+    if (!data.length) { cont.innerHTML = '<p class="estado-vacio">No hay novedades por ahora.</p>'; return; }
+    cont.innerHTML = data.map(n => `
+      <div class="novedad-card">
+        <h3>${escapeHtml(n.titulo)}</h3>
+        <p>${escapeHtml(n.cuerpo)}</p>
+        <span class="fecha">${new Date(n.creado_en).toLocaleDateString('es-CO', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
+      </div>
+    `).join('');
+  }
+
+  // ---------- MIS PERMISOS ----------
+  async function cargarMisPermisos() {
+    const { data, error } = await supabase.from('permisos_solicitudes')
+      .select('*').eq('docente_id', sesionActual.user.id).order('creado_en', { ascending: false });
+    const cont = document.getElementById('tabla-mis-permisos');
+    if (error) { cont.innerHTML = '<p class="estado-vacio">No se pudieron cargar tus solicitudes.</p>'; return; }
+    if (!data.length) { cont.innerHTML = '<p class="estado-vacio">Aún no has enviado ninguna solicitud.</p>'; return; }
+    cont.innerHTML = `<table><thead><tr><th>Fechas</th><th>Tipo</th><th>Motivo</th><th>Estado</th></tr></thead><tbody>
+      ${data.map(p => `
+        <tr>
+          <td class="mono">${p.fecha_inicio} → ${p.fecha_fin}</td>
+          <td>${escapeHtml(p.tipo)}</td>
+          <td>${escapeHtml(p.motivo || '')}${p.respuesta_admin ? `<br><em style="color:var(--tinta-suave);">Respuesta: ${escapeHtml(p.respuesta_admin)}</em>` : ''}</td>
+          <td><span class="badge ${p.estado}">${p.estado}</span></td>
+        </tr>
+      `).join('')}
+    </tbody></table>`;
+  }
+
+  document.getElementById('formPermiso').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = document.getElementById('btnEnviarPermiso');
+    const ok = document.getElementById('permisoOk');
+    const err = document.getElementById('permisoError');
+    btn.disabled = true; btn.textContent = 'Enviando...'; ok.style.display = 'none'; err.style.display = 'none';
+
+    const { error } = await supabase.from('permisos_solicitudes').insert({
+      docente_id: sesionActual.user.id,
+      nombre_docente: document.getElementById('p_nombre').value,
+      correo_docente: sesionActual.user.email,
+      tipo: document.getElementById('p_tipo').value,
+      fecha_inicio: document.getElementById('p_fecha_inicio').value,
+      fecha_fin: document.getElementById('p_fecha_fin').value,
+      motivo: document.getElementById('p_motivo').value,
+    });
+
+    btn.disabled = false; btn.textContent = 'Enviar solicitud';
+
+    if (!error) {
+      e.target.reset();
+      ok.style.display = 'block';
+      cargarMisPermisos();
+    } else {
+      err.textContent = 'No se pudo enviar la solicitud: ' + error.message;
+      err.style.display = 'block';
+    }
+  });
+</script>
+
+</body>
+</html>

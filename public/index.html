@@ -95,12 +95,18 @@
     .brand-name .title{font-size:16px;}
     .brand-name .subtitle{font-size:11.5px;}
   }
-  nav.primary{display:flex;gap:2px;align-items:center;}
+  nav.primary{display:flex;gap:4px;align-items:center;}
   nav.primary a{
-    font-size:14.5px;font-weight:500;padding:10px 14px;border-radius:var(--radius);
-    transition:background .15s;white-space:nowrap;
+    position:relative;font-size:13px;font-weight:600;padding:10px 13px;
+    letter-spacing:.03em;color:#E4EAE5;transition:color .2s;white-space:nowrap;
   }
-  nav.primary a:hover{background:rgba(255,255,255,.08);}
+  nav.primary a::after{
+    content:"";position:absolute;left:13px;right:13px;bottom:6px;height:2px;
+    background:var(--trigo);transform:scaleX(0);transform-origin:center;
+    transition:transform .25s ease;
+  }
+  nav.primary a:hover{color:#fff;}
+  nav.primary a:hover::after{transform:scaleX(1);}
   .nav-cta{
     background:var(--mora);color:#fff !important;font-weight:600;
     padding:9px 16px !important;
@@ -222,18 +228,20 @@
   .noticias-layout{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:36px;}
 
   .paneles-info-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;}
+  .prensa-banda{background:var(--niebla);padding:34px 0;}
   .panel-info-card{
-    background:#fff;border:1px solid var(--linea);border-radius:8px;padding:28px 26px;
-    display:flex;flex-direction:column;gap:10px;transition:transform .18s,box-shadow .18s;
+    background:#fff;border:1px solid var(--linea);border-top:3px solid var(--mora);border-radius:8px;padding:24px 24px 22px;
+    display:flex;flex-direction:column;gap:9px;transition:transform .18s,box-shadow .18s,border-color .18s;
   }
-  .panel-info-card:hover{transform:translateY(-3px);box-shadow:0 16px 28px -18px rgba(30,59,44,.35);}
+  .panel-info-card:hover{transform:translateY(-4px);box-shadow:0 18px 32px -16px rgba(30,59,44,.4);border-top-color:var(--trigo);}
   .panel-info-icono{
-    width:44px;height:44px;border-radius:8px;background:var(--niebla-alt);color:var(--verde-paramo);
+    width:42px;height:42px;border-radius:50%;background:var(--verde-paramo);color:var(--trigo);
     display:flex;align-items:center;justify-content:center;
   }
-  .panel-info-card h3{font-family:'Lora',serif;font-size:17px;margin:6px 0 0;font-weight:600;}
-  .panel-info-card p{font-size:13.5px;color:var(--tinta-suave);line-height:1.6;margin:0;flex:1;}
+  .panel-info-card h3{font-family:'Lora',serif;font-size:16.5px;margin:4px 0 0;font-weight:700;}
+  .panel-info-card p{font-size:13px;color:var(--tinta-suave);line-height:1.6;margin:0;flex:1;}
   .panel-info-link{font-size:13px;font-weight:700;color:var(--mora);}
+  .panel-info-card:hover .panel-info-link{color:#875E1F;}
   @media (max-width:860px){.paneles-info-grid{grid-template-columns:1fr;}}
 
   /* Sitios de Interés (banda horizontal) */
@@ -459,15 +467,8 @@
 </section>
 
 <!-- ============ NOTICIAS Y EVENTOS ============ -->
-<section class="section">
+<section class="prensa-banda">
   <div class="container">
-    <div class="section-head">
-      <div>
-        <div class="section-eyebrow">Sala de prensa</div>
-        <h2>Noticias, circulares y calendario escolar</h2>
-      </div>
-    </div>
-
     <div class="paneles-info-grid">
       <a href="/noticias.html" class="panel-info-card">
         <div class="panel-info-icono">
@@ -524,6 +525,10 @@
       <a href="https://www.icfes.gov.co" class="sitio-btn" target="_blank" rel="noopener">
         <span class="icono"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span>
         <span class="txt">ICFES</span>
+      </a>
+      <a href="/portal-docente.html" class="sitio-btn">
+        <span class="icono"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 14a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg></span>
+        <span class="txt">Portal Docente</span>
       </a>
       <a href="mailto:norsanber@enssanbernardo.edu.co" class="sitio-btn">
         <span class="icono"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg></span>
