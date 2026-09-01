@@ -73,6 +73,10 @@
   .novedad-card .fecha{font-size:11.5px;color:var(--tinta-suave);font-family:'JetBrains Mono',monospace;}
 
   .form-permiso{background:#fff;border:1px solid var(--linea);border-radius:8px;padding:24px 26px;margin-bottom:26px;}
+  .alerta-perfil{
+    background:#F5E9D4;color:#8A6417;border:1px solid #E8D2A0;border-radius:8px;
+    padding:14px 18px;font-size:13.5px;margin-bottom:20px;font-weight:600;
+  }
   .form-permiso h3{font-size:16px;margin:0 0 16px;}
   .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
 
@@ -122,13 +126,48 @@
   </header>
 
   <nav class="tabs">
-    <button data-panel="novedades" class="active">Novedades</button>
+    <button data-panel="cuenta" class="active">Mi Cuenta</button>
+    <button data-panel="novedades">Novedades</button>
     <button data-panel="permisos">Mis Solicitudes de Permiso</button>
   </nav>
 
   <main>
+    <!-- MI CUENTA -->
+    <section class="panel active" id="panel-cuenta">
+      <div class="panel-head"><h2>Mi Cuenta</h2></div>
+
+      <div class="alerta-perfil" id="alertaPerfilIncompleto" style="display:none;">
+        Antes de continuar, completa tus datos básicos — solo toma un minuto.
+      </div>
+
+      <form id="formCuenta" class="form-permiso">
+        <h3>Datos básicos</h3>
+        <div class="grid2">
+          <div class="campo"><label>Nombre completo</label><input type="text" id="c_nombre" required></div>
+          <div class="campo"><label>Correo (no editable)</label><input type="email" id="c_correo" disabled></div>
+        </div>
+        <div class="grid2">
+          <div class="campo"><label>Documento de identidad</label><input type="text" id="c_documento"></div>
+          <div class="campo"><label>Cargo / área</label><input type="text" id="c_cargo" placeholder="Docente Básica Primaria, Coordinador..."></div>
+        </div>
+        <div class="campo"><label>Teléfono de contacto</label><input type="text" id="c_telefono"></div>
+
+        <div style="border-top:1px solid var(--linea);margin:22px 0 18px;padding-top:18px;">
+          <h3 style="margin:0 0 6px;">Actos administrativos</h3>
+          <p style="font-size:12.5px;color:var(--tinta-suave);margin:0 0 12px;">
+            Pega el enlace a la carpeta o documento de Google Drive donde tienes tus actos administrativos (nombramiento, traslados, etc.). Asegúrate de que el enlace permita "Cualquiera con el enlace puede ver".
+          </p>
+          <div class="campo"><label>Enlace de Google Drive</label><input type="url" id="c_drive" placeholder="https://drive.google.com/..."></div>
+        </div>
+
+        <button type="submit" class="btn" id="btnActualizarDatos">Actualizar datos</button>
+        <div class="ok-msg" id="cuentaOk">Datos actualizados correctamente.</div>
+        <div class="error-msg" id="cuentaError"></div>
+      </form>
+    </section>
+
     <!-- NOVEDADES -->
-    <section class="panel active" id="panel-novedades">
+    <section class="panel" id="panel-novedades">
       <div class="panel-head"><h2>Novedades para docentes</h2></div>
       <div id="lista-novedades">Cargando…</div>
     </section>
@@ -200,6 +239,7 @@
       { onConflict: 'id', ignoreDuplicates: true }
     );
 
+    await cargarMiCuenta();
     cargarNovedades();
     cargarMisPermisos();
   }
@@ -238,6 +278,57 @@
       btn.classList.add('active');
       document.getElementById('panel-' + btn.dataset.panel).classList.add('active');
     });
+  });
+
+  // ---------- MI CUENTA ----------
+  async function cargarMiCuenta() {
+    const { data: perfil } = await supabase.from('perfiles').select('*').eq('id', sesionActual.user.id).single();
+
+    document.getElementById('c_correo').value = sesionActual.user.email;
+    if (perfil) {
+      document.getElementById('c_nombre').value = perfil.nombre || '';
+      document.getElementById('c_documento').value = perfil.documento || '';
+      document.getElementById('c_cargo').value = perfil.cargo || '';
+      document.getElementById('c_telefono').value = perfil.telefono || '';
+      document.getElementById('c_drive').value = perfil.enlace_actos_drive || '';
+    }
+
+    // Si el docente aún no ha completado su perfil, lo llevamos directo a esta pestaña
+    // con un aviso — no bloqueamos el resto, pero se lo pedimos claramente.
+    if (!perfil || !perfil.perfil_completo) {
+      document.getElementById('alertaPerfilIncompleto').style.display = 'block';
+      document.querySelectorAll('.tabs button').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+      document.querySelector('.tabs button[data-panel="cuenta"]').classList.add('active');
+      document.getElementById('panel-cuenta').classList.add('active');
+    }
+  }
+
+  document.getElementById('formCuenta').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = document.getElementById('btnActualizarDatos');
+    const ok = document.getElementById('cuentaOk');
+    const err = document.getElementById('cuentaError');
+    btn.disabled = true; btn.textContent = 'Guardando...'; ok.style.display = 'none'; err.style.display = 'none';
+
+    const { error } = await supabase.from('perfiles').update({
+      nombre: document.getElementById('c_nombre').value,
+      documento: document.getElementById('c_documento').value || null,
+      cargo: document.getElementById('c_cargo').value || null,
+      telefono: document.getElementById('c_telefono').value || null,
+      enlace_actos_drive: document.getElementById('c_drive').value || null,
+      perfil_completo: true,
+    }).eq('id', sesionActual.user.id);
+
+    btn.disabled = false; btn.textContent = 'Actualizar datos';
+
+    if (!error) {
+      ok.style.display = 'block';
+      document.getElementById('alertaPerfilIncompleto').style.display = 'none';
+    } else {
+      err.textContent = 'No se pudieron guardar los datos: ' + error.message;
+      err.style.display = 'block';
+    }
   });
 
   // ---------- NOVEDADES ----------
