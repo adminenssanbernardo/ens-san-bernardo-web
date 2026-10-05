@@ -65,3 +65,17 @@ git push -u origin main
 - Subir los PDFs (PEI, Manual de Convivencia, SIEE) al bucket
   `documentos-institucionales` y registrarlos en la tabla
   `documentos_institucionales`.
+
+## Presentación del PFC (diapositivas)
+
+La página `formacion-maestros.html` incluye un visor con la presentación del
+Programa de Formación Complementaria (sección `#presentacion-pfc`).
+
+- Imágenes: `public/img/pfc/slide-01.webp … slide-20.webp` (1600×900) y
+  miniaturas en `public/img/pfc/thumbs/t-01.webp …` (320×180).
+- Títulos y textos alternativos (accesibilidad): arreglo `SLIDES` en el
+  script del final de `formacion-maestros.html`.
+- Para **actualizar la presentación**: exportar cada diapositiva a imagen
+  (PowerPoint → Exportar → PNG, o `soffice --convert-to pdf` + `pdftoppm -r 120`),
+  convertirlas a WebP con los mismos nombres y, si cambia el número de
+  diapositivas, ajustar el arreglo `SLIDES` y el texto "20 diapositivas".
