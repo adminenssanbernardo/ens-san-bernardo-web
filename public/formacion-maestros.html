@@ -500,6 +500,110 @@
     .practicas-grid{grid-template-columns:1fr;}
     .proyectos-innovacion-grid{grid-template-columns:1fr;}
   }
+
+  /* ---------- VISOR DE DIAPOSITIVAS (PFC) ---------- */
+  .pfc-viewer{max-width:980px;margin:0 auto;}
+  .pfc-stage{
+    position:relative;aspect-ratio:16/9;background:var(--verde-paramo-dark);
+    border-radius:var(--radius);overflow:hidden;
+    box-shadow:0 18px 40px rgba(0,0,0,.35);touch-action:pan-y;
+  }
+  .pfc-stage:focus-visible{outline:3px solid var(--trigo);outline-offset:3px;}
+  .pfc-stage img{
+    width:100%;height:100%;object-fit:contain;display:block;
+    user-select:none;-webkit-user-drag:none;
+  }
+  .pfc-stage img.pfc-fade{animation:pfcFade .3s ease;}
+  @keyframes pfcFade{from{opacity:.15;}to{opacity:1;}}
+  .pfc-arrow{
+    position:absolute;top:50%;transform:translateY(-50%);
+    width:44px;height:44px;border-radius:50%;
+    background:rgba(21,42,32,.78);color:#fff;
+    border:1px solid rgba(255,255,255,.35);
+    font-size:22px;line-height:1;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+    transition:background .15s, opacity .15s;
+  }
+  .pfc-arrow:hover:not(:disabled){background:var(--mora);}
+  .pfc-arrow:disabled{opacity:.3;cursor:default;}
+  .pfc-arrow.prev{left:12px;}
+  .pfc-arrow.next{right:12px;}
+  .pfc-progress{height:4px;background:rgba(255,255,255,.18);margin-top:10px;border-radius:2px;overflow:hidden;}
+  .pfc-progress span{display:block;height:100%;width:0;background:var(--trigo);transition:width .3s ease;}
+  .pfc-bar{
+    display:flex;align-items:center;justify-content:space-between;gap:12px;
+    margin-top:10px;flex-wrap:wrap;
+  }
+  .pfc-caption{display:flex;align-items:baseline;gap:12px;min-width:0;}
+  .pfc-caption .pfc-count{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--trigo);white-space:nowrap;}
+  .pfc-caption .pfc-title{font-family:'Lora',serif;font-size:17px;font-weight:600;color:#fff;}
+  .pfc-tools{display:flex;gap:8px;}
+  .pfc-tool{
+    background:transparent;color:#fff;border:1px solid rgba(255,255,255,.4);
+    padding:8px 14px;border-radius:var(--radius);cursor:pointer;
+    font:600 13px 'Public Sans',sans-serif;transition:background .15s,border-color .15s;
+  }
+  .pfc-tool:hover{border-color:#fff;background:rgba(255,255,255,.1);}
+  .pfc-thumbs{
+    display:flex;gap:8px;overflow-x:auto;padding:12px 2px 8px;margin-top:6px;
+    scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.35) transparent;
+  }
+  .pfc-thumb{
+    flex:0 0 auto;width:120px;padding:0;border:2px solid transparent;
+    border-radius:4px;overflow:hidden;cursor:pointer;background:none;opacity:.65;
+    transition:opacity .15s,border-color .15s;
+  }
+  .pfc-thumb img{width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;}
+  .pfc-thumb:hover{opacity:1;}
+  .pfc-thumb[aria-current="true"]{border-color:var(--trigo);opacity:1;}
+  .pfc-cta{margin:18px 0 0;font-size:14.5px;color:#D8E2D9;text-align:center;}
+  .pfc-cta a{color:var(--trigo);font-weight:600;text-decoration:underline;text-underline-offset:3px;}
+  .pfc-cta a:hover{color:#fff;}
+
+  .pfc-viewer:fullscreen{
+    --pfc-w:min(100%, calc((100vh - 200px) * 16 / 9));
+    max-width:none;background:#0B1610;padding:16px 20px;
+    display:flex;flex-direction:column;justify-content:center;
+  }
+  .pfc-viewer:-webkit-full-screen{
+    --pfc-w:min(100%, calc((100vh - 200px) * 16 / 9));
+    max-width:none;background:#0B1610;padding:16px 20px;
+    display:flex;flex-direction:column;justify-content:center;
+  }
+  .pfc-viewer:fullscreen .pfc-stage{width:var(--pfc-w);margin:0 auto;box-shadow:none;flex-shrink:0;}
+  .pfc-viewer:fullscreen .pfc-progress,
+  .pfc-viewer:fullscreen .pfc-bar,
+  .pfc-viewer:fullscreen .pfc-thumbs{width:var(--pfc-w);margin-left:auto;margin-right:auto;flex-shrink:0;}
+  .pfc-viewer:-webkit-full-screen .pfc-stage{width:var(--pfc-w);margin:0 auto;box-shadow:none;flex-shrink:0;}
+  .pfc-viewer:-webkit-full-screen .pfc-progress,
+  .pfc-viewer:-webkit-full-screen .pfc-bar,
+  .pfc-viewer:-webkit-full-screen .pfc-thumbs{width:var(--pfc-w);margin-left:auto;margin-right:auto;flex-shrink:0;}
+  .pfc-viewer:fullscreen .pfc-cta,
+  .pfc-viewer:-webkit-full-screen .pfc-cta{display:none;}
+  @media (max-height:560px){
+    .pfc-viewer:fullscreen{--pfc-w:min(100%, calc((100vh - 100px) * 16 / 9));}
+    .pfc-viewer:-webkit-full-screen{--pfc-w:min(100%, calc((100vh - 100px) * 16 / 9));}
+    .pfc-viewer:fullscreen .pfc-thumbs,
+    .pfc-viewer:-webkit-full-screen .pfc-thumbs{display:none;}
+    .pfc-viewer:fullscreen,
+    .pfc-viewer:-webkit-full-screen{padding:8px 12px;}
+    .pfc-viewer:fullscreen .pfc-bar,
+    .pfc-viewer:-webkit-full-screen .pfc-bar{flex-wrap:nowrap;margin-top:6px;}
+    .pfc-viewer:fullscreen .pfc-tool,
+    .pfc-viewer:-webkit-full-screen .pfc-tool{padding:6px 10px;font-size:12px;white-space:nowrap;}
+  }
+
+  @media (max-width:640px){
+    .pfc-arrow{width:38px;height:38px;font-size:19px;}
+    .pfc-arrow.prev{left:6px;}
+    .pfc-arrow.next{right:6px;}
+    .pfc-caption .pfc-title{font-size:15px;}
+    .pfc-thumb{width:92px;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .pfc-stage img.pfc-fade{animation:none;}
+    .pfc-progress span{transition:none;}
+  }
 </style>
 </head>
 <body>
@@ -548,6 +652,7 @@
 <nav class="subnav">
   <div class="container">
     <a href="#presentacion" class="active">Presentación y Perfil</a>
+    <a href="#presentacion-pfc">Diapositivas del PFC</a>
     <a href="#plan-estudios">Plan de Estudios</a>
     <a href="#practicas">Prácticas Pedagógicas</a>
     <a href="#innovacion">Proyectos e Innovación</a>
@@ -594,6 +699,38 @@
           <span>Vigente, resultado de un proceso continuo de autoevaluación institucional (Resolución 7012 de 2010).</span>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRESENTACIÓN EN DIAPOSITIVAS ============ -->
+<section class="content-section dark" id="presentacion-pfc">
+  <div class="container">
+    <span class="section-tag">Conoce el programa</span>
+    <h2>Presentación del PFC en diapositivas</h2>
+    <p class="lead-text">Un recorrido de 20 diapositivas por el programa: perfil del egresado, marco legal, duración, plan de estudios semestre a semestre y la vida en el PFC. Avanza con las flechas, el teclado o deslizando.</p>
+
+    <div class="pfc-viewer" id="pfcViewer">
+      <div class="pfc-stage" id="pfcStage" tabindex="0" role="region" aria-roledescription="carrusel" aria-label="Presentación del Programa de Formación Complementaria">
+        <img id="pfcImg" src="/img/pfc/slide-01.webp" width="1600" height="900" alt="Portada: Programa de Formación Complementaria de la Escuela Normal Superior de San Bernardo, Cundinamarca.">
+        <button type="button" class="pfc-arrow prev" id="pfcPrev" aria-label="Diapositiva anterior" hidden>&#8249;</button>
+        <button type="button" class="pfc-arrow next" id="pfcNext" aria-label="Diapositiva siguiente" hidden>&#8250;</button>
+      </div>
+      <div class="pfc-progress" aria-hidden="true"><span id="pfcProgress"></span></div>
+      <div class="pfc-bar">
+        <div class="pfc-caption">
+          <span class="pfc-count" id="pfcCount">1 / 20</span>
+          <span class="pfc-title" id="pfcTitle">Portada</span>
+        </div>
+        <div class="pfc-tools">
+          <button type="button" class="pfc-tool" id="pfcPlay" aria-pressed="false" hidden>&#9654; Reproducir</button>
+          <button type="button" class="pfc-tool" id="pfcFull" hidden>Pantalla completa</button>
+        </div>
+      </div>
+      <div class="pfc-thumbs" id="pfcThumbs" aria-label="Miniaturas de las diapositivas" hidden></div>
+      <div class="visually-hidden" id="pfcLive" aria-live="polite"></div>
+      <noscript><p class="pfc-cta">Activa JavaScript para recorrer las 20 diapositivas de la presentación.</p></noscript>
+      <p class="pfc-cta">¿Quieres inscribirte al programa? Consulta el <a href="https://admisiones.enssanbernardo.edu.co" target="_blank" rel="noopener">portal de Admisiones</a>.</p>
     </div>
   </div>
 </section>
@@ -870,7 +1007,182 @@
     toggle.setAttribute('aria-expanded', isOpen);
   });
 
-  // Esta página no tiene carrusel de hero — nada más que hacer aquí.
+  // Esta página no tiene carrusel de hero — el único visor es el de la presentación del PFC.
+</script>
+
+<script>
+  // ---------- Visor de diapositivas: Presentación del PFC ----------
+  (function () {
+    const SLIDES = [
+      { t: "Portada", a: "Portada: Programa de Formación Complementaria de la Escuela Normal Superior de San Bernardo, Cundinamarca. 68 años de historia de la Normal. Directivos, docentes, administrativos y egresados. Fotografía grupal de estudiantes frente a un mural." },
+      { t: "Presentación del programa", a: "Presentación del programa. El PFC forma maestros normalistas superiores para ejercer la docencia en educación inicial, básica primaria y dirección rural. Su plan de estudios se fundamenta en los lineamientos del Ministerio de Educación Nacional, el PEI y las necesidades educativas del contexto local y regional." },
+      { t: "P.F.C. en breve", a: "P.F.C. en breve. Programa de Educación Superior en formación inicial de maestros. Más de 20 años de historia e impacto regional; 4 a 5 semestres según el perfil de ingreso; 4 áreas de formación y desempeño: primera infancia, preescolar, básica primaria y dirección rural." },
+      { t: "Perfil del egresado", a: "Perfil del egresado. Un Normalista Superior con competencias para: 1. diseñar y aplicar estrategias didácticas pertinentes; 2. orientar procesos de enseñanza y aprendizaje en diferentes áreas del saber escolar; 3. desempeñarse en contextos de diversidad cultural y ruralidad; 4. liderar proyectos pedagógicos, comunitarios e investigativos; 5. continuar su formación superior mediante ciclos propedéuticos." },
+      { t: "Fundamentación legal", a: "Fundamentación legal. Constitución Política de Colombia, artículo 67; Ley 115 de 1994, Ley General de Educación; Decreto 4790 de 2008, que reglamenta el PFC; Decreto 1236 de 2020, organización de las Escuelas Normales; Resolución 2041 de 2016, condiciones de calidad; lineamientos curriculares y estándares básicos de competencias; PEI y Manual de Convivencia de la ENS San Bernardo." },
+      { t: "Titulación y campo laboral", a: "Titulación y campo laboral. Título que se otorga: Normalista Superior. Campo laboral: primera infancia (CDI, hogares comunitarios y jardines infantiles); instituciones educativas públicas y privadas, de preescolar y básica primaria, urbanas y rurales; dirección rural; ONG y proyectos sociales y comunitarios." },
+      { t: "Propósitos de formación", a: "Propósitos de formación. Maestros integrales: formar maestros con capacidades pedagógicas, investigativas y éticas. Identidad docente: fortalecer la identidad profesional desde la práctica pedagógica. Competencias didácticas para primera infancia, básica primaria y contextos rurales. Investigación formativa como estrategia de transformación educativa. Proyección social y comunitaria del normalista superior." },
+      { t: "Duración", a: "Duración. 4 semestres para bachilleres egresados de la Escuela Normal Superior, que ingresan directamente al semestre II. 5 semestres para bachilleres no egresados de la Normal, con un semestre I introductorio." },
+      { t: "Estructura académica", a: "Estructura académica del programa. 4 semestres, más un semestre introductorio para no egresados de la Normal. Componentes de formación: formación básica y general; formación pedagógica y didáctica; investigación y proyección social; práctica pedagógica, progresiva desde el primer semestre hasta la práctica integradora." },
+      { t: "Plan de estudios: Semestre I", a: "Plan de estudios, semestre I, introductorio para bachilleres no egresados de la Normal. Introducción a la práctica pedagógica en primera infancia; Epistemología e historia de la Educación; Competencias Comunicativas; Competencias Tecnológicas; Investigación Pedagógica; Ruralidad Colombiana I; Inglés I." },
+      { t: "Plan de estudios: Semestre II", a: "Plan de estudios, semestre II, 9 espacios académicos. Práctica pedagógica en Preescolar; Epistemología e historia de la Educación II; Psicología del desarrollo I; Desarrollo creativo en artes plásticas; Didáctica General; Didáctica del Preescolar; Investigación Pedagógica II; Ruralidad Colombiana II; Inglés Intermedio." },
+      { t: "Plan de estudios: Semestre III", a: "Plan de estudios, semestre III, 8 espacios académicos. Práctica pedagógica en 1°, 2° y 3°; Modelos flexibles rurales; Psicología del desarrollo II; Desarrollo creativo en expresión corporal; Didáctica de Ciencias naturales y Sociales; Investigación Pedagógica III; Seminario interdisciplinar de lectoescritura; Inglés Avanzado." },
+      { t: "Plan de estudios: Semestre IV", a: "Plan de estudios, semestre IV, 8 espacios académicos. Práctica pedagógica 4° y 5°; Seminario de formación ético-política; Evaluación Educativa; Didáctica del Inglés; Didáctica de ética, religión y proyecto de vida; Investigación Pedagógica IV; Extensión Docente; Legislación Educativa." },
+      { t: "Plan de estudios: Semestre V", a: "Plan de estudios, semestre V, 8 espacios académicos. Práctica pedagógica de afianzamiento general; Políticas públicas; Diseño Curricular; Didáctica del Lenguaje; Didáctica de la Educación física; Investigación Pedagógica V; Didáctica de las matemáticas y tecnología; Diversidad e Inclusión." },
+      { t: "Equipo docente y administrativo", a: "Vida en el PFC: equipo docente y administrativo. Fotografía grupal del equipo docente y administrativo del programa." },
+      { t: "Acercamiento a diversas poblaciones", a: "Vida en el PFC: acercamiento a diversas poblaciones. Collage de fotografías de maestros en formación en actividades con niñas, niños y comunidades." },
+      { t: "Fortalezas artísticas y deportivas", a: "Vida en el PFC: fortalezas artísticas y deportivas. Afiche de la Semana Cultural Normalista y fotografías de danzas, música y piscina." },
+      { t: "Encuentros entre pares", a: "Vida en el PFC: encuentros entre pares. Fotografía grupal de estudiantes y un encuentro con la UNAD." },
+      { t: "Extensión a la comunidad", a: "Vida en el PFC: extensión a la comunidad. Fotografías de jornadas con la comunidad y de murales pintados en escuelas." },
+      { t: "Gracias y contacto", a: "Gracias. Escuela Normal Superior de San Bernardo, Programa de Formación Complementaria, Cundinamarca. Contacto e inscripciones: 321 360 9037 y 311 526 6804. Portal de Admisiones: admisiones.enssanbernardo.edu.co." }
+    ];
+
+    const viewer = document.getElementById('pfcViewer');
+    if (!viewer) return;
+    const stage = document.getElementById('pfcStage');
+    const img = document.getElementById('pfcImg');
+    const prev = document.getElementById('pfcPrev');
+    const next = document.getElementById('pfcNext');
+    const playBtn = document.getElementById('pfcPlay');
+    const fullBtn = document.getElementById('pfcFull');
+    const count = document.getElementById('pfcCount');
+    const title = document.getElementById('pfcTitle');
+    const progress = document.getElementById('pfcProgress');
+    const thumbsBox = document.getElementById('pfcThumbs');
+    const live = document.getElementById('pfcLive');
+    const N = SLIDES.length;
+    const AUTO_MS = 6000;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const pad = (n) => String(n + 1).padStart(2, '0');
+    const src = (i) => '/img/pfc/slide-' + pad(i) + '.webp';
+
+    let cur = 0, timer = null, playing = false, announce = false;
+
+    // Miniaturas
+    const thumbs = SLIDES.map((s, i) => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'pfc-thumb';
+      b.setAttribute('aria-label', 'Ir a la diapositiva ' + (i + 1) + ': ' + s.t);
+      const im = document.createElement('img');
+      im.src = '/img/pfc/thumbs/t-' + pad(i) + '.webp';
+      im.alt = '';
+      im.width = 320; im.height = 180;
+      im.loading = 'lazy';
+      b.appendChild(im);
+      b.addEventListener('click', () => { go(i, true); });
+      thumbsBox.appendChild(b);
+      return b;
+    });
+
+    function preload(i) {
+      if (i >= 0 && i < N) { const p = new Image(); p.src = src(i); }
+    }
+
+    function go(i, userAction) {
+      if (i < 0 || i >= N) return;
+      cur = i;
+      img.src = src(i);
+      img.alt = SLIDES[i].a;
+      if (!reduceMotion) { img.classList.remove('pfc-fade'); void img.offsetWidth; img.classList.add('pfc-fade'); }
+      count.textContent = (i + 1) + ' / ' + N;
+      title.textContent = SLIDES[i].t;
+      progress.style.width = ((i + 1) / N * 100) + '%';
+      prev.disabled = (i === 0);
+      next.disabled = (i === N - 1);
+      thumbs.forEach((b, k) => {
+        if (k === i) { b.setAttribute('aria-current', 'true'); } else { b.removeAttribute('aria-current'); }
+      });
+      const active = thumbs[i];
+      if (active && thumbsBox.scrollWidth > thumbsBox.clientWidth) {
+        const left = active.offsetLeft - (thumbsBox.clientWidth - active.offsetWidth) / 2;
+        thumbsBox.scrollTo({ left: left, behavior: reduceMotion ? 'auto' : 'smooth' });
+      }
+      preload(i + 1);
+      if (announce) live.textContent = 'Diapositiva ' + (i + 1) + ' de ' + N + ': ' + SLIDES[i].t;
+      if (playing) {
+        if (i === N - 1) { stop(); } else { schedule(); }
+      }
+    }
+
+    function schedule() {
+      clearTimeout(timer);
+      timer = setTimeout(() => { go(cur + 1, false); }, AUTO_MS);
+    }
+    function play() {
+      if (cur === N - 1) { go(0, false); }
+      playing = true;
+      playBtn.setAttribute('aria-pressed', 'true');
+      playBtn.innerHTML = '&#10074;&#10074; Pausar';
+      schedule();
+    }
+    function stop() {
+      playing = false;
+      clearTimeout(timer);
+      playBtn.setAttribute('aria-pressed', 'false');
+      playBtn.innerHTML = '&#9654; Reproducir';
+    }
+
+    prev.addEventListener('click', () => { stop(); go(cur - 1, true); });
+    next.addEventListener('click', () => { stop(); go(cur + 1, true); });
+    playBtn.addEventListener('click', () => { playing ? stop() : play(); });
+    thumbs.forEach((b) => b.addEventListener('click', stop));
+
+    // Teclado (solo cuando el foco está dentro del visor)
+    viewer.addEventListener('keydown', (e) => {
+      if (e.altKey || e.ctrlKey || e.metaKey) return;
+      const t = e.target;
+      const onThumb = t && t.classList && t.classList.contains('pfc-thumb');
+      let handled = true;
+      if (e.key === 'ArrowRight') { stop(); go(cur + 1, true); }
+      else if (e.key === 'ArrowLeft') { stop(); go(cur - 1, true); }
+      else if (e.key === 'Home') { stop(); go(0, true); }
+      else if (e.key === 'End') { stop(); go(N - 1, true); }
+      else if ((e.key === 'f' || e.key === 'F') && !onThumb) { toggleFull(); }
+      else { handled = false; }
+      if (handled) e.preventDefault();
+    });
+
+    // Deslizar con el dedo
+    let sx = null, sy = null;
+    stage.addEventListener('pointerdown', (e) => { if (e.pointerType !== 'mouse') { sx = e.clientX; sy = e.clientY; } });
+    stage.addEventListener('pointerup', (e) => {
+      if (sx === null) return;
+      const dx = e.clientX - sx, dy = e.clientY - sy;
+      sx = sy = null;
+      if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+        stop();
+        go(dx < 0 ? cur + 1 : cur - 1, true);
+      }
+    });
+    stage.addEventListener('pointercancel', () => { sx = sy = null; });
+
+    // Pantalla completa
+    const fsEl = viewer;
+    const canFull = !!(fsEl.requestFullscreen || fsEl.webkitRequestFullscreen);
+    function isFull() { return document.fullscreenElement === fsEl || document.webkitFullscreenElement === fsEl; }
+    function toggleFull() {
+      if (!canFull) return;
+      if (isFull()) {
+        (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+      } else {
+        (fsEl.requestFullscreen || fsEl.webkitRequestFullscreen).call(fsEl);
+      }
+    }
+    function syncFullLabel() { fullBtn.textContent = isFull() ? 'Salir de pantalla completa' : 'Pantalla completa'; }
+    fullBtn.addEventListener('click', toggleFull);
+    document.addEventListener('fullscreenchange', syncFullLabel);
+    document.addEventListener('webkitfullscreenchange', syncFullLabel);
+
+    // Mostrar controles (sin JS no aparecen botones que no funcionan)
+    prev.hidden = next.hidden = playBtn.hidden = thumbsBox.hidden = false;
+    fullBtn.hidden = !canFull;
+
+    // Pausar la reproducción si la pestaña no está visible
+    document.addEventListener('visibilitychange', () => { if (document.hidden && playing) stop(); });
+
+    go(0, false);
+    announce = true;
+  })();
 </script>
 
 <script src="/js/cms.js" defer></script>
