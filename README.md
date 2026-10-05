@@ -78,4 +78,4 @@ Programa de Formación Complementaria (sección `#presentacion-pfc`).
 - Para **actualizar la presentación**: exportar cada diapositiva a imagen
   (PowerPoint → Exportar → PNG, o `soffice --convert-to pdf` + `pdftoppm -r 120`),
   convertirlas a WebP con los mismos nombres y, si cambia el número de
-  diapositivas, ajustar el arreglo `SLIDES` y el texto "20 diapositivas".
+  diapositivas, ajustar el arreglo `SLIDES`.
