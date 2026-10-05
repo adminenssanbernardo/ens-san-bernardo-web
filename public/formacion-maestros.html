@@ -503,6 +503,8 @@
 
   /* ---------- VISOR DE DIAPOSITIVAS (PFC) ---------- */
   .pfc-viewer{max-width:980px;margin:0 auto;}
+  #presentacion-pfc{padding-top:44px;}
+  #presentacion-pfc .lead-text{margin-bottom:22px;}
   .pfc-stage{
     position:relative;aspect-ratio:16/9;background:var(--verde-paramo-dark);
     border-radius:var(--radius);overflow:hidden;
@@ -651,14 +653,46 @@
 <!-- ============ SUBNAV ============ -->
 <nav class="subnav">
   <div class="container">
-    <a href="#presentacion" class="active">Presentación y Perfil</a>
-    <a href="#presentacion-pfc">Diapositivas del PFC</a>
+    <a href="#presentacion-pfc" class="active">Presentación del PFC</a>
+    <a href="#presentacion">Presentación y Perfil</a>
     <a href="#plan-estudios">Plan de Estudios</a>
     <a href="#practicas">Prácticas Pedagógicas</a>
     <a href="#innovacion">Proyectos e Innovación</a>
     <a href="#eventos">Eventos y Vida Universitaria</a>
   </div>
 </nav>
+
+<!-- ============ PRESENTACIÓN DEL PFC (VISOR) — PRIMERA SECCIÓN ============ -->
+<section class="content-section dark" id="presentacion-pfc">
+  <div class="container">
+    <span class="section-tag">Conoce el programa</span>
+    <h2>Presentación del PFC</h2>
+    <p class="lead-text">Un recorrido por el programa: perfil del egresado, marco legal, duración, plan de estudios semestre a semestre y la vida en el PFC. Avanza con las flechas, el teclado o deslizando.</p>
+
+    <div class="pfc-viewer" id="pfcViewer">
+      <div class="pfc-stage" id="pfcStage" tabindex="0" role="region" aria-roledescription="carrusel" aria-label="Presentación del Programa de Formación Complementaria">
+        <img id="pfcImg" src="/img/pfc/slide-01.webp" width="1600" height="900" alt="Portada: Programa de Formación Complementaria de la Escuela Normal Superior de San Bernardo, Cundinamarca.">
+        <button type="button" class="pfc-arrow prev" id="pfcPrev" aria-label="Diapositiva anterior" hidden>&#8249;</button>
+        <button type="button" class="pfc-arrow next" id="pfcNext" aria-label="Diapositiva siguiente" hidden>&#8250;</button>
+      </div>
+      <div class="pfc-progress" aria-hidden="true"><span id="pfcProgress"></span></div>
+      <div class="pfc-bar">
+        <div class="pfc-caption">
+          <span class="pfc-count" id="pfcCount">1 / 20</span>
+          <span class="pfc-title" id="pfcTitle">Portada</span>
+        </div>
+        <div class="pfc-tools">
+          <button type="button" class="pfc-tool" id="pfcPlay" aria-pressed="false" hidden>&#9654; Reproducir</button>
+          <button type="button" class="pfc-tool" id="pfcFull" hidden>Pantalla completa</button>
+        </div>
+      </div>
+      <div class="pfc-thumbs" id="pfcThumbs" aria-label="Miniaturas de las diapositivas" hidden></div>
+      <div class="visually-hidden" id="pfcLive" aria-live="polite"></div>
+      <noscript><p class="pfc-cta">Activa JavaScript para ver la presentación.</p></noscript>
+      <p class="pfc-cta">¿Quieres inscribirte al programa? Consulta el <a href="https://admisiones.enssanbernardo.edu.co" target="_blank" rel="noopener">portal de Admisiones</a>.</p>
+    </div>
+  </div>
+</section>
 
 <!-- ============ 1. PRESENTACIÓN Y PERFIL ============ -->
 <section class="content-section" id="presentacion">
@@ -699,38 +733,6 @@
           <span>Vigente, resultado de un proceso continuo de autoevaluación institucional (Resolución 7012 de 2010).</span>
         </div>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ PRESENTACIÓN EN DIAPOSITIVAS ============ -->
-<section class="content-section dark" id="presentacion-pfc">
-  <div class="container">
-    <span class="section-tag">Conoce el programa</span>
-    <h2>Presentación del PFC en diapositivas</h2>
-    <p class="lead-text">Un recorrido de 20 diapositivas por el programa: perfil del egresado, marco legal, duración, plan de estudios semestre a semestre y la vida en el PFC. Avanza con las flechas, el teclado o deslizando.</p>
-
-    <div class="pfc-viewer" id="pfcViewer">
-      <div class="pfc-stage" id="pfcStage" tabindex="0" role="region" aria-roledescription="carrusel" aria-label="Presentación del Programa de Formación Complementaria">
-        <img id="pfcImg" src="/img/pfc/slide-01.webp" width="1600" height="900" alt="Portada: Programa de Formación Complementaria de la Escuela Normal Superior de San Bernardo, Cundinamarca.">
-        <button type="button" class="pfc-arrow prev" id="pfcPrev" aria-label="Diapositiva anterior" hidden>&#8249;</button>
-        <button type="button" class="pfc-arrow next" id="pfcNext" aria-label="Diapositiva siguiente" hidden>&#8250;</button>
-      </div>
-      <div class="pfc-progress" aria-hidden="true"><span id="pfcProgress"></span></div>
-      <div class="pfc-bar">
-        <div class="pfc-caption">
-          <span class="pfc-count" id="pfcCount">1 / 20</span>
-          <span class="pfc-title" id="pfcTitle">Portada</span>
-        </div>
-        <div class="pfc-tools">
-          <button type="button" class="pfc-tool" id="pfcPlay" aria-pressed="false" hidden>&#9654; Reproducir</button>
-          <button type="button" class="pfc-tool" id="pfcFull" hidden>Pantalla completa</button>
-        </div>
-      </div>
-      <div class="pfc-thumbs" id="pfcThumbs" aria-label="Miniaturas de las diapositivas" hidden></div>
-      <div class="visually-hidden" id="pfcLive" aria-live="polite"></div>
-      <noscript><p class="pfc-cta">Activa JavaScript para recorrer las 20 diapositivas de la presentación.</p></noscript>
-      <p class="pfc-cta">¿Quieres inscribirte al programa? Consulta el <a href="https://admisiones.enssanbernardo.edu.co" target="_blank" rel="noopener">portal de Admisiones</a>.</p>
     </div>
   </div>
 </section>
